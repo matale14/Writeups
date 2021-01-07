@@ -2377,7 +2377,7 @@ Just copying this to https://defuse.ca/online-x86-assembler.htm#disassembly
 We get the Raw hex, which we can just paste into cyberchef:
 
 
-#Egg #7
+## Egg #7
 We get a new slede8 module after completing Task #10.
 This requires us to write the result of A+B as an ASCII string.
 
