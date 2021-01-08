@@ -570,7 +570,8 @@ There will be more e-learning modules later.
 Solve the Hello World E-Learning module in slede8.
 
 ## Egg #2
-We now know what kladd.txt is
+We now know what kladd.txt is.
+
 Eight sleighs, followed by an encrypted string.
 We simply throw this encrypted string after slede8.npst.no/#
 Running the program gives us the egg:
@@ -646,7 +647,7 @@ So the overall structure of this type Node will be:
 For example: 
 {'child': ('node', {'child': ('node', {'child': ('end', None), 'value': (uppercase, 0)}), 'value': (digit, 1)}), 'value': ('lowercase', 2)}
 
-Which is A1c
+Which is "A1c"
 
 So each child will contain either a node or an end. And each child will contain a value after all the nodes have been declared.
 
