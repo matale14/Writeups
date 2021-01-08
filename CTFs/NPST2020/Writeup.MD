@@ -70,13 +70,13 @@ NOTE: I lost your verification code in the salad, so you may need to correct it 
 Sincerely, your immediate manager
 
 ```
-![](images/luke1.png)
+![](images/luke1_0.png)
 
 By looking at the scrambled code, we can see that it is already in the correct format, but the characters outside and inside the brackets are not exactly correct.
 This suggests some sort of shift or substitution cipher, the most common and easy one is the ROT cipher also called the Caesar cipher as it was first recorded during his time. This is also hinted to in the text when it is mentioned that the code was lost in the salad, as a very popular type of salad is a Caesar salad.
 
 There are many tools to solve such ciphers. Either webpages or self-coded scripts. I always suggest coding your own solutions at least once. But my favourite tool for these types of problems is cyberchef: https://gchq.github.io/CyberChef/ 
-
+![](images/luke1_1.png)
 
 Here we can just paste the scrambled code into cyberchef and search on the left hand side for ROT or Caesar and rotate the characters. This can either be brute-forced by trying all the 25 possibilities, or realizing that the first character of the flag is always P as in PST{, and that the R in the scrambled code is only two rotations away from P.
 
