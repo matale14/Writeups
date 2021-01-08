@@ -227,6 +227,7 @@ And later a followup message saying: “In case the last message was unclear, th
 ![](images/luke3_1.png)
 
 Opening up the zip-file reveals two files, cupcake.png. And kladd.txt
+
 Cupcake.png is a high-resolution image that looks very low-res. While kladd.txt is a text file containing 8 sleigh emojis with an encoded string.
 
 ```
