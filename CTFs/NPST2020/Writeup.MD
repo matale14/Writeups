@@ -215,6 +215,11 @@ After clicking enhance a couple of times we get the flag on a post-it note. Amaz
 ```
 Good work! We make a great team!
 ```
+## Egg #3
+Running cupcake.png through zsteg reveals a youtube link: youtu.be/I_8ZH1Ggjk0 
+Which is a CSI link called enhance. Not only is this a hint for the task of the day. But it is a hint for the egg.
+By saving the final image of cupcake.png from the enhance module in DASS, and running the same zsteg command. We find the egg.
+![](images/egg3.png)
 
 ## December 4th
 
@@ -540,6 +545,15 @@ Good to see you up and running.
 
 There will be more e-learning modules later.
 ```
+## Egg #5
+Solve the Hello World E-Learning module in slede8.
+
+## Egg #2
+We now know what kladd.txt is
+Eight sleighs, followed by an encrypted string.
+We simply throw this encrypted string after slede8.npst.no/#
+Running the program gives us the egg:
+![](images/egg2.png)
 
 ##  December 7th
 ```
@@ -745,6 +759,19 @@ Brilliantly done!
 Then we know we can decode similar messages quickly in the future!
 
 ```
+## Egg #6
+We got a system update on the 9th. that introduced mal.exe, or paint.
+
+Open the Paint module in DASS
+![](images/egg6_0.png)
+Go to Help->Open Mal 3d(x86)
+![](images/egg6_1.png)
+We get some Assembly x86 code
+![](images/egg6_2.png)
+Just copying this to https://defuse.ca/online-x86-assembler.htm#disassembly
+We get the Raw hex, which we can just paste into cyberchef:
+![](images/egg6_3.png)
+
 
 ## December 10th
 ```
@@ -973,6 +1000,246 @@ Well done!
 
 Mastering SLEDE8 can be crucial in this pre-Christmas season! If you think this was easy, you can try the e-learning module with code 8e7c9876c85e5471
 
+```
+
+
+## Egg #7
+This requires us to write the result of A+B as an ASCII string.
+
+```
+
+; Føde består av to tall, A og B
+; Skriv ut resultatet av A + B som en ASCII-streng
+
+; Eksempel: A=0xA0 og B=0x08 => '168'
+; Eksempel: A=0xFF og B=0xFF => '510'
+
+
+
+
+LES r10
+LES r13
+
+ULIK r10, r7
+BHOPP ikkenull
+
+ULIK r13, r7
+BHOPP ikkenull
+SETT r7, 0x30
+SKRIV r7
+STOPP
+
+ikkenull:
+SETT r14, r10
+SETT r15, r13
+PLUSS r10, r13
+SETT r10, r14
+SETT r12, 0x64
+ME r10, r12
+BHOPP sjekkb
+SETT r12, 0xC8
+ME r10, r12
+BHOPP over100
+SETT r12, 0xFF
+MEL r10, r12
+BHOPP over200
+
+
+over100:
+SETT r12, 0x64
+MINUS r10, r12
+SETT r3, r10
+SETT r0, 0x01
+HOPP sjekkb
+
+over200:
+SETT r12, 0xC8
+MINUS r10, r12
+SETT r3, r10
+SETT r0, 0x02
+HOPP sjekkb
+
+sjekkb:
+SETT r12, 0x64
+ME r13, r12
+BHOPP tierne
+SETT r12, 0xC8
+ME r13, r12
+BHOPP over100b
+SETT r12, 0xFF
+MEL r13, r12
+BHOPP over200b
+HOPP tierne
+
+over100b:
+SETT r12, 0x64
+MINUS r13, r12
+SETT r4, r13
+SETT r1, 0x01
+PLUSS r0, r1
+HOPP tierne
+
+over200b:
+SETT r12, 0xC8
+MINUS r13, r12
+SETT r4, r13
+SETT r1, 0x02
+PLUSS r0, r1
+HOPP tierne
+
+
+tierne:
+PLUSS r10, r13
+SETT r12, 0x64
+ME r10, r12
+BHOPP denvarunder
+
+SETT r6, 0x01
+PLUSS r0, r6
+MINUS r10, r12
+
+denvarunder:
+LIK r0, r7
+BHOPP skriv_tall
+SETT r12, 0x30
+PLUSS r0, r12
+SKRIV r0
+SETT r12, 0x09
+MEL r10, r12
+BHOPP underti_100b
+HOPP skriv_tall
+underti_100b:
+SETT r12, 0x30
+SKRIV r12
+BHOPP skriv_tall
+
+
+skriv_tall:
+SETT r12, 0x09
+MEL r10, r12
+BHOPP underti
+SETT r12, 0x14
+ME r10, r12
+BHOPP under20
+SETT r12, 0x1E
+ME r10, r12
+BHOPP under30
+SETT r12, 0x28
+ME r10, r12
+BHOPP under40
+SETT r12, 0x32
+ME r10, r12
+BHOPP under50
+SETT r12, 0x3C
+ME r10, r12
+BHOPP under60
+SETT r12, 0x46
+ME r10, r12
+BHOPP under70
+SETT r12, 0x50
+ME r10, r12
+BHOPP under80
+SETT r12, 0x5A
+ME r10, r12
+BHOPP under90
+SETT r12, 0x64
+ME r10, r12
+BHOPP under100
+SETT r12, 0xC8
+ME r10, r12
+BHOPP under200
+SETT r12, 0xFF
+ME r10, r12
+BHOPP under300
+
+
+
+underti:
+SETT r12, 0x30
+PLUSS r10, r12
+SKRIV r10
+STOPP
+under20:
+SETT r12, 0x31
+SKRIV r12
+SETT r12, 10
+MINUS r10, r12
+HOPP skriv_tall
+under30:
+SETT r12, 0x32
+SKRIV r12
+SETT r12, 20
+MINUS r10, r12
+HOPP skriv_tall
+under40:
+SETT r12, 0x33
+SKRIV r12
+SETT r12, 30
+MINUS r10, r12
+HOPP skriv_tall
+under50:
+SETT r12, 0x34
+SKRIV r12
+SETT r12, 40
+MINUS r10, r12
+HOPP skriv_tall
+under60:
+SETT r12, 0x35
+SKRIV r12
+SETT r12, 50
+MINUS r10, r12
+HOPP skriv_tall
+under70:
+SETT r12, 0x36
+SKRIV r12
+SETT r12, 60
+MINUS r10, r12
+HOPP skriv_tall
+under80:
+SETT r12, 0x37
+SKRIV r12
+SETT r12, 70
+MINUS r10, r12
+HOPP skriv_tall
+under90:
+SETT r12, 0x38
+SKRIV r12
+SETT r12, 80
+MINUS r10, r12
+HOPP skriv_tall
+under100:
+SETT r12, 0x39
+SKRIV r12
+SETT r12, 90
+MINUS r10, r12
+HOPP skriv_tall
+under200:
+SETT r12, 0x31
+SKRIV r12
+SETT r12, 0x64
+MINUS r10, r12
+SETT r12, 0x09
+MEL r10, r12
+BHOPP underti_100
+HOPP skriv_tall
+underti_100:
+SETT r12, 0x30
+SKRIV r12
+HOPP skriv_tall
+
+under300:
+SETT r12, 0x32
+SKRIV r12
+SETT r12, 0xC8
+MINUS r10, r12
+SETT r12, 0x09
+MEL r10, r12
+BHOPP underti_100
+HOPP skriv_tall
+underti_100:
+SETT r12, 0x30
+SKRIV r12
+HOPP skriv_tall
 ```
 
 ## December 11th
@@ -1319,6 +1586,12 @@ This was food for thought. If you still have the desire to live, you can try thi
 📎💀.s8
 ```
 
+
+## Egg #8
+I did not complete
+This was similar to Task #12, but a lot more convoluted.
+
+
 ## December 13th
 ```
 The following message was sent to NPST by fax, and no one in the post office understands the content. It looks like it uses some form of hex encoding, but even the hex decoding makes no sense.
@@ -1464,6 +1737,10 @@ Great, you're really starting to get the hang of this !.
 At NPST, we love short and efficient code. If you recognize yourself in this, you can look at a variant of today's e-learning module, dc0583ff102e48c6. The tests should be the same as you have already passed, but the requirements for efficiency and comprehension have become stricter.
 ```
 
+## Egg #9
+This was just the same as the task of the day, but it required efficient code. Luckily my code was already efficient enough.
+
+
 ## December 15th
 ```
 Following a private trip (earlier this year) to watch football in England, one of the elf officers has repeatedly picked up a mysterious signal. It looks like the signal is quite continuous, but it varies slightly in frequency.
@@ -1590,6 +1867,12 @@ The experiences you gain now can be crucial before you know it.
 
 If you want to test how efficient your algorithm is, you can try e-learning module 611b1f7f8c63469e.
 ```
+
+## Egg #10
+I did not complete
+This requires a very efficient sorting algorithm. A maximum of 4608 operations.
+This is not actually possible with standard sorting algorithms, as I found out.
+The trick is to write the amount of times each number appears in memory, and just write it out afterwards.
 
 ## December 17th
 ```
@@ -1807,6 +2090,14 @@ We see that it is generated from a timestamp, the clock sequence associated with
 ```
 Well done!
 ```
+
+## Egg #11
+I did not complete
+
+https://pingvin.spst.no/ also links to https://egg.spst.no/ which requires a password
+This actually turns out to be the password from task #17. The password is literally “****************”
+
+![](images/egg11.png)
 
 ## December 18th
 ```
@@ -2363,296 +2654,5 @@ On behalf of the entire NPST and our partner PST, I would like to wish you a ver
 
 ```
 
-## Egg #2
-Remember kladd.txt from December 3rd?
-Well, after our experiences now, the answer is obvious.
-Eight sleighs, followed by an encrypted string.
-We simply throw this encrypted string after slede8.npst.no/#
-Running the program gives us the egg:
-![](images/egg2.png)
 
-## Egg #3
-Running cupcake.png through zsteg reveals a youtube link: youtu.be/I_8ZH1Ggjk0 
-Which is a CSI link called enhance. Not only is this a hint for the task of the day. But it is a hint for the egg.
-By saving the final image of cupcake.png from the enhance module in DASS, and running the same zsteg command. We find the egg.
-![](images/egg3.png)
-
-
-## Egg #5
-Solve the Hello World E-Learning module in slede8.
-
-
-## Egg #6
-Open the Paint module in DASS
-![](images/egg6_0.png)
-Go to Help->Open Mal 3d(x86)
-![](images/egg6_1.png)
-We get some Assembly x86 code
-![](images/egg6_2.png)
-Just copying this to https://defuse.ca/online-x86-assembler.htm#disassembly
-We get the Raw hex, which we can just paste into cyberchef:
-![](images/egg6_3.png)
-
-## Egg #7
-We get a new slede8 module after completing Task #10.
-This requires us to write the result of A+B as an ASCII string.
-
-```
-
-; Føde består av to tall, A og B
-; Skriv ut resultatet av A + B som en ASCII-streng
-
-; Eksempel: A=0xA0 og B=0x08 => '168'
-; Eksempel: A=0xFF og B=0xFF => '510'
-
-
-
-
-LES r10
-LES r13
-
-ULIK r10, r7
-BHOPP ikkenull
-
-ULIK r13, r7
-BHOPP ikkenull
-SETT r7, 0x30
-SKRIV r7
-STOPP
-
-ikkenull:
-SETT r14, r10
-SETT r15, r13
-PLUSS r10, r13
-SETT r10, r14
-SETT r12, 0x64
-ME r10, r12
-BHOPP sjekkb
-SETT r12, 0xC8
-ME r10, r12
-BHOPP over100
-SETT r12, 0xFF
-MEL r10, r12
-BHOPP over200
-
-
-over100:
-SETT r12, 0x64
-MINUS r10, r12
-SETT r3, r10
-SETT r0, 0x01
-HOPP sjekkb
-
-over200:
-SETT r12, 0xC8
-MINUS r10, r12
-SETT r3, r10
-SETT r0, 0x02
-HOPP sjekkb
-
-sjekkb:
-SETT r12, 0x64
-ME r13, r12
-BHOPP tierne
-SETT r12, 0xC8
-ME r13, r12
-BHOPP over100b
-SETT r12, 0xFF
-MEL r13, r12
-BHOPP over200b
-HOPP tierne
-
-over100b:
-SETT r12, 0x64
-MINUS r13, r12
-SETT r4, r13
-SETT r1, 0x01
-PLUSS r0, r1
-HOPP tierne
-
-over200b:
-SETT r12, 0xC8
-MINUS r13, r12
-SETT r4, r13
-SETT r1, 0x02
-PLUSS r0, r1
-HOPP tierne
-
-
-tierne:
-PLUSS r10, r13
-SETT r12, 0x64
-ME r10, r12
-BHOPP denvarunder
-
-SETT r6, 0x01
-PLUSS r0, r6
-MINUS r10, r12
-
-denvarunder:
-LIK r0, r7
-BHOPP skriv_tall
-SETT r12, 0x30
-PLUSS r0, r12
-SKRIV r0
-SETT r12, 0x09
-MEL r10, r12
-BHOPP underti_100b
-HOPP skriv_tall
-underti_100b:
-SETT r12, 0x30
-SKRIV r12
-BHOPP skriv_tall
-
-
-skriv_tall:
-SETT r12, 0x09
-MEL r10, r12
-BHOPP underti
-SETT r12, 0x14
-ME r10, r12
-BHOPP under20
-SETT r12, 0x1E
-ME r10, r12
-BHOPP under30
-SETT r12, 0x28
-ME r10, r12
-BHOPP under40
-SETT r12, 0x32
-ME r10, r12
-BHOPP under50
-SETT r12, 0x3C
-ME r10, r12
-BHOPP under60
-SETT r12, 0x46
-ME r10, r12
-BHOPP under70
-SETT r12, 0x50
-ME r10, r12
-BHOPP under80
-SETT r12, 0x5A
-ME r10, r12
-BHOPP under90
-SETT r12, 0x64
-ME r10, r12
-BHOPP under100
-SETT r12, 0xC8
-ME r10, r12
-BHOPP under200
-SETT r12, 0xFF
-ME r10, r12
-BHOPP under300
-
-
-
-underti:
-SETT r12, 0x30
-PLUSS r10, r12
-SKRIV r10
-STOPP
-under20:
-SETT r12, 0x31
-SKRIV r12
-SETT r12, 10
-MINUS r10, r12
-HOPP skriv_tall
-under30:
-SETT r12, 0x32
-SKRIV r12
-SETT r12, 20
-MINUS r10, r12
-HOPP skriv_tall
-under40:
-SETT r12, 0x33
-SKRIV r12
-SETT r12, 30
-MINUS r10, r12
-HOPP skriv_tall
-under50:
-SETT r12, 0x34
-SKRIV r12
-SETT r12, 40
-MINUS r10, r12
-HOPP skriv_tall
-under60:
-SETT r12, 0x35
-SKRIV r12
-SETT r12, 50
-MINUS r10, r12
-HOPP skriv_tall
-under70:
-SETT r12, 0x36
-SKRIV r12
-SETT r12, 60
-MINUS r10, r12
-HOPP skriv_tall
-under80:
-SETT r12, 0x37
-SKRIV r12
-SETT r12, 70
-MINUS r10, r12
-HOPP skriv_tall
-under90:
-SETT r12, 0x38
-SKRIV r12
-SETT r12, 80
-MINUS r10, r12
-HOPP skriv_tall
-under100:
-SETT r12, 0x39
-SKRIV r12
-SETT r12, 90
-MINUS r10, r12
-HOPP skriv_tall
-under200:
-SETT r12, 0x31
-SKRIV r12
-SETT r12, 0x64
-MINUS r10, r12
-SETT r12, 0x09
-MEL r10, r12
-BHOPP underti_100
-HOPP skriv_tall
-underti_100:
-SETT r12, 0x30
-SKRIV r12
-HOPP skriv_tall
-
-under300:
-SETT r12, 0x32
-SKRIV r12
-SETT r12, 0xC8
-MINUS r10, r12
-SETT r12, 0x09
-MEL r10, r12
-BHOPP underti_100
-HOPP skriv_tall
-underti_100:
-SETT r12, 0x30
-SKRIV r12
-HOPP skriv_tall
-```
-
-## Egg #8
-I did not complete
-This was similar to Task #12, but a lot more convoluted.
-
-
-
-## Egg #9
-This was just the same as Task #14, but it required efficient code. Luckily my code was already efficient enough.
-
-## Egg #10
-I did not complete
-This requires a very efficient sorting algorithm. A maximum of 4608 operations.
-This is not actually possible with standard sorting algorithms, as I found out.
-The trick is to write the amount of times each number appears in memory, and just write it out afterwards.
-
-## Egg #11
-I did not complete
-
-https://pingvin.spst.no/ also links to https://egg.spst.no/ which requires a password
-This actually turns out to be the password from task #17. The password is literally “****************”
-
-![](images/egg11.png)
 
