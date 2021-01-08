@@ -222,7 +222,9 @@ Sent from my PDA.
 
 ![](images/luke3_0.png)
 
-And later a followup message saying: “In case the last message was unclear, the password is “til zip-fila,” ” Or in english: “to the zip file,”
+And later a followup message saying: 
+
+```In case the last message was unclear, the password is “til zip-fila,” ” Or in english: “to the zip file,```
 
 ![](images/luke3_1.png)
 
