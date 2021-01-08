@@ -668,18 +668,26 @@ This is not the end however, as there are also multiple encodings we can choose 
 There are too many to list here, but here are some:
 
 Basic Encoding Rules (BER)
+
 Distinguished Encoding Rules (DER)
+
 Canonical Encoding Rules (CER)
+
 Basic Packed Encoding Rules (PER)
+
 Basic XML Encoding Rules (XER)
+
 JSON Encoding Rules (JER)
 
 BER and DER are serialized in octets, CER and PER are serialized in bits, while XER and JER are serialized in Characters.
 Other differences include:
 
 Encoded Elements Discernable without Foreknowledge of Specification
+
 Octet Aligned
+
 Encoding Control Notation Rules Defined
+
 
 So, now that we understand ASN.1 a bit more. Let’s figure out how to solve this.
 
