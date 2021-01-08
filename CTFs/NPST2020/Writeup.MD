@@ -1880,7 +1880,7 @@ That was a funny message to send with Manchester coding.
 
 ## December 16th
 ```
-I am still a little behind in terms of targets after the 'answer all' event earlier this month. It is probably therefore best for your 
+I am still a little behind in terms of targets after the 'reply all' incident earlier this month. It is probably therefore best for your 
 salary development if you complete the e-learning module a522c5a55bcb743e in SLEDE8.
 
 The developer tool can still be found here. See documentation on GitHub.
