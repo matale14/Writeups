@@ -1,4 +1,12 @@
 # NPST-2020
+This years NPST was centered around a new System called DASS.
+This bears resemblance to an old school windows OS
+![](images/dass.png)
+
+In the start-bar we have some different options to choose from. Some of these came later during some system updates. Like Mal(paint) and Sledesimulator(SleighSimulator)
+
+
+![](images/dass2.png)
 
 ```
 Rules
@@ -53,6 +61,8 @@ This unlocked Egg#4
 
 ## Egg #1
 By going to dass.npst.no/humans.txt you can notice this suspicious scrollbar on the right side. Or be like me and check the source-code because you didn’t notice...
+
+
 ![](images/egg1_0.png)
 At the bottom we find the Egg: 
 ![](images/egg1_1.png)
@@ -143,11 +153,11 @@ It is still unknown why GWYN was at the North Pole at this time, but he is said 
 
 📎 beslag.zip
 ```
-![](images/luke2.png)
+![](images/luke2_0.png)
 
 We are given a zip file named beslag.zip(confiscation.zip).
 This contains the midi file, and a 7zip file called privat.7z which is password protected.
-The midi file plays fine, although maybe not the greatest winter hit. I opened the file in HxD to see if there was something to spot there.
+The midi file plays fine, although maybe not the greatest winter hit. I opened the file in HxD to see if there was something to spot there.![](images/luke2_1.png)
 And I immediately spotted both curly brackets. So I checked right before the first bracket, and we can see that T is the letter just before. So the flag is in here, but it is obfuscated by the string “@.z€” and also doubled. Obviously this can be brute forced just by taking notes and looking at the decoded hex.
 However I chose a way more effective method. Although not the prettiest.
 
@@ -156,13 +166,14 @@ I opened up WSL(Windows Subsystem for Linux) and entered the command:
 ```
 cat pen_gwyn_greatest_hits.mid
 ```
+![](images/luke2_2.png)
 We can see the letters, but only the @ and z are present in the cat.
 
 ```
 cat pen_gwyn_greatest_hits.mid | tr -d '@z'
 ```
 This reads the file, but deletes the characters @ and z from the result.
-
+![](images/luke2_3.png)
 As I said, a lot faster than reading it manually. But not the most pretty, as I still had to write it down myself. 
 
 
@@ -195,9 +206,9 @@ Your colleague Tastefinger has identified something 🧁 with the file cupcake.p
 ![](images/luke3_2.png)
 
 Luckily, our new system has the ability to enhance images. So let's use that.
-
+![](images/luke3_3.png)
 We choose the image, and click “Enhance” at the bottom
-
+![](images/luke3_4.png)
 
 After clicking enhance a couple of times we get the flag on a post-it note. Amazing how technology can create information from blocks of color.
 
@@ -438,7 +449,7 @@ Access problems to the documentation vault are reported. We have received logs f
 
 📎 log.csv
 ```
-![](images/luke5.png)
+![](images/luke5_0.png)
 We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }.
 My plan was to count occurrences on the lines to see if anything was out of the ordinary. Maybe a name only appeared once. Which would be interesting. Maybe the Section handling the request would be different.
 
@@ -473,6 +484,7 @@ Name: Name, Length: 205, dtype: int64
 [Finished in 0.8s]
 ```
 We can see here that there is something wrong with one of the names here.
+![](images/luke5_1.png)
 I locate the wrong name easily by just searching the log:
 
 And we have the flag!
@@ -493,10 +505,10 @@ See also attached documentation.
 
 📎 SLEDE8.md
 ```
-![](images/luke6.png)
+![](images/luke6_0.png)
 
 It turns out that this new tool is an assembly-like language with 16 registers and an input opportunity.
-
+![](images/luke6_1.png)
 The task we get when we enter this number into the E-learning module is this:
 
 The first byte of input is a number N that represents the number of following bytes of input. Sum the following N numbers and write the result
@@ -535,10 +547,10 @@ A strange signal has been picked up here at Santa's workshop. It does not seem t
 
 📎 data.complex16u
 ```
-![](images/luke7.png)
+![](images/luke7_0.png)
 Any signal-based task immediately screams Universal Radio Hacker: https://github.com/jopohl/urh 
 And as we can see:
-
+![](images/luke7_1.png)
 Immediately just opening the file and setting the signal to show ASCII reveals the flag.
 
 ```
@@ -551,7 +563,7 @@ Thank you for your efforts J
 ```
 Professional development is important, even now in the run-up to Christmas. Today's topic is ASN.1. Here is some brain exercise from Nissens Kompetansebank ™.
 
-MIIBOTCCATAwggEnMIIBHjCCARUwggEMMIIBAzCB + zCB8zCB6zCB4zCB2zCB0zCByzCBwzCBuzCBszCBqzCBozCBnDCBlDCBjDCBhDB9MHYwbzBoMGEwWjBTMEwwRTA + MDcwMTAqMCMwHDAVMA4wBwUAoQMCAROgAwIBA6EDAgEMogMCAQChAwIBE6ADAgEBoQMCARKkAgUAoQMCARShAwIBDqIDAgEYoQMCAQShAwIBEqEDAgEOoQMCAQ6hAwIBB6IDAgECogMCAQigAwIBAaIDAgENogMCARKiAwIBAKMCBQCiAwIBE6IDAgESogMCAQ + hAwIBEaEDAgEOoQMCAQugAwIBAKIDAgEDoQMCAQyhAwIBFKEDAgESoQMCAQ + gAwIBAaEDAgEMoAMCAQOhAwIBEaEDAgEOogMCAQs =
+MIIBOTCCATAwggEnMIIBHjCCARUwggEMMIIBAzCB+zCB8zCB6zCB4zCB2zCB0zCByzCBwzCBuzCBszCBqzCBozCBnDCBlDCBjDCBhDB9MHYwbzBoMGEwWjBTMEwwRTA+MDcwMTAqMCMwHDAVMA4wBwUAoQMCAROgAwIBA6EDAgEMogMCAQChAwIBE6ADAgEBoQMCARKkAgUAoQMCARShAwIBDqIDAgEYoQMCAQShAwIBEqEDAgEOoQMCAQ6hAwIBB6IDAgECogMCAQigAwIBAaIDAgENogMCARKiAwIBAKMCBQCiAwIBE6IDAgESogMCAQ+hAwIBEaEDAgEOoQMCAQugAwIBAKIDAgEDoQMCAQyhAwIBFKEDAgESoQMCAQ+gAwIBAaEDAgEMoAMCAQOhAwIBEaEDAgEOogMCAQs=
 
 Spec DEFINITIONS ::= BEGIN
     LinkedList ::= Node
@@ -684,14 +696,14 @@ We wonder if HEXMAS encoding may have been used. Can you investigate that furthe
 
 🤶🛷✨🎶🎅✨🎅🎅🛷🤶🎄🔥🎆🦌🎁🛷🎅❄🛷🛷🎅🎶🎅✨🎅🦌🥣🔥🛷🦌⛄🎅🌟🛷🛷🔥🎄🦌🎅✨🦌🦌🕯🎶🎅🤶🦌❄🎁🕯 🎅✨🎶👼🌟🎆🕯🌟❄👼🎅🎅🤶❄🎄👼🎆🔥🎁🛷🤶👼🎅🎅🎅🎅🎅🎅
 ```
-![](images/luke9.png)
+![](images/luke9_0.png)
 Here we get a message full of emojis. And on the first line we get 16 different emojis. This should be a clear sign, especially along with the HEXMAS tip. That this has something to do with hex. So my first thought was that the top line was a sort of dictionary for the rest of the message.
 🎅= 0 and 🛷= F
 However when I translated this. I only received a hex string I couldn't make any sense of.
 After trying a number of things, I accidentally misclicked the Magic button in Cyberchef.
 
 And there it is. It was the common compression algorithm Gzip. I was already familiar with the common “PK” magic key of zipped files. But on this day I learned of the Gzip magic 1F8B. I now always run stuff through the Magic operation on cyberchef.
-
+![](images/luke9_1.png)
 This was the python code I used to translate the HEXMAS encoding to hex string:
 
 ```
@@ -1316,9 +1328,9 @@ Can you find meaning in the message?
 📎melding.txt
 
 ```
-![](images/luke13.png)
+![](images/luke13_0.png)
 The message was a 10 by 183 block of text
-
+![](images/luke13_1.png)
 I tried a lot of different things on this one. I tried shifting bytes, shifting hexadecimals, shifting hexadecimals with norwegian alphabet. Checking out advanced 1337 speak. XORing all the lines together, and probably more things I deleted.
 I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. Then it hit me a couple of hours later, and I replaced the groups with spaces. And I got presented with the flag.
 
@@ -1460,11 +1472,11 @@ This task has been in the backlog with us, but it would have been very nice if y
 
 📎 data2.complex16u
 ```
-![](images/luke15.png)
+![](images/luke15_0.png)
 As always we jump into URH again. This one took me a long time. Because I did not understand the clear hint. Luckily as always, the NPST community of elf officers gave some great advice to look at all the functions of URH.
 The clear hint is that the elf officers watched a football match in England. There happens to be an Audio encoding known as the Manchester encoding. 
 Let's look at the differences between non-return-to-zero (NRZ) and Manchester encoding for audio:
-
+![](images/luke15_1.png)
 
 The top line just represents the data. On the line = 0, above the line = 1. Two clock ticks per bit period.
 
@@ -1474,7 +1486,7 @@ The Manchester encoding decides the value by shifting the value. Here we can see
 
 Also keep in mind that these can be inverted. 
 
-
+![](images/luke15_2.png)
 
 And by trying the different decoding types we find that Manchester 2 reveals the flag.
 
@@ -1655,10 +1667,10 @@ END
 ```
 
 I pretty much used the same code as last time, except I removed all the stripping of characters, and used a prettify function I found online to make it more readable
-
+![](images/luke17_1.png)
 Here we can see that the message is compiled of two dictionaries. pSHeader and payload.
 I then used this map of the dictionary to find that the message was located in the ‘cCContents’ key in the second index. This was encoded, so I tried decoding with unicode-escape. This only resulted in nonsense, so I threw it into Cyberchef. 
-![](images/luke17_1.png)
+![](images/luke17_2.png)
 And we can see that we need to XOR it with a hex value of 24.
 
 ```
@@ -1780,7 +1792,6 @@ So the final uuid should be:
 c9c36ccf-6a38-4281-b48f-d14db694d4a3
 
 We can then take the md5sum of this with WSL:
-![](images/luke17_2.png)
 ```
 echo -n c9c36ccf-6a38-4281-b48f-d14db694d4a3 | md5sum
 ```
@@ -1803,8 +1814,9 @@ SPST has published what they claim is a very advanced artificial intelligence on
 
 I have checked it out on pingvin.spst.no, but only get a beautiful picture of a penguin. Can you take a look?
 ```
-![](images/luke18.png)
+![](images/luke18_0.png)
 The advanced AI can apparently count the penguin emojis that are input.
+![](images/luke18_1.png)
 On the page itself we can find this javascript code:
 
 ```
@@ -2067,9 +2079,9 @@ After this, all we have to do is find the decrypted data.
 Using the same method as the last file:
 ![](images/luke20_2.png)
 We find a pdf file.
-
-Containing our flag
 ![](images/luke20_3.png)
+Containing our flag
+![](images/luke20_4.png)
 
 ```
 Thank you!
@@ -2180,7 +2192,7 @@ Do you find a connection between wish lists and power consumption? And do you ge
 📎 wishlists.npy
 📎 power consumption.npy
 ```
-![](images/luke22.png)
+![](images/luke22_0.png)
 The file viktig_meldig.json(important_message.json) 
 ```
 {
@@ -2277,7 +2289,7 @@ if bestguess == []:
     print("Best Key Guess: %s" % key)
 ```
 We receive the key, and can decrypt the message:
-
+![](images/luke22_1.png)
 
 ```
 There was a lot of excitement about whether you would solve this task.
@@ -2291,13 +2303,13 @@ Santa's workshop at the North Pole has received this Christmas card. The card wa
 
 Can you find out if there is anything strange about the card?
 ```
-![](images/luke23.png)
+![](images/luke23_0.png)
 
 We receive another image. The first thing I did this time was to throw it in the Enhance module in DASS. Which resulted in nothing.
 The next thing I did was use the tool Zsteg, which did not really provide any real use for me.
 I threw it in the online tool https://stegonline.georgeom.net/upload And checked the options. When I browsed the bit planes I was greeted with a QR code. There was one on bit planes Red0, Green0, and Blue0. 
 I simply combined them all in photoshop, and threw it into Cyberchef:
-
+![](images/luke23_1.png)
 
 So what are bit planes?
 
@@ -2641,5 +2653,6 @@ I did not complete
 
 https://pingvin.spst.no/ also links to https://egg.spst.no/ which requires a password
 This actually turns out to be the password from task #17. The password is literally “****************”
+
 ![](images/egg11.png)
 
