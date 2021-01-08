@@ -136,7 +136,7 @@ To
 
 ```lowercase_alphabet = string.ascii_lowercase + 'æøå'```
 
-To get a norwegian alphabet.
+In order get a norwegian alphabet.
 ```
 Excellent!
 
