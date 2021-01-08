@@ -259,6 +259,14 @@ By saving the final image of cupcake.png from the enhance module in DASS, and ru
 
 ![](images/egg3.png)
 
+When I use zsteg I almost always use the -a flag. As it lists everything.
+
+zsteg can be found at: https://github.com/zed-0xff/zsteg 
+
+And can be installed on linux from the terminal using gem.
+
+```gem install zsteg```
+
 ## December 4th
 
 ```
@@ -510,7 +518,8 @@ during the period where it is suspected that the error may be. Do you find anyth
 
 ![](images/luke5_0.png)
 
-We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }.
+We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }. This is because the log is URL encoded.
+
 My plan was to count occurrences on the lines to see if anything was out of the ordinary. Maybe a name only appeared once. Which would be interesting. Maybe the Section handling the request would be different.
 
 ```
@@ -545,9 +554,11 @@ Name: Name, Length: 205, dtype: int64
 [Finished in 0.8s]
 ```
 
-We can see here that there is something wrong with one of the names here.
-![](images/luke5_1.png)
+We can see that there is something wrong with one of the names here.
+
 I locate the wrong name easily by just searching the log:
+
+![](images/luke5_1.png)
 
 And we have the flag!
 
@@ -570,6 +581,8 @@ See also attached documentation.
 ```
 
 ![](images/luke6_0.png)
+
+You can find the translated documentation in [Slede8.md](Slede8.md), in the same folder as this writeup.
 
 It turns out that this new tool is an assembly-like language with 16 registers and an input opportunity.
 
