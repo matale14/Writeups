@@ -1327,7 +1327,7 @@ HOPP skriv_tall
 
 ## December 11th
 ```
-The internal security team at NPST has discovered that an unauthorized modification has taken place on Nissen's list of good and bad children. 
+The internal security team at NPST has discovered that an unauthorized modification has taken place on Santa's list of good and bad children. 
 They claim that an md5 sum has been changed, but they need your help to find out exactly which one. Attached is a backup copy with 
 Santa's list from the time the security team believes the modification has occurred.
 
