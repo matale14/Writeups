@@ -62,10 +62,9 @@ This unlocked Egg#4 There are called Utmerkelser, or commendations in English an
 
 
 ## Egg #1
+<img align="right" src=images/egg1_0.png>
 By going to dass.npst.no/humans.txt you can notice this suspicious scrollbar on the right side. Or be like me and check the source-code because you didn’t notice...
 
-
-![](images/egg1_0.png)
 At the bottom we find the Egg: 
 ![](images/egg1_1.png)
 
@@ -159,9 +158,9 @@ It is still unknown why GWYN was at the North Pole at this time, but he is said 
 
 ![](images/luke2_0.png)
 
-We are given a zip file named beslag.zip(confiscation.zip).
+We are given a zip file named beslag.zip(confiscation.zip).<img align="right" src=images/luke2_1.png>
 This contains the midi file, and a 7zip file called privat.7z which is password protected.
-The midi file plays fine, although maybe not the greatest winter hit. I opened the file in HxD to see if there was something to spot there.![](images/luke2_1.png)
+The midi file plays fine, although maybe not the greatest winter hit. I opened the file in HxD to see if there was something to spot there.
 And I immediately spotted both curly brackets. So I checked right before the first bracket, and we can see that T is the letter just before. So the flag is in here, but it is obfuscated by the string “@.z€” and also doubled. Obviously this can be brute forced just by taking notes and looking at the decoded hex.
 However I chose a way more effective method. Although not the prettiest.
 
