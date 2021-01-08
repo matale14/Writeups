@@ -61,8 +61,7 @@ HR
 This unlocked Egg#4 There are called Utmerkelser, or commendations in English and are represented with stars on the Leaderboard.
 
 
-## Egg #1
-<img align="right" src=images/egg1_0.png>
+## Egg #1 <img align="right" src=images/egg1_0.png>
 By going to dass.npst.no/humans.txt you can notice this suspicious scrollbar on the right side. Or be like me and check the source-code because you didn’t notice...
 
 At the bottom we find the Egg: 
