@@ -27,10 +27,10 @@ Comments are ignored when installing the program.
 
 Example ([try it yourself] (https: //slede8.npst.no#N4Igzg9grgTgxgUwMIQCYJALhAbgAQIB2eA1hALblEAuAhjADqEByA8gAoCie+RethQnzKUa9JgGUAKh3YgANCAWWQAA:
 
-`` `
+```
 ; a comment
 NOPE; another comment
-`` `
+```
 
 ### Tags
 
