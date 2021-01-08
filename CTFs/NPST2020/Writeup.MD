@@ -57,7 +57,8 @@ Meet precisely.
 HR
 ```
 ![](images/egg4.png)
-This unlocked Egg#4
+
+This unlocked Egg#4 There are called Utmerkelser, or commendations in English and are represented with stars on the Leaderboard.
 
 
 ## Egg #1
@@ -87,6 +88,7 @@ By looking at the scrambled code, we can see that it is already in the correct f
 This suggests some sort of shift or substitution cipher, the most common and easy one is the ROT cipher also called the Caesar cipher as it was first recorded during his time. This is also hinted to in the text when it is mentioned that the code was lost in the salad, as a very popular type of salad is a Caesar salad.
 
 There are many tools to solve such ciphers. Either webpages or self-coded scripts. I always suggest coding your own solutions at least once. But my favourite tool for these types of problems is cyberchef: https://gchq.github.io/CyberChef/ 
+
 ![](images/luke1_1.png)
 
 Here we can just paste the scrambled code into cyberchef and search on the left hand side for ROT or Caesar and rotate the characters. This can either be brute-forced by trying all the 25 possibilities, or realizing that the first character of the flag is always P as in PST{, and that the R in the scrambled code is only two rotations away from P.
@@ -154,6 +156,7 @@ It is still unknown why GWYN was at the North Pole at this time, but he is said 
 
 📎 beslag.zip
 ```
+
 ![](images/luke2_0.png)
 
 We are given a zip file named beslag.zip(confiscation.zip).
@@ -168,13 +171,16 @@ I opened up WSL(Windows Subsystem for Linux) and entered the command:
 cat pen_gwyn_greatest_hits.mid
 ```
 ![](images/luke2_2.png)
+
 We can see the letters, but only the @ and z are present in the cat.
 
 ```
 cat pen_gwyn_greatest_hits.mid | tr -d '@z'
 ```
 This reads the file, but deletes the characters @ and z from the result.
+
 ![](images/luke2_3.png)
+
 As I said, a lot faster than reading it manually. But not the most pretty, as I still had to write it down myself. 
 
 
@@ -194,21 +200,28 @@ I guessed the password to the zip file,, and it worked!
 Sent from my PDA.
 
 ```
+
 ![](images/luke3_0.png)
 
 And later a followup message saying: “In case the last message was unclear, the password is “til zip-fila,” ” Or in english: “to the zip file,”
 
 Opening up the zip-file reveals two files, cupcake.png. And kladd.txt
 Cupcake.png is a high-resolution image that looks very low-res. While kladd.txt is a text file containing 8 sleigh emojis with an encoded string.
+
 ![](images/luke3_1.png)
+
 ```
 Your colleague Tastefinger has identified something 🧁 with the file cupcake.png from the seizure you worked with yesterday. It is PROBABLE that there may be information in the image that is not visible to the naked eye. Can't wait to hear what you come up with!
 ```
+
 ![](images/luke3_2.png)
 
 Luckily, our new system has the ability to enhance images. So let's use that.
+
 ![](images/luke3_3.png)
+
 We choose the image, and click “Enhance” at the bottom
+
 ![](images/luke3_4.png)
 
 After clicking enhance a couple of times we get the flag on a post-it note. Amazing how technology can create information from blocks of color.
@@ -220,6 +233,7 @@ Good work! We make a great team!
 Running cupcake.png through zsteg reveals a youtube link: youtu.be/I_8ZH1Ggjk0 
 Which is a CSI link called enhance. Not only is this a hint for the task of the day. But it is a hint for the egg.
 By saving the final image of cupcake.png from the enhance module in DASS, and running the same zsteg command. We find the egg.
+
 ![](images/egg3.png)
 
 ## December 4th
@@ -236,6 +250,7 @@ We in the middle management group are very interested in target figures, and the
 📎 files.zip
 
 ```
+
 ![](images/luke4.png)
 
 The zip file contains 4 sql files: 
@@ -455,7 +470,9 @@ Access problems to the documentation vault are reported. We have received logs f
 
 📎 log.csv
 ```
+
 ![](images/luke5_0.png)
+
 We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }.
 My plan was to count occurrences on the lines to see if anything was out of the ordinary. Maybe a name only appeared once. Which would be interesting. Maybe the Section handling the request would be different.
 
@@ -511,10 +528,13 @@ See also attached documentation.
 
 📎 SLEDE8.md
 ```
+
 ![](images/luke6_0.png)
 
 It turns out that this new tool is an assembly-like language with 16 registers and an input opportunity.
+
 ![](images/luke6_1.png)
+
 The task we get when we enter this number into the E-learning module is this:
 
 The first byte of input is a number N that represents the number of following bytes of input. Sum the following N numbers and write the result
@@ -562,10 +582,14 @@ A strange signal has been picked up here at Santa's workshop. It does not seem t
 
 📎 data.complex16u
 ```
+
 ![](images/luke7_0.png)
+
 Any signal-based task immediately screams Universal Radio Hacker: https://github.com/jopohl/urh 
 And as we can see:
+
 ![](images/luke7_1.png)
+
 Immediately just opening the file and setting the signal to show ASCII reveals the flag.
 
 ```
@@ -600,10 +624,14 @@ END
 Good luck!
 ```
 (The fixed specifications are pasted here)
+
 ![](images/luke8_0.png)
+
 Well, we get a faulty ASN.1 specification.
 A fixed one was luckily sent 25 minutes later :).
+
 ![](images/luke8_1.png)
+
 Since I had no idea what ASN.1 even was prior to this I had to do some research. Lets learn.
 ASN stands for Abstract Syntax Notation. And it is a type of notation for describing abstract types and values. So we can use ASN.1 to create any type of encoding and data structures we want to. 
 A type in ASN.1 is a set of values. These types can be a number of different things. They are assigned with the assignment operator ::=.  More detailed information can be read here: http://luca.ntop.org/Teaching/Appunti/asn1.html 
@@ -764,13 +792,20 @@ Then we know we can decode similar messages quickly in the future!
 We got a system update on the 9th. that introduced mal.exe, or paint.
 
 Open the Paint module in DASS
+
 ![](images/egg6_0.png)
+
 Go to Help->Open Mal 3d(x86)
+
 ![](images/egg6_1.png)
+
 We get some Assembly x86 code
+
 ![](images/egg6_2.png)
+
 Just copying this to https://defuse.ca/online-x86-assembler.htm#disassembly
 We get the Raw hex, which we can just paste into cyberchef:
+
 ![](images/egg6_3.png)
 
 
@@ -785,6 +820,7 @@ You can also find the documentation in the same place as before, or on GitHub.
 📎 SLEDE8.md
 
 ```
+
 ![](images/luke10.png)
 
 In this module we receive two numbers in the input. A and B.
@@ -1249,7 +1285,9 @@ The internal security team at NPST has discovered that an unauthorized modificat
 
 📎 list.zip
 ```
+
 ![](images/luke11.png)
+
 We receive a zip file with a database. With two tables. Nice and Naughty. The tables contain the first name, last name, and a md5-sum. The trick here is to figure out that the MD5-sum is the first name+ the last name. And then just check which ones are not a match. So I extracted all the data into csv files and wrote a python script to do just that.
 
 ```
@@ -1307,6 +1345,7 @@ See attached file for the mounted code. Tastefinger thought it was relevant to t
 📎 program.s8
 
 ```
+
 ![](images/luke12.png)
 
 We receive a slede8 program. And a link to the github page for slede8. There you can find a number of files. The most interesting being the slede8 assembler and the slede8 runtime code. The runtime code takes a s8 file as input. So I recreated the runtime in python, this would help read the code to see what ‘valuable input’ we needed to provide;).
@@ -1602,9 +1641,13 @@ Can you find meaning in the message?
 📎melding.txt
 
 ```
+
 ![](images/luke13_0.png)
+
 The message was a 10 by 183 block of text
+
 ![](images/luke13_1.png)
+
 I tried a lot of different things on this one. I tried shifting bytes, shifting hexadecimals, shifting hexadecimals with norwegian alphabet. Checking out advanced 1337 speak. XORing all the lines together, and probably more things I deleted.
 I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. Then it hit me a couple of hours later, and I replaced the groups with spaces. And I got presented with the flag.
 
@@ -1669,7 +1712,9 @@ The developer tool can still be found here. See attached documentation, or on Gi
 📎 SLEDE8.md
 
 ```
+
 ![](images/luke14.png)
+
 This one requires you to take an unknown number of inputs, where 0x00 marks the end of input. The input should then be written in the reverse order. 
 
 We have to save the read inputs to memory, and then read them back in the opposite order later. In this instance, we cannot set the first input byte as the length, so we have to count instead. This means we have to account for the input length being over 255 bytes long. Since the current address is dictated by the r0 and r1 registres, we use r1 as the incrementer. So if r0 goes over 255, r1 is incremented and we get 255 more addresses to use, all the way up to r1 = 255. And we just go backwards once we have read and saved everything in memory.
@@ -1750,10 +1795,13 @@ This task has been in the backlog with us, but it would have been very nice if y
 
 📎 data2.complex16u
 ```
+
 ![](images/luke15_0.png)
+
 As always we jump into URH again. This one took me a long time. Because I did not understand the clear hint. Luckily as always, the NPST community of elf officers gave some great advice to look at all the functions of URH.
 The clear hint is that the elf officers watched a football match in England. There happens to be an Audio encoding known as the Manchester encoding. 
 Let's look at the differences between non-return-to-zero (NRZ) and Manchester encoding for audio:
+
 ![](images/luke15_1.png)
 
 The top line just represents the data. On the line = 0, above the line = 1. Two clock ticks per bit period.
@@ -1781,7 +1829,9 @@ I am still a little behind in terms of targets after the 'answer all' event earl
 The developer tool can still be found here. See documentation on GitHub.
 
 ```
+
 ![](images/luke16.png)
+
 This one is a sorting algorithm. I think most people have seen the hypnotising sorting videos before. Sorting is often heavily focused on efficiency. So of course, for this challenge I chose one of the more inefficient, bubble sort. It is also pretty easy.
 ```
 SETT r0, 0x00
@@ -1882,6 +1932,7 @@ NPST has tapped the phone of a suspected intelligence officer from SPST. The tel
 📎 data.b64.txt
 📎 ETSI232-1.txt
 ```
+
 ![](images/luke17_0.png)
 
 ```
@@ -1951,10 +2002,14 @@ END
 ```
 
 I pretty much used the same code as last time, except I removed all the stripping of characters, and used a prettify function I found online to make it more readable
+
 ![](images/luke17_1.png)
+
 Here we can see that the message is compiled of two dictionaries. pSHeader and payload.
 I then used this map of the dictionary to find that the message was located in the ‘cCContents’ key in the second index. This was encoded, so I tried decoding with unicode-escape. This only resulted in nonsense, so I threw it into Cyberchef. 
+
 ![](images/luke17_2.png)
+
 And we can see that we need to XOR it with a hex value of 24.
 
 ```
@@ -2080,6 +2135,7 @@ We can then take the md5sum of this with WSL:
 echo -n c9c36ccf-6a38-4281-b48f-d14db694d4a3 | md5sum
 ```
 It is important to remember the -n after echo, as it removes the newline at the end of the echo. We have to do this before we pipe it through to the md5sum, or else the result would be completely different.
+
 ![](images/luke17_3.png)
 
 
@@ -2106,9 +2162,13 @@ SPST has published what they claim is a very advanced artificial intelligence on
 
 I have checked it out on pingvin.spst.no, but only get a beautiful picture of a penguin. Can you take a look?
 ```
+
 ![](images/luke18_0.png)
+
 The advanced AI can apparently count the penguin emojis that are input.
+
 ![](images/luke18_1.png)
+
 On the page itself we can find this javascript code:
 
 ```
@@ -2282,6 +2342,7 @@ Adrian: (5, 13616131956808298877370316331103618704693946617428529626578875989963
 Can you recreate the key to the Christmas gift vault? It goes without saying that this is urgent!
 
 ```
+
 ![](images/luke19.png)
 
 
@@ -2329,10 +2390,12 @@ After all the strange events lately, we are happily monitoring our network. This
 
 📎 trafikk.pcapng
 ```
+
 ![](images/luke20_0.png)
 
 In this task we receive a traffic capture file. I opened this in Wireshark and used Statistics->Protocol Hierarchy.
 This revealed a single packed of Line-based text data and MIME Multipart Media Encapsulation.
+
 ![](images/luke20_1.png)
 
 
@@ -2369,10 +2432,15 @@ From https://wiki.wireshark.org/TLS#Using_the_.28Pre.29-Master-Secret
 
 After this, all we have to do is find the decrypted data.
 Using the same method as the last file:
+
 ![](images/luke20_2.png)
+
 We find a pdf file.
+
 ![](images/luke20_3.png)
+
 Containing our flag
+
 ![](images/luke20_4.png)
 
 ```
@@ -2393,12 +2461,16 @@ Good luck!
 Asjoner generations.txt
 
 ```
+
 ![](images/luke21_0.png)
+
 The text file called generasjoner.txt(generations.txt) is composed of 10 generations of 0’s and 1æs, whereas the first is incomplete.
 
 
 I tried to look for a pattern by replacing each of the numbers with spaces:
+
 ![](images/luke21_1.png)
+
 And we see some seemingly random upside down triangles. We can infer that we need to follow the pattern with the first line. The first line already spells PST{
 So now we need to figure out the pattern. There is actually a hint in the text, although it is a bit of a meta hint. Last year, NPST used the same type of algorithm in another task, this was Tetris themed. Therefore the tetris hint makes it obvious for the ones in the know.
 
@@ -2484,7 +2556,9 @@ Do you find a connection between wish lists and power consumption? And do you ge
 📎 wishlists.npy
 📎 power consumption.npy
 ```
+
 ![](images/luke22_0.png)
+
 The file viktig_meldig.json(important_message.json) 
 ```
 {
@@ -2581,6 +2655,7 @@ if bestguess == []:
     print("Best Key Guess: %s" % key)
 ```
 We receive the key, and can decrypt the message:
+
 ![](images/luke22_1.png)
 
 ```
@@ -2595,12 +2670,14 @@ Santa's workshop at the North Pole has received this Christmas card. The card wa
 
 Can you find out if there is anything strange about the card?
 ```
+
 ![](images/luke23_0.png)
 
 We receive another image. The first thing I did this time was to throw it in the Enhance module in DASS. Which resulted in nothing.
 The next thing I did was use the tool Zsteg, which did not really provide any real use for me.
 I threw it in the online tool https://stegonline.georgeom.net/upload And checked the options. When I browsed the bit planes I was greeted with a QR code. There was one on bit planes Red0, Green0, and Blue0. 
 I simply combined them all in photoshop, and threw it into Cyberchef:
+
 ![](images/luke23_1.png)
 
 So what are bit planes?
@@ -2634,9 +2711,11 @@ Tastefinger
 Sent from my PDA.
 
 ```
+
 ![](images/luke24_0.png)
 
 ![](images/luke24_1.gif)
+
 As was stated, the autopilot is not doing well.
 
 We can see the specifications from the simulator:
@@ -2674,6 +2753,7 @@ So our task is to use these specifications to create a slede8 program to make su
 
 
 when the landing succeeds, we get a link to this website:
+
 ![](images/christmas.gif)
 
 ```
