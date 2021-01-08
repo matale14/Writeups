@@ -2633,8 +2633,9 @@ Tastefinger
 Sent from my PDA.
 
 ```
-![](images/luke24.png)
+![](images/luke24_0.png)
 
+![](images/luke24_1.png)
 
 
 ```
