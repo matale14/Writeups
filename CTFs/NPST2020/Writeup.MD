@@ -3,7 +3,7 @@ This years NPST was centered around a new System called DASS.
 This bears resemblance to an old school windows OS
 ![](images/dass.png)
 
-In the start-bar we have some different options to choose from. Some of these came later during some system updates. Like Mal(paint) and Sledesimulator(SleighSimulator)
+In the start-menu we have some different options to choose from. Some of these came later during some system updates. Like Mal(paint) and Sledesimulator(SleighSimulator)
 
 
 ![](images/dass2.png)
