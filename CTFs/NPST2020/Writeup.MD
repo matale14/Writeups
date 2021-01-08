@@ -938,34 +938,54 @@ So after calculating the answer, we just check if the value is under each tenth.
 
 A small example:
 A = 200
+
 B = 34
+
 (A + B) = 234
+
 234 mod 256 = 234
 
+
 Is 234 under 10?
+
 No.
+
 Is 234 under 20?
+
 No.
+
 …
 …
 ...
+
 Is 234 under 300?
+
 Yes.
+
 Write 2.
+
 234 - 200 = 34
 
 Is 34 under 10?
+
 No.
 …
 …
+
 Is 34 under 40?
+
 Yes.
+
 Write 3.
+
 34-30.
 
 Is 4 under 10?
+
 Yes.
+
 Write 4
+
 Done.
 
 And here is the slede8 code I wrote:
