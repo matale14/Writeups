@@ -206,10 +206,10 @@ Sent from my PDA.
 
 And later a followup message saying: “In case the last message was unclear, the password is “til zip-fila,” ” Or in english: “to the zip file,”
 
+![](images/luke3_1.png)
+
 Opening up the zip-file reveals two files, cupcake.png. And kladd.txt
 Cupcake.png is a high-resolution image that looks very low-res. While kladd.txt is a text file containing 8 sleigh emojis with an encoded string.
-
-![](images/luke3_1.png)
 
 ```
 Your colleague Tastefinger has identified something 🧁 with the file cupcake.png from the seizure you worked with yesterday. It is PROBABLE that there may be information in the image that is not visible to the naked eye. Can't wait to hear what you come up with!
