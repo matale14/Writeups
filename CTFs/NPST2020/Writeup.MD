@@ -62,7 +62,9 @@ This unlocked Egg#4 There are called Utmerkelser, or commendations in English an
 
 
 ## Egg #1 <img align="right" src=images/egg1_0.png>
-By going to dass.npst.no/humans.txt you can notice this suspicious scrollbar on the right side. Or be like me and check the source-code because you didn’t notice...
+By going to dass.npst.no/humans.txt you can notice this suspicious scrollbar on the right side. ----------->>>
+
+Or be like me and check the source-code because you didn’t notice...
 
 At the bottom we find the Egg: 
 ![](images/egg1_1.png)
