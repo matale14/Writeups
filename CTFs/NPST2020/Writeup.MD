@@ -1168,6 +1168,12 @@ Mastering SLEDE8 can be crucial in this pre-Christmas season! If you think this 
 ## Egg #7
 This requires us to write the result of A+B as an ASCII string.
 
+For this I first figured out the decimal in the 100-position for both numbers and added them. So I could write that down first.
+
+but I also had to check that the remaining numbers would not go over 100, as that would increase the 100-decimal by one.
+
+After that it was just the same idea as above.
+
 ```
 ; Føde består av to tall, A og B
 ; Skriv ut resultatet av A + B som en ASCII-streng
