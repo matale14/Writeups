@@ -888,7 +888,15 @@ Go to Help->Open Mal 3d(x86)
 
 ![](images/egg6_1.png)
 
-We get some Assembly x86 code
+We get some Assembly x86 code, with a funny message:
+
+
+```
+A problem has been detected, and DASS has been terminated to prevent damage to the system.
+The problem seems to be caused by the following module: ENDUSER.DLL
+
+Technical information:
+```
 
 ![](images/egg6_2.png)
 
