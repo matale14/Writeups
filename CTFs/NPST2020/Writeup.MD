@@ -937,11 +937,13 @@ So when we receive the number value of (A + B) mod 256, we need to go number by 
 So after calculating the answer, we just check if the value is under each tenth. And manually write in the number in the decimal ten position. We then go up all the way to under 100. Then we check if it is under 200, and finally under 300. As we know that the maximum answer is 255.
 
 A small example:
+
 A = 200
 
 B = 34
 
 (A + B) = 234
+
 
 234 mod 256 = 234
 
@@ -954,8 +956,10 @@ Is 234 under 20?
 
 No.
 
-…
-…
+...
+
+...
+
 ...
 
 Is 234 under 300?
@@ -964,19 +968,25 @@ Yes.
 
 Write 2.
 
+
 234 - 200 = 34
 
 Is 34 under 10?
 
 No.
-…
-…
+
+...
+
+...
+
+...
 
 Is 34 under 40?
 
 Yes.
 
 Write 3.
+
 
 34-30.
 
@@ -985,6 +995,7 @@ Is 4 under 10?
 Yes.
 
 Write 4
+
 
 Done.
 
