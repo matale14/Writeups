@@ -145,7 +145,6 @@ Excellent!
 Welcome to NPST! As your immediate leader, I hope you are ready for greater challenges in the days to come. I will have new tasks for you everyday. Feel free to use the time between the tasks to familiarize yourself well with DASS and its functions.
 
 For each task you complete, you get points that are shown in the points overview. How you do it there could possibly affect next year's wage negotiations.
-
 ```
 
 ## December 2nd
@@ -200,7 +199,6 @@ Great to see that you are in the process of working. Hope you are well taken car
 I guessed the password to the zip file,, and it worked!
 
 Sent from my PDA.
-
 ```
 
 ![](images/luke3_0.png)
@@ -250,20 +248,28 @@ We in the middle management group have started a preliminary project for a study
 We in the middle management group are very interested in target figures, and the management wants a report as soon as possible on the sum of the column Targets from and including 2020 to and including 2040. Can you answer me with this sum, surrounded by “PST {“ and ”}” when you find out?
 
 📎 files.zip
-
 ```
 
 ![](images/luke4.png)
 
 The zip file contains 4 sql files: 
+
 GenererRapport.sql(GenerateRapport.sql) 
+
 dbo.ProcedureDatoPaaske.sql(ProcedureDateEaster.sql)
+
 dbo.FunctionPaaskeAften.sql(FunctionEasterEvening.sql)
+
 dbo.DatoPaaske.sql(DateEaster.sql)
-and a csv file, DatoPaaske.csv(DateEaster.csv). The csv file is a result of running the sql files which generates the numbers for Easter.
+
+and a csv file, DatoPaaske.csv(DateEaster.csv). 
+
+The csv file is a result of running the sql files which generates the numbers for Easter.
 The CSV contains 5 columns separated by a semi-colon.
 
 DatoPaaskeId;PaaskeAften;PaaskeFerieUke;Aar;MaalTall
+
+translated:
 
 DateEasterID;EasterEvening;EasterVacationWeek;Year;TargetNumbers
 
@@ -426,7 +432,9 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 ```
+
 Instead of going through the sql calculations and fixing it, I created my own in python:
+
 ```
 import datetime
 
@@ -455,6 +463,7 @@ while year <= 2040:
 
 print(sum(malltall_sum))
 ```
+
 However it does seem like the calculations are based off this algorithm:
 https://dzone.com/articles/algorithm-calculating-date
 And the mistake seems to be that the variable k is meant to be k =  c % 4, while the sql calculations do k = aar % 4 which is the Year instead of c. However I have not tested this. As my solution worked fine.
@@ -491,6 +500,7 @@ log = pandas.read_csv("log.csv", ";", names=['Date', "Name", "Section", "Message
 
 print(log['Name'].value_counts())
 ```
+
 Luckily I got a match on the first try, by sorting by names:
 
 ```
@@ -508,6 +518,7 @@ Ni%E2%80%8Bssen+%3CJule+Nissen%3E     1
 Name: Name, Length: 205, dtype: int64
 [Finished in 0.8s]
 ```
+
 We can see here that there is something wrong with one of the names here.
 ![](images/luke5_1.png)
 I locate the wrong name easily by just searching the log:
@@ -730,8 +741,8 @@ Well done!
 Now we know that you can contribute with similar tasks in the future.
 
 Do not forget to update your competence in the Competence Bank, it is important that your profile is no less than 100% updated!
-
 ```
+
 ## December 9th
 ```
 A collaborative service has sent us a chat log from a suspected SPST agent. The message attracted attention due to the excessive use of emojis. The message appears to be obfuscated in some way that is not known to us from previous seizures.
@@ -742,14 +753,18 @@ We wonder if HEXMAS encoding may have been used. Can you investigate that furthe
 
 🤶🛷✨🎶🎅✨🎅🎅🛷🤶🎄🔥🎆🦌🎁🛷🎅❄🛷🛷🎅🎶🎅✨🎅🦌🥣🔥🛷🦌⛄🎅🌟🛷🛷🔥🎄🦌🎅✨🦌🦌🕯🎶🎅🤶🦌❄🎁🕯 🎅✨🎶👼🌟🎆🕯🌟❄👼🎅🎅🤶❄🎄👼🎆🔥🎁🛷🤶👼🎅🎅🎅🎅🎅🎅
 ```
+
 ![](images/luke9_0.png)
+
 Here we get a message full of emojis. And on the first line we get 16 different emojis. This should be a clear sign, especially along with the HEXMAS tip. That this has something to do with hex. So my first thought was that the top line was a sort of dictionary for the rest of the message.
 🎅= 0 and 🛷= F
 However when I translated this. I only received a hex string I couldn't make any sense of.
 After trying a number of things, I accidentally misclicked the Magic button in Cyberchef.
 
 And there it is. It was the common compression algorithm Gzip. I was already familiar with the common “PK” magic key of zipped files. But on this day I learned of the Gzip magic 1F8B. I now always run stuff through the Magic operation on cyberchef.
+
 ![](images/luke9_1.png)
+
 This was the python code I used to translate the HEXMAS encoding to hex string:
 
 ```
@@ -782,15 +797,14 @@ hexxed_mas = []
 for c in hexmas:
     print(hexdict[c], end="")
     hexxed_mas.append(hexdict[c])
-
 ```
 
 ```
 Brilliantly done!
 
-Then we know we can decode similar messages quickly in the future!
-
+Now we know we can decode similar messages quickly in the future!
 ```
+
 ## Egg #6
 We got a system update on the 9th. that introduced mal.exe, or paint.
 
@@ -821,7 +835,6 @@ Nice if you report back with the verification code after you have solved the e-l
 You can also find the documentation in the same place as before, or on GitHub.
 
 📎 SLEDE8.md
-
 ```
 
 ![](images/luke10.png)
@@ -882,9 +895,6 @@ And here is the slede8 code I wrote:
 
 ; Eksempel: A=0xA0 og B=0x08 => '168'
 ; Eksempel: A=0xFF og B=0xFF => '254'
-
-
-
 
 
 LES r10
@@ -1035,6 +1045,7 @@ SKRIV r12
 HOPP skriv_tall
 ```
 
+
 ```
 Well done!
 
@@ -1042,18 +1053,15 @@ Mastering SLEDE8 can be crucial in this pre-Christmas season! If you think this 
 
 ```
 
-
 ## Egg #7
 This requires us to write the result of A+B as an ASCII string.
 
 ```
-
 ; Føde består av to tall, A og B
 ; Skriv ut resultatet av A + B som en ASCII-streng
 
 ; Eksempel: A=0xA0 og B=0x08 => '168'
 ; Eksempel: A=0xFF og B=0xFF => '510'
-
 
 
 
@@ -1346,7 +1354,6 @@ In the meantime, I have been working hard to assemble the code. Can you understa
 See attached file for the mounted code. Tastefinger thought it was relevant to tell that you can find useful tools here.
 
 📎 program.s8
-
 ```
 
 ![](images/luke12.png)
@@ -1611,6 +1618,7 @@ print(wowgen('program.s8', "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 When we read the program as we feed it junk. We see that there is a check for the input that needs to be fulfilled. And that happens 26 times. My method was to follow along with the runtime and then note anytime the read number register interacted with something, and the interacted register interacted with something.
 The check consists of two XOR operations and then an OR operation before checking if the register was equal to 0. 
 So in the runtime, any time there was an OR operation, I noted what the required value would be.
+
 ```
 x = 0 ^ regs[3] ^ regs[7]
 ```
@@ -1620,6 +1628,9 @@ for x in solution:
         x = chr(x)
         print(x, end="")
 ```
+
+We can also remove all jump-functionality. so that all commands are printed. The issue with this is that stored data could appear as commands instead of data, if they happen to have the same values.
+
 
 ```
 Thanks for the input!
@@ -1642,7 +1653,6 @@ The following message was sent to NPST by fax, and no one in the post office und
 Can you find meaning in the message?
 
 📎melding.txt
-
 ```
 
 ![](images/luke13_0.png)
@@ -1652,7 +1662,7 @@ The message was a 10 by 183 block of text
 ![](images/luke13_1.png)
 
 I tried a lot of different things on this one. I tried shifting bytes, shifting hexadecimals, shifting hexadecimals with norwegian alphabet. Checking out advanced 1337 speak. XORing all the lines together, and probably more things I deleted.
-I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. Then it hit me a couple of hours later, and I replaced the groups with spaces. And I got presented with the flag.
+I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. Then it hit me later, and I replaced the groups with spaces. And I got presented with the flag.
 
 ```
 from collections import Counter
@@ -1701,6 +1711,7 @@ for c in rem:
 
 print(nym)
 ```
+![](images/luke13_2.png)
 ```
 Well solved!
 
@@ -1713,7 +1724,6 @@ The latest in target number reporting is the number of completed e-learning modu
 The developer tool can still be found here. See attached documentation, or on GitHub.
 
 📎 SLEDE8.md
-
 ```
 
 ![](images/luke14.png)
