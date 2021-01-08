@@ -2635,7 +2635,7 @@ Sent from my PDA.
 ```
 ![](images/luke24_0.png)
 
-![](images/luke24_1.png)
+![](images/luke24_1.gif)
 
 
 ```
