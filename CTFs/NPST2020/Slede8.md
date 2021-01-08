@@ -183,7 +183,7 @@ The value in the selected register is then spat out.
 Example ([try for yourself] (https: //slede8.npst.no#N4Igzg9grgTgxgUwMIQCYJALhAbgASpR4DWAhgHZ4LmowJ4DyADkwOZQA2TeALgJYc8AU7wA3PmHoBBAMpIAkvIC0ohDFR81AHXL5VqYbxgBPYsXpMRU0kuLlSLagDodOmQFEAKp7wwADAA0eH4AHgAsAIx4ePj+eAC8weERbgDSAEryAGq+ftH50fhgxDB8okmReAAUAORSNQCUOgAy7jK5BZ2xeYmhkWmZOXGdMXjFpeV9AEzVNQBCjS1tHSOFHb3hAMwD2StdYyVlFZuzSIvkMp4MAArXq-n4pKJgHFA8PHgAZgAfMGJ8eFYQj+PAgAFsvhA-j90CAAiA+OQmG8sCAwlMwpsQABfIA)):
 
 ```
-; with food equal to '4243' this gulps up 'ABC'
+; with food equal to '4243' this regurgitates 'ABC'
 
 SETT r0, 0x41   ; r0 = 0x41
 SKRIV r0        ; type 0x41 ('A')
