@@ -2636,7 +2636,44 @@ Sent from my PDA.
 ![](images/luke24_0.png)
 
 ![](images/luke24_1.gif)
+As was stated, the autopilot is not doing well.
 
+We can see the specifications from the simulator:
+```
+
+Position ::= SEQUENCE {
+	x INTEGER(0..255),
+	y INTEGER(0..255)
+}
+
+Target ::= SEQUENCE {
+	upperLeftCorner Position,
+	lowerRightCorner Position
+}
+
+AutopilotFøde ::= SEQUENCE {
+	currPos Position,
+	prevPos Position,
+	target Target
+}
+
+AutopilotOppgulp ::= SEQUENCE {
+	leftThruster BOOLEAN,
+	rightThruster BOOLEAN,
+	verticalThruster BOOLEAN
+}
+				
+```
+We can upload a slede8 program to update the autopilot.
+
+So our task is to use these specifications to create a slede8 program to make sure that Santa lands safely.
+
+
+
+
+
+when the landing succeeds, we get a link to this website:
+![](images/christmas.gif)
 
 ```
 Chief NPST will appreciate this!
