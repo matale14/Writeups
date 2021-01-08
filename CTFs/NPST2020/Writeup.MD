@@ -607,6 +607,28 @@ There will be more e-learning modules later.
 ## Egg #5
 Solve the Hello World E-Learning module in slede8.
 
+This can be done easily by just throwing the hex for "Hello World!" into the input, and just reading it straight into the output.
+
+```
+SETT r3, 0x01
+FINN message
+HOPP loop
+
+message: 
+.DATA 0x48,0x65,0x6c,0x6c,0x6f,0x2c,0x20,0x57,0x6f,0x72,0x6c,0x64,0x21,0x0a,0x00
+
+loop:
+LAST r2
+PLUSS r0, r3
+LIK r2, r4
+BHOPP end
+SKRIV r2
+HOPP loop
+
+end:
+STOPP
+```
+
 ## Egg #2
 We now know what kladd.txt is.
 
