@@ -2588,10 +2588,11 @@ The file viktig_meldig.json(important_message.json)
 	"platform": 	"STM32F3",
 	"ciphertext": 	"44f23b820d2240177475c36842137ca1a84de5664f6a10f9a8b2d551704cf0d078028ab2aaccf5a179a404c2b7b2e6685291fa3db038facd111484f97d54f1f6"
 }
-
-Tells us we need an AES key to decrypt the ciphertext
-
 ```
+
+Tells us we need a key to decrypt the ciphertext. We also see that it is AES-128-ECB encryption.
+
+
 I tried a couple of things with the different numpy files to attempt to find some pattern or something that could be the AES key. But I couldn't find anything. So I resorted to googling other CTF’s with the same theme. 
 I found this article https://www.tandfonline.com/doi/pdf/10.1080/23742917.2016.1231523?needAccess=true&#:~:text=The%20assumption%20in%20using%20the,of%20power%20in%20a%20device 
 And knew I was on the right page. I did some more googling hoping to find some code so I didn't have to write my own based on the paper. 
