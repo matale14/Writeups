@@ -1,6 +1,13 @@
 # NPST-2020
+
+
+From December 1st to December 24th. PST will release a new Task/challenge for us to solve. This is all wrapped neatly in a fun package where we are employees of the NPST,
+
+The North Polar Security Service. 
+
 This years NPST was centered around a new System called DASS.
 This bears resemblance to an old school windows OS
+
 ![](images/dass.png)
 
 In the start-menu we have some different options to choose from. Some of these came later during some system updates. Like Mal(paint) and Sledesimulator(SleighSimulator)
@@ -25,14 +32,19 @@ The scoring flag is in the form PST{.*}, For example PST {someTextandSomeNumbers
 
 Flags are delivered in Snabel-A in response to the Middle Manager on today's task.
 
-By entering a valid email address, you get the opportunity to win prizes. This is therefore completely voluntary! Email addresses will only be used to contact any winners, and they will be deleted after all winners have been announced. You can change your email at any time under Settings in the Snabel-A application.
+By entering a valid email address, you get the opportunity to win prizes. This is therefore completely voluntary! 
+Email addresses will only be used to contact any winners, and they will be deleted after all winners have been announced. 
+You can change your email at any time under Settings in the Snabel-A application.
 
-Only users who have entered a valid email can win prizes. The winner of the Christmas calendar will be drawn at random among all participants, the more points you have, the greater the probability of being drawn.
+Only users who have entered a valid email can win prizes. The winner of the Christmas calendar will be drawn at random among 
+all participants, the more points you have, the greater the probability of being drawn.
 
 All user accounts and associated data will be deleted after all winners have been announced, no later than February 1st, 2021.
 
 Cooperation
-There is an unofficial Discord channel that was used extensively by many participants last year. We encourage everyone who wants to discuss the tasks with others to use this. PST has nothing to do with the channel, but has been allowed to have a user present who you can ask questions to if you wish. Please respect the rules set by the channel administrators.
+There is an unofficial Discord channel that was used extensively by many participants last year. We encourage everyone who wants 
+to discuss the tasks with others to use this. PST has nothing to do with the channel, but has been allowed to have a user present 
+who you can ask questions to if you wish. Please respect the rules set by the channel administrators.
 ```
 ![](images/rules.png)
 
@@ -41,7 +53,8 @@ On the 5th, we received a message detailing how to do extra-tasks called eggs.
 I will be detailing these on the dates they were unlocked as well.
 
 ```
-It is still possible to respond to this year's employee survey. Feel free to praise me in the clouds, so that I appear as a good middle manager! Do this by sending a message to HR with the text EGG{w0rlds_b3st_b0ss}.
+It is still possible to respond to this year's employee survey. Feel free to praise me in the clouds, so that I appear as a 
+good middle manager! Do this by sending a message to HR with the text EGG{w0rlds_b3st_b0ss}.
 
 Answers are rewarded with a star in the margin!
 
@@ -49,7 +62,8 @@ Answers are rewarded with a star in the margin!
 
 Hi Middle Manager,
 
-As you are probably aware, we are currently conducting employee surveys. Based on the results so far, we want to call you in for a concern call 07.12, at 13:24.
+As you are probably aware, we are currently conducting employee surveys. Based on the results so far, we want to call you in 
+for a concern call 07.12, at 13:24.
 
 Meet precisely.
 
@@ -75,7 +89,8 @@ At the bottom we find the Egg:
 ```
 Hi,
 
-Can you confirm that you have gained access to the system? To do this, reply to this message with the verification code RUV{JgkJqPåGtFgvLwnKilgp}.
+Can you confirm that you have gained access to the system? To do this, reply to this message with the 
+verification code RUV{JgkJqPåGtFgvLwnKilgp}.
 
 NOTE: I lost your verification code in the salad, so you may need to correct it before responding.
 
@@ -142,14 +157,17 @@ In order get a norwegian alphabet.
 ```
 Excellent!
 
-Welcome to NPST! As your immediate leader, I hope you are ready for greater challenges in the days to come. I will have new tasks for you everyday. Feel free to use the time between the tasks to familiarize yourself well with DASS and its functions.
+Welcome to NPST! As your immediate leader, I hope you are ready for greater challenges in the days to come. 
+I will have new tasks for you everyday. Feel free to use the time between the tasks to familiarize yourself well with DASS and its functions.
 
-For each task you complete, you get points that are shown in the points overview. How you do it there could possibly affect next year's wage negotiations.
+For each task you complete, you get points that are shown in the points overview. How you do it there could possibly affect 
+next year's wage negotiations.
 ```
 
 ## December 2nd
 ```
-Intelligence officer GWYN, Pen was stopped at customs on departure on November 25th. In this connection, we secured a storage medium that contained a mysterious file. Can you parse the file pen_gwyn_greatest_hits.mid?
+Intelligence officer GWYN, Pen was stopped at customs on departure on November 25th. In this connection, we secured a storage medium 
+that contained a mysterious file. Can you parse the file pen_gwyn_greatest_hits.mid?
 
 It is still unknown why GWYN was at the North Pole at this time, but he is said to have been observed at the local water hole Svalbar.
 
@@ -190,7 +208,8 @@ Cleverly executed! The rest of the confiscated items will be processed in the li
 ```
 We also get a message from Santa himself:
 ```
-Great to see that you are in the process of working. Hope you are well taken care of by your immediate manager, and contribute to a Merry Christmas!
+Great to see that you are in the process of working. Hope you are well taken care of by your immediate manager, and contribute to 
+a Merry Christmas!
 
 🎅
 ```
@@ -211,7 +230,8 @@ Opening up the zip-file reveals two files, cupcake.png. And kladd.txt
 Cupcake.png is a high-resolution image that looks very low-res. While kladd.txt is a text file containing 8 sleigh emojis with an encoded string.
 
 ```
-Your colleague Tastefinger has identified something 🧁 with the file cupcake.png from the seizure you worked with yesterday. It is PROBABLE that there may be information in the image that is not visible to the naked eye. Can't wait to hear what you come up with!
+Your colleague Tastefinger has identified something 🧁 with the file cupcake.png from the seizure you worked with yesterday. 
+It is PROBABLE that there may be information in the image that is not visible to the naked eye. Can't wait to hear what you come up with!
 ```
 
 ![](images/luke3_2.png)
@@ -243,9 +263,11 @@ Hi,
 
 As everyone knows, Christmas lasts until Easter(A common Norwegian phrase), and here the problems start ...
 
-We in the middle management group have started a preliminary project for a study of staffing strategy for Easter in the years ahead. The system we use to find out when it's Easter is behaving strangely, so that this important work has now been put on hold. Can you figure out what's wrong?
+We in the middle management group have started a preliminary project for a study of staffing strategy for Easter in the years ahead. 
+The system we use to find out when it's Easter is behaving strangely, so that this important work has now been put on hold. Can you figure out what's wrong?
 
-We in the middle management group are very interested in target figures, and the management wants a report as soon as possible on the sum of the column Targets from and including 2020 to and including 2040. Can you answer me with this sum, surrounded by “PST {“ and ”}” when you find out?
+We in the middle management group are very interested in target figures, and the management wants a report as soon as possible 
+on the sum of the column Targets from and including 2020 to and including 2040. Can you answer me with this sum, surrounded by “PST {“ and ”}” when you find out?
 
 📎 files.zip
 ```
@@ -477,7 +499,8 @@ Now the management team should be satisfied.
 
 ## December 5th
 ```
-Access problems to the documentation vault are reported. We have received logs from the Section for passwords and prevention during the period where it is suspected that the error may be. Do you find anything 🧁 in the logs?
+Access problems to the documentation vault are reported. We have received logs from the Section for passwords and prevention 
+during the period where it is suspected that the error may be. Do you find anything 🧁 in the logs?
 
 📎 log.csv
 ```
@@ -535,7 +558,8 @@ It may appear that a threat actor has managed to reset Chief NPST's password via
 ```
 It's time for you to start e-learning in SLEDE-8. This is the successor to SLEDE-4, and is used diligently by our developers.
 
-Nice if you report back with the verification code after you have solved the e-learning module with code “4032996b1bbb67f6”. The developer tool can be found here(Hyperlink).
+Nice if you report back with the verification code after you have solved the e-learning module with code “4032996b1bbb67f6”. 
+The developer tool can be found here(Hyperlink).
 
 See also attached documentation.
 
@@ -592,7 +616,8 @@ Running the program gives us the egg:
 
 ##  December 7th
 ```
-A strange signal has been picked up here at Santa's workshop. It does not seem to be a continuous signal, as it seems to come and go a bit. Can you figure out what it is?
+A strange signal has been picked up here at Santa's workshop. It does not seem to be a continuous signal, as it seems to come and go a bit. 
+Can you figure out what it is?
 
 📎 data.complex16u
 ```
@@ -753,7 +778,8 @@ Do not forget to update your competence in the Competence Bank, it is important 
 
 ## December 9th
 ```
-A collaborative service has sent us a chat log from a suspected SPST agent. The message attracted attention due to the excessive use of emojis. The message appears to be obfuscated in some way that is not known to us from previous seizures.
+A collaborative service has sent us a chat log from a suspected SPST agent. The message attracted attention due to the excessive use of emojis. 
+The message appears to be obfuscated in some way that is not known to us from previous seizures.
 
 We wonder if HEXMAS encoding may have been used. Can you investigate that further?
 
@@ -838,7 +864,8 @@ We get the Raw hex, which we can just paste into cyberchef:
 ```
 Hope you are ready for new challenges in SLEDE8.
 
-Nice if you report back with the verification code after you have solved the e-learning module with code 82ec70284b51eb12. The developer tool can still be found here(hyperlink).
+Nice if you report back with the verification code after you have solved the e-learning module with code 82ec70284b51eb12. 
+The developer tool can still be found here(hyperlink).
 
 You can also find the documentation in the same place as before, or on GitHub.
 
@@ -1300,7 +1327,9 @@ HOPP skriv_tall
 
 ## December 11th
 ```
-The internal security team at NPST has discovered that an unauthorized modification has taken place on Nissen's list of good and bad children. They claim that an md5 sum has been changed, but they need your help to find out exactly which one. Attached is a backup copy with Santa's list from the time the security team believes the modification has occurred.
+The internal security team at NPST has discovered that an unauthorized modification has taken place on Nissen's list of good and bad children. 
+They claim that an md5 sum has been changed, but they need your help to find out exactly which one. Attached is a backup copy with 
+Santa's list from the time the security team believes the modification has occurred.
 
 📎 list.zip
 ```
@@ -1353,9 +1382,11 @@ I think we need to take this further in the line.
 
 ## December 12th
 ```
-It is reported that SouthPolarSecurityService(SPST) had published s8asm code from its GitHub user at the beginning of December. This was quickly removed, but your colleague Tastefinger managed to secure the source code.
+It is reported that SouthPolarSecurityService(SPST) had published s8asm code from its GitHub user at the beginning of December. 
+This was quickly removed, but your colleague Tastefinger managed to secure the source code.
 
-We ask ourselves how they got the specification for this language. HR follows up on who has left ila in the last year, and whether any of these may have shared this information with SPST.
+We ask ourselves how they got the specification for this language. HR follows up on who has left ila in the last year, 
+and whether any of these may have shared this information with SPST.
 
 In the meantime, I have been working hard to assemble the code. Can you understand what SPST wants with this? I look forward to valuable input from you!
 
@@ -1656,7 +1687,8 @@ This was similar to Task #12, but a lot more convoluted.
 
 ## December 13th
 ```
-The following message was sent to NPST by fax, and no one in the post office understands the content. It looks like it uses some form of hex encoding, but even the hex decoding makes no sense.
+The following message was sent to NPST by fax, and no one in the post office understands the content. It looks like it uses some form of 
+hex encoding, but even the hex decoding makes no sense.
 
 Can you find meaning in the message?
 
@@ -1727,7 +1759,8 @@ It was not easy to see right away.
 ```
 ## December 14th
 ```
-The latest in target number reporting is the number of completed e-learning modules in SLEDE8 among the employees, so could you complete module 97672649875ca349? Report back as usual when you're done!
+The latest in target number reporting is the number of completed e-learning modules in SLEDE8 among the employees, so could you 
+complete module 97672649875ca349? Report back as usual when you're done!
 
 The developer tool can still be found here. See attached documentation, or on GitHub.
 
@@ -1801,7 +1834,8 @@ STOPP
 ```
 Great, you're really starting to get the hang of this !.
 
-At NPST, we love short and efficient code. If you recognize yourself in this, you can look at a variant of today's e-learning module, dc0583ff102e48c6. The tests should be the same as you have already passed, but the requirements for efficiency and comprehension have become stricter.
+At NPST, we love short and efficient code. If you recognize yourself in this, you can look at a variant of today's e-learning module, dc0583ff102e48c6. 
+The tests should be the same as you have already passed, but the requirements for efficiency and comprehension have become stricter.
 ```
 
 ## Egg #9
@@ -1810,7 +1844,8 @@ This was just the same as the task of the day, but it required efficient code. L
 
 ## December 15th
 ```
-Following a private trip (earlier this year) to watch football in England, one of the elf officers has repeatedly picked up a mysterious signal. It looks like the signal is quite continuous, but it varies slightly in frequency.
+Following a private trip (earlier this year) to watch football in England, one of the elf officers has repeatedly picked up a mysterious signal. 
+It looks like the signal is quite continuous, but it varies slightly in frequency.
 
 This task has been in the backlog with us, but it would have been very nice if you could take a look and see if there is a message in the signal!
 
@@ -1845,7 +1880,8 @@ That was a funny message to send with Manchester coding.
 
 ## December 16th
 ```
-I am still a little behind in terms of targets after the 'answer all' event earlier this month. It is probably therefore best for your salary development if you complete the e-learning module a522c5a55bcb743e in SLEDE8.
+I am still a little behind in terms of targets after the 'answer all' event earlier this month. It is probably therefore best for your 
+salary development if you complete the e-learning module a522c5a55bcb743e in SLEDE8.
 
 The developer tool can still be found here. See documentation on GitHub.
 
@@ -1948,7 +1984,9 @@ The trick is to write the amount of times each number appears in memory, and jus
 
 ## December 17th
 ```
-NPST has tapped the phone of a suspected intelligence officer from SPST. The telecommunications operator has transmitted data in accordance with ETSI232-1, but our systems are unable to understand the content. We suspect that a very simple code has been used, but our analysts say it is LITTLE likely that XMAS has been used.
+NPST has tapped the phone of a suspected intelligence officer from SPST. The telecommunications operator has transmitted data in accordance with ETSI232-1, 
+but our systems are unable to understand the content. We suspect that a very simple code has been used, but our analysts say 
+it is NOT likely that XMAS has been used.
 
 📎 data.b64.txt
 📎 ETSI232-1.txt
@@ -2345,9 +2383,13 @@ Well done!
 
 ## December 19th
 ```
-To prevent the responsibility for the Christmas gift vault from resting on one individual, elf officer Sigurd has developed an algorithm that can divide a secret into X numbers of equal shares. The algorithm is further designed so that a Y number of arbitrary proportions is needed to be able to return to the original secret.
+To prevent the responsibility for the Christmas gift vault from resting on one individual, elf officer Sigurd has developed an 
+algorithm that can divide a secret into X numbers of equal shares. The algorithm is further designed so that a Y number of arbitrary 
+proportions is needed to be able to return to the original secret.
 
-In the trial phase, Sigurd has divided the key to the Christmas gift vault into five parts, and decided that three parts are needed to unlock it. Sigurd has given the first two shares (1 and 2) to Santa, while elf officer Reidar has received share 3, and elf officer Adrian has received share 5. Sigurd has kept share 4 himself.
+In the trial phase, Sigurd has divided the key to the Christmas gift vault into five parts, and decided that three parts are needed to 
+unlock it. Sigurd has given the first two shares (1 and 2) to Santa, while elf officer Reidar has received share 3, and elf officer 
+Adrian has received share 5. Sigurd has kept share 4 himself.
 
 (X = 5, Y = 3)
 
@@ -2405,7 +2447,8 @@ That's good, because I wanted an official Windows 95 Christmas sweater!
 
 #December 20th
 ```
-We believe an intruder may have gained access to our internal network. System variables seem to be tampered with, but we also think that some information is missing?
+We believe an intruder may have gained access to our internal network. System variables seem to be tampered with, but we also think 
+that some information is missing?
 
 After all the strange events lately, we are happily monitoring our network. This case has high priority, fine if you look at it right away.
 
@@ -2475,7 +2518,8 @@ This confirms the suspicion that an outsider has access to our network. I'm crea
 ```
 We have received a message from a cooperating service, but it seems that they have forgotten to send the key in a separate, secure channel.
 
-Another elf officer has identified a pattern in the message, and has managed to decode the first four characters. Unfortunately, this elf officer has taken a break today, reportedly to play tetris, so we need your help with the rest of the message.
+Another elf officer has identified a pattern in the message, and has managed to decode the first four characters. Unfortunately, 
+this elf officer has taken a break today, reportedly to play tetris, so we need your help with the rest of the message.
 
 Good luck!
 
@@ -2565,11 +2609,14 @@ Thanks for the help!
 ```
 Hi,
 
-The only station for decrypting wishlists has taken the evening off! We have received an encrypted wish list from a person high up on Santa's list of kind children, and now we can not decrypt it. With only two days until Christmas, this is, to put it mildly, a crisis.
+The only station for decrypting wishlists has taken the evening off! We have received an encrypted wish list from a person high up on 
+Santa's list of kind children, and now we can not decrypt it. With only two days until Christmas, this is, to put it mildly, a crisis.
 
-One of the elf officers has tried to read the firmware from one of the reserve sending stations to get the crypto key, without much success. Unfortunately, it appears that the microcontroller has read protection turned on.
+One of the elf officers has tried to read the firmware from one of the reserve sending stations to get the crypto key, without much success. 
+Unfortunately, it appears that the microcontroller has read protection turned on.
 
-As a side track, another elf officer tried to connect with an oscilloscope to measure power consumption, while she sent 50 wish lists that only contained rubbish. Despite diligent efforts, the elf officer does not see any connection between the sent wish lists and measured power consumption.
+As a side track, another elf officer tried to connect with an oscilloscope to measure power consumption, while she sent 50 wish lists that 
+only contained rubbish. Despite diligent efforts, the elf officer does not see any connection between the sent wish lists and measured power consumption.
 
 Do you find a connection between wish lists and power consumption? And do you get the crypto key, and decrypt the important message?
 
@@ -2688,7 +2735,8 @@ Well done!
 ```
 ## December 23rd
 ```
-Santa's workshop at the North Pole has received this Christmas card. The card was not in an envelope and has no postmark or stamps. So someone must have put it right in the mailbox.
+Santa's workshop at the North Pole has received this Christmas card. The card was not in an envelope and has no postmark or stamps. 
+So someone must have put it right in the mailbox.
 
 Can you find out if there is anything strange about the card?
 ```
@@ -2720,11 +2768,14 @@ As you know, the reindeer are out of action, so the autopilot must work for a Me
 
 Can you develop a new autopilot? Use the standard development tool for SLEDE8.
 
-In addition, you can upgrade to Service Pack 2, if you have not already done so. There you will find a simulation tool so you can test your solution before it is published to the sled.
+In addition, you can upgrade to Service Pack 2, if you have not already done so. There you will find a simulation tool 
+so you can test your solution before it is published to the sled.
 
 All kind children now put their trust in you! Good luck!
 
-The autopilot is stateless. It reads in relevant positions such as food, and provides sensible incentive. Documentation of these is available in the simulator. The task is easy to do: Decide which of the three engines, if any, will be active based on the previous and current position. All you have to think about is that you have to land softly enough, as well as hit the target, so that NISSEN recovers unscathed from the landing.
+The autopilot is stateless. It reads in relevant positions such as food, and provides sensible incentive. Documentation of these is available in the simulator. 
+The task is easy to do: Decide which of the three engines, if any, will be active based on the previous and current position. 
+All you have to think about is that you have to land softly enough, as well as hit the target, so that NISSEN recovers unscathed from the landing.
 
 Could have done this in a jiffy myself, but is unfortunately busy eating gingerbread.
 
