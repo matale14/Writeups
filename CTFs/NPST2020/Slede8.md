@@ -73,19 +73,19 @@ Quit the program.
 ALE operations take two registers as an argument.
 The result is written to the first register.
 
-- `OG rA, rB`     ; AND
-- `ELLER rA, rB`  ; OR
-- `XELLER rA, rB` ; XOR
-- `VSKIFT rA, rB` ; LEFT SHIFT
-- `HSKIFT rA, rB` ; RIGHT SHIFT 
-- `PLUSS rA, rB`  ; PLUS
-- `MINUS rA, rB`  ; MINUS
+- `OG rA, rB     ; AND`
+- `ELLER rA, rB  ; OR`
+- `XELLER rA, rB ; XOR`
+- `VSKIFT rA, rB ; LEFT SHIFT`
+- `HSKIFT rA, rB ; RIGHT SHIFT`
+- `PLUSS rA, rB  ; PLUS`
+- `MINUS rA, rB  ; MINUS`
 
 ** NOTE **: Arithmetic operations are modulo 0x100.
 
 Example ([try for yourself] (https: //slede8.npst.no#N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAAwA0xAjAEwAcxTA3KWcQLw0PEAUZAD3pkAlAB0AdviKlqVQQCMmxVjGqcm1dfwFkF4iZIAKAGQCqOHGyprlq9l3LEA1LMkBZAJIA5C9dl2bBpOALRuEgDyAOL+tsosQY7sAGTheCYmeABKseoJTknEAD7hABrpmTnkNnn2wewAeuEAajgA0p4AYiTVASqJQQA8g+EAEu1dPZR9dYUAfHPhkjgEEUZGIBQgAJYSAA5QAC5YICAAvkA)):
 
-`` `
+```
 SETT r0, 128; r0 = 128 (0x80)
 SETT r1, 0xb; r1 = 11 (0x0b)
 
@@ -98,23 +98,23 @@ VSKIFT r0, r1  ; r0 = r0 << r1
 HSKIFT r0, r1  ; r0 = r0 >> r1
 
 STOPP
-`` `
+```
 
 ### Comparison
 
 Comparison operations take two registers as an argument.
 The result is persisted in `flag` until the next comparison operation.
 
-- `LIK rA, rB`   ; EQUAL
-- `ULIK rA, rB`  ; NOT EQUAL
-- `ME rA, rB`    ; LESS THAN
-- `MEL rA, rB`   ; LESS THAN OR EQUAL TO
-- `SE rA, rB`    ; BIGGER THAN
-- `SEL rA, rB`   ; BIGGER THAN OR EQUAL TO
+- `LIK rA, rB   ; EQUAL`
+- `ULIK rA, rB  ; NOT EQUAL`
+- `ME rA, rB    ; LESS THAN`
+- `MEL rA, rB   ; LESS THAN OR EQUAL TO`
+- `SE rA, rB    ; BIGGER THAN`
+- `SEL rA, rB   ; BIGGER THAN OR EQUAL TO`
 
 Example ([try for yourself] (https: //slede8.npst.no#N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAAwA0xArMXQNylnEC8NAOgHb5GkCMVPs2KMYfVsSFcuAGQCSAaSZUxdEU1ZtVLAHzEAZgBsAhgHMJzABT7jhsAgCUXAKryl5FePXliAQi3iugYm5mzilgAuMFCOXACyeMr8at7MADx02npGZhLhUTFOnAkySaoMGmkBrNkhecSR0bHciR7JaqLMeslBOaHEVjZ2zfilbeWpxDrVvXVsg7b2RVw4BADyAAobIBQgAJacAA5QEVggIAC+QA)):
 
-`` `
+```
 SETT r0, 5; r0 = 5
 SETT r1, 10; r1 = 10
 
@@ -126,7 +126,7 @@ SE r0, r1    ; r0> r1 => flag = 0 (false)
 SEL r0, r1   ; r0> = r1 => flag = 0 (false)
 
 STOPP
-`` `
+```
 
 
 ### Program flow
@@ -134,10 +134,10 @@ STOPP
 Sometimes you want to do more than run each instruction once from top to bottom.
 SLEDE8 covers this need by supporting two types of jumps.
 
-- `HOPP address`  ;JUMP
-- `HOPP label`    ;JUMP
-- `BHOPP address` ;BJUMP
-- `BHOPP label`   ;BJUMP
+- `HOPP address  ;JUMP`
+- `HOPP label    ;JUMP`
+- `BHOPP address ;BJUMP`
+- `BHOPP label   ;BJUMP`
 
 A `HOPP` operation jumps to the selected address, while`BHOPP` only jumps if the flag is set to 1 after a previous comparison operation.
 
@@ -149,7 +149,7 @@ However, it may be easier for developers to deal with labels.
 
 Example ([try for yourself] (https: //slede8.npst.no#N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAAwA0xZxA3KTQLzUA6AdvkaQIxXd09izbu3YAZAJIBpBlRj9iipQPJDm8oQD5iAMwA2AQwDmQ6sQAUOg3rAIAlOwBCACQDyABXfEAtghgBrBEMAB2CyfnoACwhQv2IAS39AqjB49DZdQxNmMnFpWQZlZXpVRnUmbX1jU35zABcYKHsnN08fP0CQsIjiaNDiOvi9doCgg1Dw4lT0zOqy4hEOAg8vIrWBdLYEBLYwBqh-MAArCC2MgCM9eJhemOCEOuIIADc-UTZfUa7wzHZWr0+nXGYQATIooncBkMRkCJiD2Dhlm11kV6JttvFdvtDiczsRLtdbrFHi83mx2ICxnDfksVijUcRgjAIEYYAZvL5Hns7nFImT3iAKCBMcEoHUsCAQABfIA)):
 
-`` `
+```
 SETT r0, 0; r0 = 0
 SETT r1, 1; r1 = 1
 
@@ -165,7 +165,7 @@ STOPP          ; this instruction is skipped
 
 tag02:
 STOPP          ; the program stops here
-`` `
+```
 
 ### Food and regurgitation
 
@@ -182,7 +182,7 @@ The value in the selected register is then spat out.
 
 Example ([try for yourself] (https: //slede8.npst.no#N4Igzg9grgTgxgUwMIQCYJALhAbgASpR4DWAhgHZ4LmowJ4DyADkwOZQA2TeALgJYc8AU7wA3PmHoBBAMpIAkvIC0ohDFR81AHXL5VqYbxgBPYsXpMRU0kuLlSLagDodOmQFEAKp7wwADAA0eH4AHgAsAIx4ePj+eAC8weERbgDSAEryAGq+ftH50fhgxDB8okmReAAUAORSNQCUOgAy7jK5BZ2xeYmhkWmZOXGdMXjFpeV9AEzVNQBCjS1tHSOFHb3hAMwD2StdYyVlFZuzSIvkMp4MAArXq-n4pKJgHFA8PHgAZgAfMGJ8eFYQj+PAgAFsvhA-j90CAAiA+OQmG8sCAwlMwpsQABfIA)):
 
-`` `
+```
 ; with food equal to '4243' this gulps up 'ABC'
 
 SETT r0, 0x41   ; r0 = 0x41
@@ -192,7 +192,7 @@ SKRIV r0        ; type 0x42 ('B')
 LES r0          ; r0 = 0x43
 SKRIV r0        ; type 0x43 ('C')
 STOPP           ; quit before we run out of food
-`` `
+```
 
 
 ### Features
