@@ -1765,7 +1765,72 @@ This was food for thought. If you still have the desire to live, you can try thi
 
 ## Egg #8
 I did not complete
-This was similar to Task #12, but a lot more convoluted.
+This was similar to Task #12, but a lot more convoluted. I'm solving this as I'm writing the writeup.
+
+I knew the flag started with `EGG{` Which is `4547477B` in hex. So I threw that in the input and multiplied it 300 times. Just to fill out the input.
+
+I then studied the registers and noticed that the first 4 inputs resulted in the register r8 being 0 after the command `ELLER r8, r9`. and it stopped resulting in that on the 5th input.
+
+So the solution will appear if r8 = 0 at that command. Probably.
+
+So I entered some code in the ELLER operation to return "wrong" if r8 != 0.
+
+```
+if regs[8] != 0:
+     return("wrong")
+```
+
+And then to bruteforce it I created a function and a generator:
+
+
+```
+def gen_all_hex():
+    i = 0
+    while i < 256:
+        yield "{:02X}".format(i)
+        i += 1
+	
+def bruteforcer():
+    food = "4547477b35"
+
+    i=0
+
+    while i<10:
+        for s in gen_all_hex():
+            blockPrint()
+            if wowgen('💀.s8', food+s) != "wrong":
+                food += s
+                if s == "7D":
+                    enablePrint()
+                    return(bytes.fromhex(food).decode('utf-8'))
+                enablePrint()
+                print(bytes.fromhex(food).decode('utf-8'))
+        i +=1
+
+
+print(bruteforcer())
+```
+
+I also added some functions to block printing, so that the program doesn't constantly print the commands.
+
+```
+import sys, os
+
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+def enablePrint():
+    sys.stdout = sys.__stdout__
+```
+
+So the overall idea is to generate every hexadecimal string from 0x00-0xFF.
+This will then be added to the input and ran until the program checks if the input resulted in wrong or right. if the program returns "wrong", that means it was wrong, so we try the next hexadecimal. If it was right, we add it to the input string and continue. If the successfull string was a "7D" or a "}" we know that the flag is found and we can end the loop.
+It all runs in a while loop so we can adjust for how long we want to continue. Since it automatically ends the loop if it finds the whole flag.
+
+
+The overall thing here is to just find that one conditional that is required for the program to work. And we can bruteforce each byte going in. 
+
+The code also prints for every found input byte, which is very satisfying.
 
 
 ## December 13th
