@@ -3189,6 +3189,78 @@ function move(state) {
 }
 ```
 
+We can use this to figure out how the data is encoded and read.
+
+
+We know from the ASN.1 specifications that the inputs are 
+
+Current position, X and Y
+
+Previous position, X and Y
+
+Target position, X and Y
+
+Unfortunately, this is also encoded...
+
+```
+const encodePosition = (pos) => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.x & 0xff }));
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.y & 0xff }));
+    return sequence;
+};
+const encodeTarget = () => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition({ x: target.x, y: target.y }));
+    sequence.valueBlock.value.push(encodePosition({ x: target.x + target.w, y: target.y + target.h }));
+    return sequence;
+};
+const encodeFøde = (input) => {
+    let sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition(input.pos)); // currPos
+    sequence.valueBlock.value.push(encodePosition(input.prevPos)); // prevPosition
+    sequence.valueBlock.value.push(encodeTarget()); // target
+    return new Uint8Array(sequence.toBER());
+};
+```
+
+From the code above we see this.
+
+In order to fully understand what the input was going to be I copied the needed files locally and did some modifications to make them both work, and print out the data.
+
+I deleted the code I didn't need, fixed the required modules' paths, and had to rework utils.js into CommonJs instead of ES6. This can be done with tools like Babel, or the babel-website [here](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&spec=false&loose=false&code_lz=FBA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Creact%2Cstage-2&prettier=false&targets=&version=7.12.12&externalPlugins=)
+
+
+
+
+
+We can see in the `simulation` function in the script that the script will fail if
+
+```
+ if (state.x < 0 || state.x > width || state.y < 0 || state.y > height) {
+            // console.error("LANDING FEILET", state);
+```
+
+so if the position is lower or larger than the canvas we immediately fail.
+
+```
+onTarget(state) {
+    return (state.x > target.x && state.x < target.x + target.w && state.y >= target.y);
+```
+
+We need to be on the target.
+
+```
+function softLanding(state) {
+    return Math.abs(state.dy) < 3 && Math.abs(state.dx) < 2;
+```
+And we need to have a low speed.
+
+If we land on the target with a high speed, we fail.
+
+
+
+
 when the landing succeeds, we get a link to this website:
 
 `Congratulations, You saved Christmas!`
