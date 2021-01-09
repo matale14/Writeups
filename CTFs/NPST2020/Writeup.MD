@@ -2126,9 +2126,80 @@ If you want to test how efficient your algorithm is, you can try e-learning modu
 
 ## Egg #10
 I did not complete
+
 This requires a very efficient sorting algorithm. A maximum of 4608 operations.
+
 This is not actually possible with standard sorting algorithms, as I found out.
-The trick is to write the amount of times each number appears in memory, and just write it out afterwards.
+
+The trick is to write the amount of times each number appears in memory, and just write it out afterwards. We can do this since the first byte dictates how many bytes follow.
+Therefore there can only be a maximum of 255 numbers. And a maximum of 255 different numbers.
+
+So the pseudocode is like this:
+
+Read the number of bytes.
+Set the adress to 255, so we dont overwrite our code
+
+read the byte to the address register
+
+So if the byte read is 0xAA, the current address will also be 0xAA
+
+Then we just increment the value on this address by one.
+
+And decrement the number of bytes remaining.
+
+We reset the address to 255 so we can start reading form 0x00
+
+if the current address is more than 0, we write the address.
+
+Then we decrement the address.
+
+If the current address is 0, that means we have either written the number of times it appeared, or that it never appeared at all.
+
+We then increment the memory by one, check that its not 0 and do the same process.
+
+We do this until we reach the address for the byte 255. Where it will be incremented to 0 and we will end our program.
+
+Thanks to the writeups from: 
+
+Unblvr/Myrdyr: https://github.com/myrdyr/ctf-writeups/blob/master/npst20/README.md#dag-16---slede8-5-sortering
+
+Roy Solberg: https://blog.roysolberg.com/2021/01/pst-challenge-5
+
+William Solem/Sithis: https://github.com/williamsolem/NPST-2020-Writeup/blob/main/README.md#16-desember
+
+For helping me understand this one.
+
+```
+LES r10
+SETT r11, 1
+SETT r1, 1
+
+
+readloop:
+LES r0
+LAST r2
+PLUSS r2, r11
+LAGR r2
+MINUS r10 , r11
+ULIK r10, r12
+BHOPP readloop
+
+SETT r0, 0
+
+memorycheck:
+LAST r2
+writeloop:
+LIK r2, r12
+BHOPP plusmem
+SKRIV r0
+MINUS r2, r11
+HOPP writeloop
+
+plusmem:
+PLUSS r0, r11
+ULIK r0, r12
+BHOPP memorycheck
+```
 
 ## December 17th
 ```
@@ -2968,6 +3039,8 @@ AutopilotOppgulp ::= SEQUENCE {
 We can upload a slede8 program to update the autopilot.
 
 So our task is to use these specifications to create a slede8 program to make sure that Santa lands safely.
+
+The first course of action is to figure out how to take the inputs, and deliver the outputs.
 
 
 
