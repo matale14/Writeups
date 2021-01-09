@@ -222,11 +222,14 @@ Sent from my PDA.
 
 ![](images/luke3_0.png)
 
-And later a followup message saying: “In case the last message was unclear, the password is “til zip-fila,” ” Or in english: “to the zip file,”
+And later a followup message saying: 
+
+```In case the last message was unclear, the password is “til zip-fila,” ” Or in english: “to the zip file,```
 
 ![](images/luke3_1.png)
 
 Opening up the zip-file reveals two files, cupcake.png. And kladd.txt
+
 Cupcake.png is a high-resolution image that looks very low-res. While kladd.txt is a text file containing 8 sleigh emojis with an encoded string.
 
 ```
@@ -256,6 +259,14 @@ By saving the final image of cupcake.png from the enhance module in DASS, and ru
 
 ![](images/egg3.png)
 
+When I use zsteg I almost always use the -a flag. As it lists everything.
+
+zsteg can be found at: https://github.com/zed-0xff/zsteg 
+
+And can be installed on linux from the terminal using gem.
+
+```gem install zsteg```
+
 ## December 4th
 
 ```
@@ -276,15 +287,15 @@ on the sum of the column Targets from and including 2020 to and including 2040. 
 
 The zip file contains 4 sql files: 
 
-GenererRapport.sql(GenerateRapport.sql) 
+```GenererRapport.sql(GenerateRapport.sql)``` 
 
-dbo.ProcedureDatoPaaske.sql(ProcedureDateEaster.sql)
+```dbo.ProcedureDatoPaaske.sql(ProcedureDateEaster.sql)```
 
-dbo.FunctionPaaskeAften.sql(FunctionEasterEvening.sql)
+```dbo.FunctionPaaskeAften.sql(FunctionEasterEvening.sql)```
 
-dbo.DatoPaaske.sql(DateEaster.sql)
+```dbo.DatoPaaske.sql(DateEaster.sql)```
 
-and a csv file, DatoPaaske.csv(DateEaster.csv). 
+and a csv file, ```DatoPaaske.csv(DateEaster.csv)```. 
 
 The csv file is a result of running the sql files which generates the numbers for Easter.
 The CSV contains 5 columns separated by a semi-colon.
@@ -507,7 +518,8 @@ during the period where it is suspected that the error may be. Do you find anyth
 
 ![](images/luke5_0.png)
 
-We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }.
+We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }. This is because the log is URL encoded.
+
 My plan was to count occurrences on the lines to see if anything was out of the ordinary. Maybe a name only appeared once. Which would be interesting. Maybe the Section handling the request would be different.
 
 ```
@@ -542,9 +554,11 @@ Name: Name, Length: 205, dtype: int64
 [Finished in 0.8s]
 ```
 
-We can see here that there is something wrong with one of the names here.
-![](images/luke5_1.png)
+We can see that there is something wrong with one of the names here.
+
 I locate the wrong name easily by just searching the log:
+
+![](images/luke5_1.png)
 
 And we have the flag!
 
@@ -567,6 +581,8 @@ See also attached documentation.
 ```
 
 ![](images/luke6_0.png)
+
+You can find the translated documentation in [Slede8.md](Slede8.md), in the same folder as this writeup.
 
 It turns out that this new tool is an assembly-like language with 16 registers and an input opportunity.
 
@@ -605,6 +621,28 @@ There will be more e-learning modules later.
 ```
 ## Egg #5
 Solve the Hello World E-Learning module in slede8.
+
+This can be done easily by just throwing the hex for "Hello World!" into the input, and just reading it straight into the output.
+
+```
+SETT r3, 0x01
+FINN message
+HOPP loop
+
+message: 
+.DATA 0x48,0x65,0x6c,0x6c,0x6f,0x2c,0x20,0x57,0x6f,0x72,0x6c,0x64,0x21,0x0a,0x00
+
+loop:
+LAST r2
+PLUSS r0, r3
+LIK r2, r4
+BHOPP end
+SKRIV r2
+HOPP loop
+
+end:
+STOPP
+```
 
 ## Egg #2
 We now know what kladd.txt is.
@@ -850,7 +888,15 @@ Go to Help->Open Mal 3d(x86)
 
 ![](images/egg6_1.png)
 
-We get some Assembly x86 code
+We get some Assembly x86 code, with a funny message:
+
+
+```
+A problem has been detected, and DASS has been terminated to prevent damage to the system.
+The problem seems to be caused by the following module: ENDUSER.DLL
+
+Technical information:
+```
 
 ![](images/egg6_2.png)
 
@@ -891,35 +937,66 @@ So when we receive the number value of (A + B) mod 256, we need to go number by 
 So after calculating the answer, we just check if the value is under each tenth. And manually write in the number in the decimal ten position. We then go up all the way to under 100. Then we check if it is under 200, and finally under 300. As we know that the maximum answer is 255.
 
 A small example:
+
 A = 200
+
 B = 34
+
 (A + B) = 234
+
+
 234 mod 256 = 234
 
+
 Is 234 under 10?
+
 No.
+
 Is 234 under 20?
+
 No.
-…
-…
+
 ...
+
+...
+
+...
+
 Is 234 under 300?
+
 Yes.
+
 Write 2.
+
+
 234 - 200 = 34
 
 Is 34 under 10?
+
 No.
-…
-…
+
+...
+
+...
+
+...
+
 Is 34 under 40?
+
 Yes.
+
 Write 3.
+
+
 34-30.
 
 Is 4 under 10?
+
 Yes.
+
 Write 4
+
+
 Done.
 
 And here is the slede8 code I wrote:
@@ -1090,6 +1167,12 @@ Mastering SLEDE8 can be crucial in this pre-Christmas season! If you think this 
 
 ## Egg #7
 This requires us to write the result of A+B as an ASCII string.
+
+For this I first figured out the decimal in the 100-position for both numbers and added them. So I could write that down first.
+
+but I also had to check that the remaining numbers would not go over 100, as that would increase the 100-decimal by one.
+
+After that it was just the same idea as above.
 
 ```
 ; Føde består av to tall, A og B
@@ -1327,7 +1410,7 @@ HOPP skriv_tall
 
 ## December 11th
 ```
-The internal security team at NPST has discovered that an unauthorized modification has taken place on Nissen's list of good and bad children. 
+The internal security team at NPST has discovered that an unauthorized modification has taken place on Santa's list of good and bad children. 
 They claim that an md5 sum has been changed, but they need your help to find out exactly which one. Attached is a backup copy with 
 Santa's list from the time the security team believes the modification has occurred.
 
@@ -1682,7 +1765,72 @@ This was food for thought. If you still have the desire to live, you can try thi
 
 ## Egg #8
 I did not complete
-This was similar to Task #12, but a lot more convoluted.
+This was similar to Task #12, but a lot more convoluted. I'm solving this as I'm writing the writeup.
+
+I knew the flag started with `EGG{` Which is `4547477B` in hex. So I threw that in the input and multiplied it 300 times. Just to fill out the input.
+
+I then studied the registers and noticed that the first 4 inputs resulted in the register r8 being 0 after the command `ELLER r8, r9`. and it stopped resulting in that on the 5th input.
+
+So the solution will appear if r8 = 0 at that command. Probably.
+
+So I entered some code in the ELLER operation to return "wrong" if r8 != 0.
+
+```
+if regs[8] != 0:
+     return("wrong")
+```
+
+And then to bruteforce it I created a function and a generator:
+
+
+```
+def gen_all_hex():
+    i = 0
+    while i < 256:
+        yield "{:02X}".format(i)
+        i += 1
+	
+def bruteforcer():
+    food = "4547477b35"
+
+    i=0
+
+    while i<10:
+        for s in gen_all_hex():
+            blockPrint()
+            if wowgen('💀.s8', food+s) != "wrong":
+                food += s
+                if s == "7D":
+                    enablePrint()
+                    return(bytes.fromhex(food).decode('utf-8'))
+                enablePrint()
+                print(bytes.fromhex(food).decode('utf-8'))
+        i +=1
+
+
+print(bruteforcer())
+```
+
+I also added some functions to block printing, so that the program doesn't constantly print the commands.
+
+```
+import sys, os
+
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+def enablePrint():
+    sys.stdout = sys.__stdout__
+```
+
+So the overall idea is to generate every hexadecimal string from 0x00-0xFF.
+This will then be added to the input and ran until the program checks if the input resulted in wrong or right. if the program returns "wrong", that means it was wrong, so we try the next hexadecimal. If it was right, we add it to the input string and continue. If the successfull string was a "7D" or a "}" we know that the flag is found and we can end the loop.
+It all runs in a while loop so we can adjust for how long we want to continue. Since it automatically ends the loop if it finds the whole flag.
+
+
+The overall thing here is to just find that one conditional that is required for the program to work. And we can bruteforce each byte going in. 
+
+The code also prints for every found input byte, which is very satisfying.
 
 
 ## December 13th
@@ -1880,7 +2028,7 @@ That was a funny message to send with Manchester coding.
 
 ## December 16th
 ```
-I am still a little behind in terms of targets after the 'answer all' event earlier this month. It is probably therefore best for your 
+I am still a little behind in terms of targets after the 'reply all' incident earlier this month. It is probably therefore best for your 
 salary development if you complete the e-learning module a522c5a55bcb743e in SLEDE8.
 
 The developer tool can still be found here. See documentation on GitHub.
@@ -1978,9 +2126,80 @@ If you want to test how efficient your algorithm is, you can try e-learning modu
 
 ## Egg #10
 I did not complete
+
 This requires a very efficient sorting algorithm. A maximum of 4608 operations.
+
 This is not actually possible with standard sorting algorithms, as I found out.
-The trick is to write the amount of times each number appears in memory, and just write it out afterwards.
+
+The trick is to write the amount of times each number appears in memory, and just write it out afterwards. We can do this since the first byte dictates how many bytes follow.
+Therefore there can only be a maximum of 255 numbers. And a maximum of 255 different numbers.
+
+So the pseudocode is like this:
+
+Read the number of bytes.
+Set the adress to 255, so we dont overwrite our code
+
+read the byte to the address register
+
+So if the byte read is 0xAA, the current address will also be 0xAA
+
+Then we just increment the value on this address by one.
+
+And decrement the number of bytes remaining.
+
+We reset the address to 255 so we can start reading form 0x00
+
+if the current address is more than 0, we write the address.
+
+Then we decrement the address.
+
+If the current address is 0, that means we have either written the number of times it appeared, or that it never appeared at all.
+
+We then increment the memory by one, check that its not 0 and do the same process.
+
+We do this until we reach the address for the byte 255. Where it will be incremented to 0 and we will end our program.
+
+Thanks to the writeups from: 
+
+Unblvr/Myrdyr: https://github.com/myrdyr/ctf-writeups/blob/master/npst20/README.md#dag-16---slede8-5-sortering
+
+Roy Solberg: https://blog.roysolberg.com/2021/01/pst-challenge-5
+
+William Solem/Sithis: https://github.com/williamsolem/NPST-2020-Writeup/blob/main/README.md#16-desember
+
+For helping me understand this one.
+
+```
+LES r10
+SETT r11, 1
+SETT r1, 1
+
+
+readloop:
+LES r0
+LAST r2
+PLUSS r2, r11
+LAGR r2
+MINUS r10 , r11
+ULIK r10, r12
+BHOPP readloop
+
+SETT r0, 0
+
+memorycheck:
+LAST r2
+writeloop:
+LIK r2, r12
+BHOPP plusmem
+SKRIV r0
+MINUS r2, r11
+HOPP writeloop
+
+plusmem:
+PLUSS r0, r11
+ULIK r0, r12
+BHOPP memorycheck
+```
 
 ## December 17th
 ```
@@ -2821,11 +3040,158 @@ We can upload a slede8 program to update the autopilot.
 
 So our task is to use these specifications to create a slede8 program to make sure that Santa lands safely.
 
+The first course of action is to figure out how to take the inputs, and deliver the outputs.
 
 
+We can find the source-code by opening the browser developer tools. 
 
+![](images/luke24_2)
+
+simulator.ts:
+```
+import asn from "asn1js";
+import { step } from "@pstnorge/slede8";
+export const timeBetweenFrames = ~~(1000 / 30);
+export const width = 255;
+export const height = 255;
+export const target = {
+    x: ~~(width / 2) - 20,
+    y: height - 25,
+    w: 40,
+    h: 25,
+};
+const unit = 10;
+const framesPerSecond = 1000 / timeBetweenFrames;
+const unitToScale = unit / framesPerSecond;
+const g = 9 * unitToScale;
+const vThrusterForce = -11.0 * unitToScale;
+const hThrusterForce = 1.0 * unitToScale;
+const getRNG = (seed) => () => {
+    let t = (seed += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+const range = (count, start = 0) => {
+    return Array(count)
+        .fill(null)
+        .map((x, i) => i + start);
+};
+const encodePosition = (pos) => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.x & 0xff }));
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.y & 0xff }));
+    return sequence;
+};
+const encodeTarget = () => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition({ x: target.x, y: target.y }));
+    sequence.valueBlock.value.push(encodePosition({ x: target.x + target.w, y: target.y + target.h }));
+    return sequence;
+};
+const encodeFøde = (input) => {
+    let sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition(input.pos)); // currPos
+    sequence.valueBlock.value.push(encodePosition(input.prevPos)); // prevPosition
+    sequence.valueBlock.value.push(encodeTarget()); // target
+    return new Uint8Array(sequence.toBER());
+};
+function decodeOppgulp(oppgulp) {
+    // const oppgulp = [0x30,0x09,0x01,0x01,0x00,0x01,0x01,0xff,0x01,0x01,0xff];
+    const byte = (value) => value.toString(16).padStart(2, "0");
+    const formatted = [...oppgulp].map(byte).join(""); // split 0101, i.e. single byte BOOLEAN
+    const matches = formatted.match(/^30090101([0-9a-f]{2})0101([0-9a-f]{2})0101([0-9a-f]{2})$/);
+    // validate output
+    if ((matches === null || matches === void 0 ? void 0 : matches.length) !== 4)
+        throw new Error("Ugyldig oppgulp!");
+    const [leftThruster, rightThruster, verticalThruster] = matches
+        .slice(1)
+        .map((x) => parseInt(x, 16) > 0);
+    return [leftThruster, rightThruster, verticalThruster];
+}
+function runAutopilot(firmware, input) {
+    const føde = encodeFøde(input);
+    const N = 500;
+    const session = step(firmware, føde, N);
+    const init = session.next();
+    // randomize registers
+    range(16).forEach((i) => (init.value.regs[i] = ~~(Math.random() * 256)));
+    // run to completion
+    while (true) {
+        const { done, value } = session.next();
+        if (done) {
+            return decodeOppgulp(value.stdout);
+        }
+    }
+}
+export function* simulation(seed, autopilot) {
+    const random = getRNG(seed);
+    let tick = 0;
+    let state = {
+        x: ~~(width / 2),
+        y: ~~(height / 2),
+        dx: ~~(20 * random() * hThrusterForce * Math.sign(-0.5 + random())),
+        dy: ~~(g * random()),
+        thrusters: [false, false, false],
+    };
+    while (true) {
+        const prevPos = { x: state.x, y: state.y };
+        state = move(state);
+        const autoPilotInput = { prevPos, pos: { x: state.x, y: state.y }, target };
+        const thrusters = runAutopilot(autopilot, autoPilotInput);
+        state = Object.assign(Object.assign({}, state), { thrusters, time: ++tick });
+        if (onTarget(state)) {
+            // console.log("JULEN ER KANSKJE REDDET!", state);
+            state.thrusters = [false, false, false];
+            return Object.assign(Object.assign({}, state), { thrusters: [false, false, false] });
+        }
+        if (state.x < 0 || state.x > width || state.y < 0 || state.y > height) {
+            // console.error("LANDING FEILET", state);
+            return Object.assign(Object.assign({}, state), { thrusters: [false, false, false] });
+        }
+        yield state;
+    }
+}
+function onTarget(state) {
+    return (state.x > target.x && state.x < target.x + target.w && state.y >= target.y);
+}
+function softLanding(state) {
+    return Math.abs(state.dy) < 3 && Math.abs(state.dx) < 2;
+}
+export function getResult(state) {
+    if (!onTarget(state))
+        return {
+            message: "Landing feilet: Sleden bommet på målet.",
+            success: false,
+        };
+    if (!softLanding(state))
+        return {
+            message: "Landing feilet: Sleden hadde for stor hastighet i landingen.",
+            success: false,
+        };
+    return {
+        message: `Landing vellykket etter ${state.time} iterasjoner!`,
+        success: true,
+    };
+}
+function move(state) {
+    const [lthruster, rthruster, vthruster] = state.thrusters;
+    let dy = state.dy + g;
+    let dx = state.dx;
+    if (vthruster)
+        dy += vThrusterForce;
+    if (rthruster)
+        dx -= hThrusterForce;
+    if (lthruster)
+        dx += hThrusterForce;
+    return Object.assign(Object.assign({}, state), { x: state.x + dx, y: state.y + dy, dx,
+        dy });
+}
+```
 
 when the landing succeeds, we get a link to this website:
+
+`Congratulations, You saved Christmas!`
 
 ![](images/christmas.gif)
 
