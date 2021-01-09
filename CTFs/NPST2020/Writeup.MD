@@ -3043,10 +3043,537 @@ So our task is to use these specifications to create a slede8 program to make su
 The first course of action is to figure out how to take the inputs, and deliver the outputs.
 
 
+We can find the source-code by opening the browser developer tools. 
+
+![](images/luke24_2)
+
+simulator.ts:
+```
+import asn from "asn1js";
+import { step } from "@pstnorge/slede8";
+export const timeBetweenFrames = ~~(1000 / 30);
+export const width = 255;
+export const height = 255;
+export const target = {
+    x: ~~(width / 2) - 20,
+    y: height - 25,
+    w: 40,
+    h: 25,
+};
+const unit = 10;
+const framesPerSecond = 1000 / timeBetweenFrames;
+const unitToScale = unit / framesPerSecond;
+const g = 9 * unitToScale;
+const vThrusterForce = -11.0 * unitToScale;
+const hThrusterForce = 1.0 * unitToScale;
+const getRNG = (seed) => () => {
+    let t = (seed += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+const range = (count, start = 0) => {
+    return Array(count)
+        .fill(null)
+        .map((x, i) => i + start);
+};
+const encodePosition = (pos) => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.x & 0xff }));
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.y & 0xff }));
+    return sequence;
+};
+const encodeTarget = () => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition({ x: target.x, y: target.y }));
+    sequence.valueBlock.value.push(encodePosition({ x: target.x + target.w, y: target.y + target.h }));
+    return sequence;
+};
+const encodeFøde = (input) => {
+    let sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition(input.pos)); // currPos
+    sequence.valueBlock.value.push(encodePosition(input.prevPos)); // prevPosition
+    sequence.valueBlock.value.push(encodeTarget()); // target
+    return new Uint8Array(sequence.toBER());
+};
+function decodeOppgulp(oppgulp) {
+    // const oppgulp = [0x30,0x09,0x01,0x01,0x00,0x01,0x01,0xff,0x01,0x01,0xff];
+    const byte = (value) => value.toString(16).padStart(2, "0");
+    const formatted = [...oppgulp].map(byte).join(""); // split 0101, i.e. single byte BOOLEAN
+    const matches = formatted.match(/^30090101([0-9a-f]{2})0101([0-9a-f]{2})0101([0-9a-f]{2})$/);
+    // validate output
+    if ((matches === null || matches === void 0 ? void 0 : matches.length) !== 4)
+        throw new Error("Ugyldig oppgulp!");
+    const [leftThruster, rightThruster, verticalThruster] = matches
+        .slice(1)
+        .map((x) => parseInt(x, 16) > 0);
+    return [leftThruster, rightThruster, verticalThruster];
+}
+function runAutopilot(firmware, input) {
+    const føde = encodeFøde(input);
+    const N = 500;
+    const session = step(firmware, føde, N);
+    const init = session.next();
+    // randomize registers
+    range(16).forEach((i) => (init.value.regs[i] = ~~(Math.random() * 256)));
+    // run to completion
+    while (true) {
+        const { done, value } = session.next();
+        if (done) {
+            return decodeOppgulp(value.stdout);
+        }
+    }
+}
+export function* simulation(seed, autopilot) {
+    const random = getRNG(seed);
+    let tick = 0;
+    let state = {
+        x: ~~(width / 2),
+        y: ~~(height / 2),
+        dx: ~~(20 * random() * hThrusterForce * Math.sign(-0.5 + random())),
+        dy: ~~(g * random()),
+        thrusters: [false, false, false],
+    };
+    while (true) {
+        const prevPos = { x: state.x, y: state.y };
+        state = move(state);
+        const autoPilotInput = { prevPos, pos: { x: state.x, y: state.y }, target };
+        const thrusters = runAutopilot(autopilot, autoPilotInput);
+        state = Object.assign(Object.assign({}, state), { thrusters, time: ++tick });
+        if (onTarget(state)) {
+            // console.log("JULEN ER KANSKJE REDDET!", state);
+            state.thrusters = [false, false, false];
+            return Object.assign(Object.assign({}, state), { thrusters: [false, false, false] });
+        }
+        if (state.x < 0 || state.x > width || state.y < 0 || state.y > height) {
+            // console.error("LANDING FEILET", state);
+            return Object.assign(Object.assign({}, state), { thrusters: [false, false, false] });
+        }
+        yield state;
+    }
+}
+function onTarget(state) {
+    return (state.x > target.x && state.x < target.x + target.w && state.y >= target.y);
+}
+function softLanding(state) {
+    return Math.abs(state.dy) < 3 && Math.abs(state.dx) < 2;
+}
+export function getResult(state) {
+    if (!onTarget(state))
+        return {
+            message: "Landing feilet: Sleden bommet på målet.",
+            success: false,
+        };
+    if (!softLanding(state))
+        return {
+            message: "Landing feilet: Sleden hadde for stor hastighet i landingen.",
+            success: false,
+        };
+    return {
+        message: `Landing vellykket etter ${state.time} iterasjoner!`,
+        success: true,
+    };
+}
+function move(state) {
+    const [lthruster, rthruster, vthruster] = state.thrusters;
+    let dy = state.dy + g;
+    let dx = state.dx;
+    if (vthruster)
+        dy += vThrusterForce;
+    if (rthruster)
+        dx -= hThrusterForce;
+    if (lthruster)
+        dx += hThrusterForce;
+    return Object.assign(Object.assign({}, state), { x: state.x + dx, y: state.y + dy, dx,
+        dy });
+}
+```
 
 
+sled-simulator.svelte:
+
+```
+<script lang="ts">
+	import Window from "../../components/window.svelte";
+	import Toolbar from "../../components/toolbar.svelte";
+	import ToolbarItem from "../../components/toolbar-item.svelte";
+	import List from "../../components/list.svelte";
+	import ListItem from "../../components/list-item.svelte";
+	import ListDivider from "../../components/list-divider.svelte";
+	import Button from "../../components/button.svelte";
+	import { apps } from "../../store";
+	import Document from "../document.svelte";
+	import type { Result, State } from "./simulator";
+	import { getResult, simulation, target } from "./simulator";
+	import type { HTMLEvent } from "../../utils/types";
+	import Snow from "../../components/snow.svelte";
+	import Cutout from "../../components/cutout.svelte";
+	import Alert from "../alert.svelte";
+
+	/** Internal window props */
+	export let id: string;
+	export let order: number;
+
+	let state: State | null = null;
+	let seed = 24;
+
+	let result: Result = {
+		message: null,
+		success: false,
+	};
+
+	let uploadProgress: Promise<void> | null = null;
+
+	let fileName: string | null = null;
+	$: windowTitle = `🛷 Sledesimulator${
+		fileName !== null ? " - " + fileName : ""
+	}`;
+	let firmware = new Uint8Array([
+		0x2e,
+		0x53,
+		0x4c,
+		0x45,
+		0x44,
+		0x45,
+		0x38,
+		0x01,
+		0x01,
+		0x11,
+		0x00,
+		0x21,
+		0x01,
+		0xa1,
+		0x30,
+		0x91,
+		0x09,
+		0xb1,
+		0x01,
+		0x16,
+		0x0a,
+		0x16,
+		0x09,
+		0x16,
+		0x0b,
+		0x16,
+		0x0b,
+		0x16,
+		0x00,
+		0x16,
+		0x0b,
+		0x16,
+		0x0b,
+		0x16,
+		0x01,
+		0x16,
+		0x0b,
+		0x16,
+		0x0b,
+		0x16,
+		0x02,
+	]);
+
+	function loadFirmware() {
+		const input = document.createElement("input");
+		input.type = "file";
+		input.onchange = (event: HTMLEvent<HTMLInputElement>) => {
+			const reader = new FileReader();
+			fileName = input.value.split(/(\\|\/)/g).pop() || null;
+			console.log(fileName);
+			reader.onload = function () {
+				firmware = new Uint8Array(this.result as ArrayBuffer);
+				console.log("Updated firmware to", firmware);
+				input.remove(); // cleanup
+			};
+
+			reader.readAsArrayBuffer((event.currentTarget.files || [])[0]);
+		};
+		input.click();
+	}
+
+	function uploadFirmware() {
+		uploadProgress = fetch("/.netlify/functions/fastvareoppdatering", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ fastvare: [...firmware] }),
+		})
+			.then(async (res) => {
+				let data = (await res.json()) as Result;
+				apps.open({
+					id: `${id}_alert`,
+					parent: id,
+					component: Alert,
+					props: {
+						title: `Status`,
+						message: data.message,
+						severity: data.success ? "success" : "error",
+					},
+				});
+			})
+			.catch(async (res) => {
+				console.warn(res);
+				apps.open({
+					id: `${id}_alert`,
+					parent: id,
+					component: Alert,
+					props: {
+						title: `Status`,
+						message: "Installasjon feilet",
+						severity: "error",
+					},
+				});
+			});
+	}
+
+	function runSimulation() {
+		result = { message: null, success: false };
+		const timeBetweenFrames = 100;
+		let lastFrame = 0;
+		const frames = simulation(seed, firmware);
+		const renderFrame = () => {
+			let now = Date.now();
+			if (now - lastFrame < timeBetweenFrames) {
+				requestAnimationFrame(renderFrame);
+				return;
+			}
+			lastFrame = now;
+
+			try {
+				const { done, value } = frames.next();
+				state = value;
+				if (done) {
+					result = getResult(value);
+					console.log("DONE!!!", value);
+					return;
+				}
+				requestAnimationFrame(renderFrame);
+			} catch (e) {
+				result = {
+					success: false,
+					message: e,
+				};
+			}
+		};
+		requestAnimationFrame(renderFrame);
+	}
+
+	function openSpec() {
+		apps.open({
+			component: Document,
+			id: id + "_document",
+			parent: id,
+			props: {
+				title: "Sledesimulatorspesifikasjon",
+				content: `
+Position ::= SEQUENCE {
+	x INTEGER(0..255),
+	y INTEGER(0..255)
+}
+
+Target ::= SEQUENCE {
+	upperLeftCorner Position,
+	lowerRightCorner Position
+}
+
+AutopilotFøde ::= SEQUENCE {
+	currPos Position,
+	prevPos Position,
+	target Target
+}
+
+AutopilotOppgulp ::= SEQUENCE {
+	leftThruster BOOLEAN,
+	rightThruster BOOLEAN,
+	verticalThruster BOOLEAN
+}
+				`,
+			},
+		});
+	}
+</script>
+
+<Window {windowTitle} {id} {order} width={500} height={400} resizable={false}>
+	<div slot="toolbar">
+		<Toolbar>
+			<ToolbarItem name="Fil">
+				<List>
+					<ListItem size="md" on:mouseup={openSpec}>
+						Åpne spesifikasjoner
+					</ListItem>
+					<ListDivider />
+					<ListItem size="md" on:mouseup={() => apps.close(id)}>
+						Avslutt sledesimulator
+					</ListItem>
+				</List>
+			</ToolbarItem>
+			<ToolbarItem name="Simulering">
+				<List>
+					<ListItem size="md" on:mouseup={runSimulation}>
+						Kjør simulering
+					</ListItem>
+					<ListItem size="md" on:mouseup={loadFirmware}>
+						Last inn fastvare
+					</ListItem>
+				</List>
+			</ToolbarItem>
+		</Toolbar>
+	</div>
+	<div slot="content">
+		<div id="content">
+			<div id="simulator">
+				<Snow count={50} size="sm" />
+				<span />
+				<span
+					id="sled"
+					style="--x: {state?.x || 124}px; --y: {state?.y || 124}px">
+					🛷
+					<span id="santa">
+						{#if result.message && !result.success}💥{:else}🎅{/if}
+					</span>
+					<span class:hidden={!state?.thrusters[0]} id="lthruster">🔥</span>
+					<span class:hidden={!state?.thrusters[1]} id="rthruster">🔥</span>
+					<span class:hidden={!state?.thrusters[2]} id="vthruster">🔥</span>
+				</span>
+				<div
+					id="chimney"
+					style="--top: {target.y}px; --left: {target.x}px; --width: {target.w}px; --height: {target.h}px" />
+			</div>
+			<div id="state">
+				<label for="seed">Inngangsverdi</label>
+				<div>
+					<Cutout scrollable={false}>
+						<input type="number" id="seed" bind:value={seed} />
+					</Cutout>
+				</div>
+				<hr />
+				<ul>
+					<li />
+					<li>x:&nbsp; {~~(state?.x || 124)}</li>
+					<li>y:&nbsp; {~~(state?.y || 124)}</li>
+					<li>dx: {~~(state?.dx || 0)}</li>
+					<li>dy: {~~(state?.dy || 0)}</li>
+
+					{#if result.message}
+						<li>
+							<p>{result.message}</p>
+							{#if result.success}
+								<p>
+									{#await uploadProgress}
+										<Button fullWidth disabled>Redd julen</Button>
+									{:then}
+										<Button fullWidth on:click={uploadFirmware}>
+											Redd julen
+										</Button>
+									{/await}
+								</p>
+							{/if}
+						</li>
+					{/if}
+				</ul>
+			</div>
+		</div>
+	</div>
+</Window>
+
+<style>
+	div#content {
+		display: flex;
+		flex-direction: row;
+	}
+
+	div#simulator {
+		width: 255px;
+		height: 255px;
+		position: relative;
+		margin: 1em;
+		/* position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);*/
+		background: darkblue;
+	}
+
+	div#state {
+		width: calc(100% - 256px - 2em);
+	}
+
+	div#state ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	label {
+		display: inline-block;
+	}
+
+	input {
+		width: 100%;
+		display: inline-block;
+		border: none;
+		outline: none;
+		line-height: 1.5;
+		padding: 0 0.2em;
+	}
+
+	.hidden {
+		visibility: hidden;
+	}
+
+	#chimney {
+		position: absolute;
+		background: firebrick;
+		top: var(--top);
+		left: var(--left);
+		width: var(--width);
+		height: var(--height);
+	}
+
+	#sled {
+		z-index: 1;
+		position: absolute;
+		top: var(--y);
+		left: var(--x);
+		transform: translate(-50%, -50%);
+	}
+
+	#santa {
+		position: absolute;
+		left: 0;
+		top: -50%;
+	}
+
+	#lthruster {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		transform: translate(-50%, -50%) rotate(-90deg);
+		transform-origin: left;
+	}
+
+	#rthruster {
+		position: absolute;
+		top: 90%;
+		left: 100%;
+		transform: translate(-50%, -50%) rotate(90deg);
+		transform-origin: right;
+	}
+
+	#vthruster {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		transform: translate(-50%, -50%) rotate(180deg);
+		transform-origin: bottom;
+	}
+</style>
+```
 
 when the landing succeeds, we get a link to this website:
+
+`Congratulations, You saved Christmas!`
 
 ![](images/christmas.gif)
 
