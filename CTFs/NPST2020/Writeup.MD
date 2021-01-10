@@ -1,6 +1,6 @@
 # NPST-2020
 
-- [December 1st](##December-1st)
+- [December 1st](#December-1st)
 
 From December 1st to December 24th. PST will release a new Task/challenge for us to solve. This is all wrapped neatly in a fun package where we are employees of the NPST,
 
