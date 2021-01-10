@@ -1962,7 +1962,7 @@ The developer tool can still be found here. See attached documentation, or on Gi
 
 This one requires you to take an unknown number of inputs, where 0x00 marks the end of input. The input should then be written in the reverse order. 
 
-We have to save the read inputs to memory, and then read them back in the opposite order later. In this instance, we cannot set the first input byte as the length, so we have to count instead. This means we have to account for the input length being over 255 bytes long. Since the current address is dictated by the r0 and r1 registres, we use r1 as the incrementer. So if r0 goes over 255, r1 is incremented and we get 255 more addresses to use, all the way up to r1 = 255. And we just go backwards once we have read and saved everything in memory.
+We have to save the read inputs to memory, and then read them back in the opposite order later. In this instance, we cannot set the first input byte as the length, so we have to count instead. This means we have to account for the input length being over 255 bytes long. Since the current address is dictated by the r0 and r1 registers, we use r1 as the incrementer. So if r0 goes over 255, r1 is incremented and we get 255 more addresses to use, all the way up to r1 = 255. And we just go backwards once we have read and saved everything in memory.
 
 So we read the input, increment the memory, save the input. Repeat. If r0 is 255 we increment r1 and set r0 back to 0. Once we read 0x00, we stop reading and start writing from the current address. We then decrement the memory, write the input from memory. Repeat. If we reach 0x00 we end.
 
