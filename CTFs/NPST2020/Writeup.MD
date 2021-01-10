@@ -3472,25 +3472,25 @@ If we land on the target with a high speed, we fail.
 
 The pseudocode will be the following:
 
-```
-Set up constants like an incrementer, the target coordinates.
 
-Read the current and previous position.
+- Set up constants like an incrementer, the target coordinates.
 
-If the sleigh is to the left of the target, we engage the left thruster in order to bring us back to the middle.
+- Read the current and previous position.
 
-If the sleigh is to the right of the target, we engage the right thruster in order to bring us back to the middle.
+- If the sleigh is to the left of the target, we engage the left thruster in order to bring us back to the middle.
 
-If we are going too fast in a direction, for example if the difference between prevPos x and pos x is very large, we need to engage the opposite thruster.
+- If the sleigh is to the right of the target, we engage the right thruster in order to bring us back to the middle.
 
-If we are above the height of the target, we do not engage the vertical thruster
+- If we are going too fast in a direction, for example if the difference between prevPos x and pos x is very large, we need to engage the opposite thruster.
 
-If we are below the height of the target, we engage the vertical thruster (Don't know if this will happen, but it's a great safety precaution)
+- If we are above the height of the target, we do not engage the vertical thruster
 
-If we are going too fast downwards, we engage the vertical thruster in order to not fail the softLanding check.
+- If we are below the height of the target, we engage the vertical thruster (Don't know if this will happen, but it's a great safety precaution)
 
-Regurgitate `30090101` and the state of the left thruster. then `0101` and the state of the right thruster, and finally `0101` and the state of the vertical thruster.
-```
+- If we are going too fast downwards, we engage the vertical thruster in order to not fail the softLanding check.
+
+- Regurgitate `30090101` and the state of the left thruster. then `0101` and the state of the right thruster, and finally `0101` and the state of the vertical thruster.
+
 
 We can save the position data two ways.
 
@@ -3508,21 +3508,17 @@ Writing
 `Reading and storing`
 
 ```
-SETT r11, 1
+SETT r11, 1  ; Incrementer, also max delta y
 SETT r12, 0
 SETT r13, 0
 SETT r14, 0
-HOPP prep
+SETT r15, 2  ; Max delta x
 HOPP prep
 
 pos:
 .DATA 0x0, 0x0 ; x y
 prevPos:
 .DATA 0x0, 0x0 ; x y
-targetMiddle:
-.DATA 0x7F, 0xE6 ; x y
-
-
 
 prep:
 NOPE
@@ -3694,11 +3690,11 @@ And all of it in one:
 
 
 ```
-SETT r11, 1
+SETT r11, 1  ; Incrementer, also max delta y
 SETT r12, 0
 SETT r13, 0
 SETT r14, 0
-SETT r15, 2
+SETT r15, 2  ; Max delta x
 HOPP prep
 
 pos:
