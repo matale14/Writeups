@@ -12,8 +12,16 @@ This bears resemblance to an old school windows OS
 
 In the start-menu we have some different options to choose from. Some of these came later during some system updates. Like Mal(paint) and Sledesimulator(SleighSimulator)
 
-
 ![](images/dass2.png)
+
+- Inbox
+- Leaderboard
+- Enhance
+- Paint
+- SleighSimulator
+- Information
+- Run
+- Log out
 
 ```
 Rules
