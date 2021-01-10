@@ -3277,17 +3277,22 @@ I got answers like this
 
 `30 27 30 07 02 01 07 02 02 00 dd 30 07 02 01 05 02 02 00 ff 30 13 30 07 02 01 6b 02 02 00 e6 30 08 02 02 00 93 02 02 00 ff`
 
-The 6th index is the pos X coordinates, then there are two `02` bytes before the pos Y coordinates. If the number is 128 or larger, it requires 2 bytes. As can be seen after the two `02`s. There is a `00 dd`. This will have to be accounted for when we read it.
+These are actually numbers related to ASN.1. They are hexadecimal. More info here: https://en.wikipedia.org/wiki/X.690#BER_encoding 
 
-before pos x = 30 27 30 07 02 01
+`0x30` marks the start of a sequence
 
-before pos y = 02 02
+`0x27` marks the length of the sequence
 
-before prevPos x = 30 07 02 01
+`0x30` marks the start of a sequence
 
-before prevPos y = 02 02
+`0x07` marks the lenght of the sequence
+
+`0x02` tells us that an integer is coming
+
+`0x01` tells us that the integer takes the space of 1 byte. If the number is higher than 127, two bytes are required. With the first being 0x00
 
 We don't really need to worry about reading the target, as it does not change. It is completely static.
+
 
 
 Now lets see what our program needs to regurgitate:
@@ -3314,11 +3319,17 @@ we start with `3009`, and then use `0101` to separate between booleans for each 
 
 so:
 
-`30090101` then a byte. `00` in order to not engage the left thruster. This is followed by `0101`
+`0x30` refers to the start of a sequence
 
-Now we get another byte, lets say `01` in order to engage the right thruster. This is followed by another `0101`
+`0x09` refers to the length of the sequence
 
-And now we end with our final boolean byte `01` in order to engage the vertical thruster.
+`0x01` marks that a boolean is coming
+
+`0x01` marks that the length will be 1 byte
+
+After this we throw in our boolean. 
+
+And it separated by 0x01, that marks another boolean, and 0x01 again to tell the length
 
 
 We can see in the `simulation` function in the script that the script will fail if
@@ -3348,6 +3359,7 @@ If we land on the target with a high speed, we fail.
 
 The pseudocode will be the following:
 
+```
 Set up constants like an incrementer, the target coordinates.
 
 Read the current and previous position.
@@ -3365,7 +3377,7 @@ If we are below the height of the target, we engage the vertical thruster (Don't
 If we are going too fast downwards, we engage the vertical thruster in order to not fail the softLanding check.
 
 Regurgitate `30090101` and the state of the left thruster. then `0101` and the state of the right thruster, and finally `0101` and the state of the vertical thruster.
-
+```
 
 We can save the position data two ways.
 
@@ -3380,6 +3392,325 @@ Calculations
 Writing
 
 
+`Reading and storing`
+
+```
+SETT r11, 1
+SETT r12, 0
+SETT r13, 0
+SETT r14, 0
+HOPP prep
+HOPP prep
+
+pos:
+.DATA 0x0, 0x0 ; x y
+prevPos:
+.DATA 0x0, 0x0 ; x y
+targetMiddle:
+.DATA 0x7F, 0xE6 ; x y
+
+
+
+prep:
+NOPE
+LES r2           ; 0x30 = Sequence start
+LES r2           ; Number of bytes in sequence
+LES r2           ; 0x30 = Sequence start
+LES r2           ; Number of bytes in sequence
+LES r2           ; 0x02 = Integer incoming 
+TUR checkSize
+
+FINN pos         ; Find the position variable
+LAGR r2          ; Save the position x
+LES r2           ; Read the next 02
+TUR checkSize
+PLUSS r0, r11    ; increment the variable, so we can add the y
+LAGR r2          ; Save the position y
+
+LES r2           ; 0x30 = Sequence start
+LES r2           ; Number of bytes in sequence
+LES r2           ; 0x02 = Integer incoming 
+TUR checkSize
+
+FINN prevPos     ; Find the Previous position variable
+LAGR r2          ; Save the Previous position x
+LES r2           ; Read the next 02
+TUR checkSize
+PLUSS r0, r11    ; increment the variable, so we can add the y
+LAGR r2          ; Save the Previous position y
+
+
+FINN pos         ; Find the current position
+LAST r2          ; x
+PLUSS r0, r11
+LAST r3          ; y
+
+FINN prevPos     ; Find the previous position
+LAST r4          ; x
+PLUSS r0, r11
+LAST r5          ; y
+
+checkSize:
+NOPE
+LES r2           ; If 0x01, only 1 byte. if 0x02 theres an extra 00 in front
+ULIK r2, r11     ; Larger than 127
+BHOPP over127
+LES r2           ; Get the number
+RETUR
+over127:
+NOPE
+LES r2           ; read the 00
+LES r2           ; Get the number
+RETUR
+```
+
+
+
+I initally wanted to store every variable so it was easily accessible, along with some constants like 0, 1 and maybe the maximum deltas. But I found I either did not need them, or I only needed them once. So saving them was unnecessary, and just made things more complicated.
+
+I also spent the most time wondering why my calculations were not working. For some reason the thrusters stayed on, even when I stripped the calculations barebone.
+
+Turns out, the registers do not reset after every run. Well they do, but they are randomized as can be seen in the original script:
+
+```
+ // randomize registers
+    range(16).forEach((i) => (init.value.regs[i] = ~~(Math.random() * 256)));
+```
+
+Always read the source code propely :)
+
+After I realized this, it was pretty straight-forward.
+
+
+
+`Calculations`
+
+```
+calculations:
+FINN pos
+LAST r2          ; pos x
+PLUSS r0, r11
+LAST r3          ; pos y
+PLUSS r0, r11
+LAST r4          ; prev pos x
+PLUSS r0, r11
+LAST r5          ; prev pos y
+
+SETT r6, 0x7F    ; target middle x
+SETT r7, 0xE1    ; target height -5 Will have too much speed if the height is exact
+
+
+check_left:
+ME r2, r6             ; Is current x less than the middle of target?
+BHOPP leftThrusterOn
+SEL r2, r4            ; If the current x is larger than or equal to previous x. We are moving right or flying still
+BHOPP check_right     ; We don't need to use the left thruster if we are already heading right or flying still
+SETT r10, r4
+MINUS r10, r2
+SEL r10, r15          ; If deltaX is equal or larger than the max deltaX limit
+BHOPP leftThrusterOn
+
+check_right:
+SE r2, r6             ; Is current x larger than the middle of target?
+BHOPP rightThrusterOn
+MEL r2, r4            ; If the current y is larger than or equal to previous yx. We are moving right or flying still
+BHOPP check_vert      ; Only one left is vert
+SETT r10, r2
+MINUS r10, r4
+SEL r10, r15          ; If deltaX is equal or larger than the max deltaX limit
+BHOPP rightThrusterOn
+
+check_vert:
+SE r3, r7        ; Check if we are below the target
+BHOPP vertThrusterOn
+MEL r3, r5       ; Check if we are heading up, or standing still
+BHOPP end
+SETT r10, r3
+MINUS r10, r5
+SEL r10, r11     ; Check speed. 
+BHOPP vertThrusterOn
+
+
+
+leftThrusterOn:
+SETT r12, 0x01
+HOPP check_vert ; We don't need to check right thruster if the left is on
+
+rightThrusterOn:
+SETT r13, 0x01
+HOPP check_vert ; If we arrive here, the left thruster is not on, the right is, so only vert remains
+
+vertThrusterOn:
+SETT r14, 0x01
+HOPP end  ;We have now done all the thruster checks
+```
+
+The last part is just writing the answers.
+
+We have saved the booleans to r12, r13, r14. And we know we just have to encode these for the ASN.1 specification
+
+so we just add 30090101, left thruster, 0101, right thruster, 0101, vertical thruster. We can just write these out one by one.
+
+```
+end:
+SETT r15, 0x30   ; Start of the sequence
+SKRIV r15
+SETT r15, 0x09   ; length of the sequence
+SKRIV r15
+SETT r15, 0x01   ; Mark that we are sending a boolean
+SKRIV r15
+SETT r15, 0x01   ; Boolean is only 1 byte long
+SKRIV r15
+SKRIV r12        ; Left thruster boolean
+SETT r15, 0x01
+SKRIV r15
+SETT r15, 0x01
+SKRIV r15
+SKRIV r13        ; Right thruster boolean
+SETT r15, 0x01
+SKRIV r15
+SETT r15, 0x01
+SKRIV r15
+SKRIV r14        ; Vertical thruster boolean
+STOPP
+```
+
+And all of it in one:
+
+
+```
+SETT r11, 1
+SETT r12, 0
+SETT r13, 0
+SETT r14, 0
+SETT r15, 2
+HOPP prep
+
+pos:
+.DATA 0x0, 0x0 ; x y
+prevPos:
+.DATA 0x0, 0x0 ; x y
+
+
+prep:
+LES r2           ; 0x30 = Sequence start
+LES r2           ; Number of bytes in sequence
+LES r2           ; 0x30 = Sequence start
+LES r2           ; Number of bytes in sequence
+LES r2           ; 0x02 = Integer incoming 
+TUR checkSize
+
+FINN pos         ; Find the position variable
+LAGR r2          ; Save the position x
+LES r2           ; 0x02 = Integer incoming 
+TUR checkSize
+PLUSS r0, r11    ; increment the variable, so we can add the y
+LAGR r2          ; Save the position y
+
+LES r2           ; 0x30 = Sequence start
+LES r2           ; Number of bytes in sequence
+LES r2           ; 0x02 = Integer incoming 
+TUR checkSize
+
+FINN prevPos     ; Find the Previous position variable
+LAGR r2          ; Save the Previous position x
+LES r2           ; Read the next 02
+TUR checkSize
+PLUSS r0, r11    ; increment the variable, so we can add the y
+LAGR r2          ; Save the Previous position y
+
+calculations:
+FINN pos
+LAST r2          ; pos x
+PLUSS r0, r11
+LAST r3          ; pos y
+PLUSS r0, r11
+LAST r4          ; prev pos x
+PLUSS r0, r11
+LAST r5          ; prev pos y
+
+SETT r6, 0x7F    ; target middle x
+SETT r7, 0xE1    ; target height -5 Will have too much speed if the height is exact
+
+
+check_left:
+ME r2, r6             ; Is current x less than the middle of target?
+BHOPP leftThrusterOn
+SEL r2, r4            ; If the current x is larger than or equal to previous x. We are moving right or flying still
+BHOPP check_right     ; We don't need to use the left thruster if we are already heading right or flying still
+SETT r10, r4
+MINUS r10, r2
+SEL r10, r15          ; If deltaX is equal or larger than the max deltaX limit
+BHOPP leftThrusterOn
+
+check_right:
+SE r2, r6             ; Is current x larger than the middle of target?
+BHOPP rightThrusterOn
+MEL r2, r4            ; If the current y is larger than or equal to previous yx. We are moving right or flying still
+BHOPP check_vert      ; Only one left is vert
+SETT r10, r2
+MINUS r10, r4
+SEL r10, r15          ; If deltaX is equal or larger than the max deltaX limit
+BHOPP rightThrusterOn
+
+check_vert:
+SE r3, r7        ; Check if we are below the target
+BHOPP vertThrusterOn
+MEL r3, r5       ; Check if we are heading up, or standing still
+BHOPP end
+SETT r10, r3
+MINUS r10, r5
+SEL r10, r11     ; Check speed. 
+BHOPP vertThrusterOn
+
+end:
+SETT r15, 0x30   ; Start of the sequence
+SKRIV r15
+SETT r15, 0x09   ; length of the sequence
+SKRIV r15
+SETT r15, 0x01   ; Mark that we are sending a boolean
+SKRIV r15
+SETT r15, 0x01   ; Boolean is only 1 byte long
+SKRIV r15
+SKRIV r12        ; Left thruster boolean
+SETT r15, 0x01
+SKRIV r15
+SETT r15, 0x01
+SKRIV r15
+SKRIV r13        ; Right thruster boolean
+SETT r15, 0x01
+SKRIV r15
+SETT r15, 0x01
+SKRIV r15
+SKRIV r14        ; Vertical thruster boolean
+STOPP
+
+leftThrusterOn:
+SETT r12, 0x01
+HOPP check_vert ; We don't need to check right thruster if the left is on
+
+rightThrusterOn:
+SETT r13, 0x01
+HOPP check_vert ; If we arrive here, the left thruster is not on, the right is, so only vert remains
+
+vertThrusterOn:
+SETT r14, 0x01
+HOPP end  ;We have now done all the thruster checks
+
+
+checkSize:
+LES r2           ; If 0x01, only 1 byte. if 0x02 theres an extra 00 in front
+ULIK r2, r11     ; Larger than 127
+BHOPP over127
+LES r2           ; Get the number
+RETUR
+over127:
+LES r2           ; read the 00
+LES r2           ; Get the number
+RETUR
+```
+
+![](images/success.gif)
 
 when the landing succeeds, we get a link to this website:
 
