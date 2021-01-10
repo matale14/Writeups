@@ -36,7 +36,7 @@ We strongly encourage you not to publish solutions online openly until December 
 In the event of a breach of the rules, we reserve the right to change aliases, block and/or remove users without notice.
 
 General information
-The scoring flag is in the form PST{.*}, For example PST {someTextandSomeNumbers}.
+Scoring flags are in the form PST{.*}, For example PST{someTextandSomeNumbers}.
 
 Flags are delivered in Snabel-A in response to the Middle Manager on today's task.
 
