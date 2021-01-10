@@ -3189,6 +3189,198 @@ function move(state) {
 }
 ```
 
+We can use this to figure out how the data is encoded and read.
+
+
+We know from the ASN.1 specifications that the inputs are 
+
+Current position, X and Y
+
+Previous position, X and Y
+
+Target position, X and Y
+
+Unfortunately, this is also encoded...
+
+```
+const encodePosition = (pos) => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.x & 0xff }));
+    sequence.valueBlock.value.push(new asn.Integer({ value: pos.y & 0xff }));
+    return sequence;
+};
+const encodeTarget = () => {
+    const sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition({ x: target.x, y: target.y }));
+    sequence.valueBlock.value.push(encodePosition({ x: target.x + target.w, y: target.y + target.h }));
+    return sequence;
+};
+const encodeFøde = (input) => {
+    let sequence = new asn.Sequence();
+    sequence.valueBlock.value.push(encodePosition(input.pos)); // currPos
+    sequence.valueBlock.value.push(encodePosition(input.prevPos)); // prevPosition
+    sequence.valueBlock.value.push(encodeTarget()); // target
+    return new Uint8Array(sequence.toBER());
+};
+```
+
+From the code above we see this.
+
+In order to fully understand what the input was going to be I copied the needed files locally and did some modifications to make them both work, and print out the data.
+
+I deleted the code I didn't need, fixed the required modules' paths, and had to rework utils.js into CommonJs instead of ES6. This can be done with tools like Babel, or the babel-website [here](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&spec=false&loose=false&code_lz=FBA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Creact%2Cstage-2&prettier=false&targets=&version=7.12.12&externalPlugins=)
+
+
+```
+var asn1js_1 = require("./asn1.js");
+
+var encodePosition = function (pos) {
+    var sequence = new asn1js_1.Sequence();
+    sequence.valueBlock.value.push(new asn1js_1.Integer({ value: pos.x & 0xff }));
+    sequence.valueBlock.value.push(new asn1js_1.Integer({ value: pos.y & 0xff }));
+    return sequence;
+}
+
+var encodeTarget = function () {
+    var sequence = new asn1js_1.Sequence();
+    sequence.valueBlock.value.push(encodePosition({ x: target.x, y: target.y }));
+    sequence.valueBlock.value.push(encodePosition({ x: target.x + target.w, y: target.y + target.h }));
+    return sequence;
+}
+
+var encodeFøde = function (input) {
+    var sequence = new asn1js_1.Sequence();
+    sequence.valueBlock.value.push(encodePosition(input.pos)); // currPos
+    sequence.valueBlock.value.push(encodePosition(input.prevPos)); // prevPosition
+    sequence.valueBlock.value.push(encodeTarget()); // target
+    return sequence.toBER();
+}
+
+var width = 255;
+var height = 255;
+var target = {x: ~~(width / 2) - 20,
+              y: height - 25,
+              w: 40,
+              h: 25};
+
+var prevPos = { x: 5, y: 255 };
+var pos =     { x: 7, y: 221 }
+var autoPilotInput = { prevPos: prevPos, pos: pos, target: target };
+
+let føde = encodeFøde(autoPilotInput);
+console.log(føde);
+```
+
+I could easily fiddle with the positions to see what was changing in the output.
+
+I got answers like this
+
+`30 27 30 07 02 01 07 02 02 00 dd 30 07 02 01 05 02 02 00 ff 30 13 30 07 02 01 6b 02 02 00 e6 30 08 02 02 00 93 02 02 00 ff`
+
+The 6th index is the pos X coordinates, then there are two `02` bytes before the pos Y coordinates. If the number is 128 or larger, it requires 2 bytes. As can be seen after the two `02`s. There is a `00 dd`. This will have to be accounted for when we read it.
+
+before pos x = 30 27 30 07 02 01
+
+before pos y = 02 02
+
+before prevPos x = 30 07 02 01
+
+before prevPos y = 02 02
+
+We don't really need to worry about reading the target, as it does not change. It is completely static.
+
+
+Now lets see what our program needs to regurgitate:
+
+```
+function decodeOppgulp(oppgulp) {
+    // const oppgulp = [0x30,0x09,0x01,0x01,0x00,0x01,0x01,0xff,0x01,0x01,0xff];
+    const byte = (value) => value.toString(16).padStart(2, "0");
+    const formatted = [...oppgulp].map(byte).join(""); // split 0101, i.e. single byte BOOLEAN
+    const matches = formatted.match(/^30090101([0-9a-f]{2})0101([0-9a-f]{2})0101([0-9a-f]{2})$/);
+    // validate output
+    if ((matches === null || matches === void 0 ? void 0 : matches.length) !== 4)
+        throw new Error("Ugyldig oppgulp!");
+    const [leftThruster, rightThruster, verticalThruster] = matches
+        .slice(1)
+        .map((x) => parseInt(x, 16) > 0);
+    return [leftThruster, rightThruster, verticalThruster];
+}
+```
+
+We have a regex: `^30090101([0-9a-f]{2})0101([0-9a-f]{2})0101([0-9a-f]{2})$`
+
+we start with `3009`, and then use `0101` to separate between booleans for each thruster.
+
+so:
+
+`30090101` then a byte. `00` in order to not engage the left thruster. This is followed by `0101`
+
+Now we get another byte, lets say `01` in order to engage the right thruster. This is followed by another `0101`
+
+And now we end with our final boolean byte `01` in order to engage the vertical thruster.
+
+
+We can see in the `simulation` function in the script that the script will fail if
+
+```
+ if (state.x < 0 || state.x > width || state.y < 0 || state.y > height) {
+            // console.error("LANDING FEILET", state);
+```
+
+so if the position is lower or larger than the canvas we immediately fail.
+
+```
+onTarget(state) {
+    return (state.x > target.x && state.x < target.x + target.w && state.y >= target.y);
+```
+
+We need to be on the target.
+
+```
+function softLanding(state) {
+    return Math.abs(state.dy) < 3 && Math.abs(state.dx) < 2;
+```
+And we need to have a low speed.
+
+If we land on the target with a high speed, we fail.
+
+
+The pseudocode will be the following:
+
+Set up constants like an incrementer, the target coordinates.
+
+Read the current and previous position.
+
+If the sleigh is to the left of the target, we engage the left thruster in order to bring us back to the middle.
+
+If the sleigh is to the right of the target, we engage the right thruster in order to bring us back to the middle.
+
+If we are going too fast in a direction, for example if the difference between prevPos x and pos x is very large, we need to engage the opposite thruster.
+
+If we are above the height of the target, we do not engage the vertical thruster
+
+If we are below the height of the target, we engage the vertical thruster (Don't know if this will happen, but it's a great safety precaution)
+
+If we are going too fast downwards, we engage the vertical thruster in order to not fail the softLanding check.
+
+Regurgitate `30090101` and the state of the left thruster. then `0101` and the state of the right thruster, and finally `0101` and the state of the vertical thruster.
+
+
+We can save the position data two ways.
+
+Either by storing them in registers, or by saving them to .DATA fields in the memory. I think the .DATA fields use more steps, but that they are a bit more understandable. As we are basically creating some variables.
+
+Lets split it into three parts: 
+
+Reading and storing
+
+Calculations
+
+Writing
+
+
+
 when the landing succeeds, we get a link to this website:
 
 `Congratulations, You saved Christmas!`
@@ -3198,7 +3390,7 @@ when the landing succeeds, we get a link to this website:
 ```
 Chief NPST will appreciate this!
 
-PS: It is possible to get a total of 11 awards.
+PS: It is possible to get a total of 11 commendations.
 
 ```
 ```
