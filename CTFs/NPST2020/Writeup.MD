@@ -116,20 +116,20 @@ Here is some Python code to achieve the same thing:
 import string
 
 def shift(melding):
-    lowercase_alphabet = string.ascii_lowercase
-    plaintext = ''
+    lowercase_alphabet = string.ascii_lowercase   # The characters we are shifting
+    plaintext = ''                                # We need to create this before the loop, as we are adding to it
     shift = 0
-    while shift < len(lowercase_alphabet):
+    while shift < len(lowercase_alphabet):        #Loop goes for as long as the alphabet
         for c in melding:
-            index = lowercase_alphabet.find(c.lower())
-            if index != -1:
-                isupper = c.isupper()
-                c = lowercase_alphabet[(shift + index) % len(lowercase_alphabet)]
+            index = lowercase_alphabet.find(c.lower()) # we find the position of the first character in the alphabet.
+            if index != -1:                            # This makes sure we aren't shifting characters not in the alphabet.
+                isupper = c.isupper()                  # Check if it is uppercase or not, we do lowercase by default
+                c = lowercase_alphabet[(shift + index) % len(lowercase_alphabet)] # Simply take the original character index and add the shift amount.
                 if isupper:
-                    c = c.upper()
-            plaintext += c
+                    c = c.upper()                 # If it's originally uppercase, we make it uppercase.
+            plaintext += c                        # Add it
 
-        if 'PST' in plaintext:
+        if 'PST' in plaintext:               # This is the crib. We print the message and shift amount if we find the known text in there.
             print(plaintext)
             print(shift)
             pass
@@ -138,12 +138,11 @@ def shift(melding):
             print(shift)
             pass
 
-        plaintext = ""
-        shift += 1
+        plaintext = ""       # Reset the plaintext back to nothing
+        shift += 1           # Increment shift
 
 
 shift("RUV{JgkJqPåGtFgvLwnKilgp}")
-
 ```
 This code can be modified to include numbers or extra characters by changing 
 
@@ -475,7 +474,7 @@ PRIMARY KEY CLUSTERED
 GO
 ```
 
-Instead of going through the sql calculations and fixing it, I created my own in python:
+Instead of going through the sql calculations and fixing it, I created my own in python (Found the algorithm online, and imported it to python.):
 
 ```
 import datetime
@@ -537,12 +536,12 @@ import chardet
 from urllib.parse import unquote
 
 with open('log.csv', 'rb') as f:
-    result = chardet.detect(f.read())
+    result = chardet.detect(f.read())  #detect encoding
 
 
 log = pandas.read_csv("log.csv", ";", names=['Date', "Name", "Section", "Message"], encoding = result['encoding'])
 
-print(log['Name'].value_counts())
+print(log['Name'].value_counts())  # Print every unique name, and how many times it appears
 ```
 
 Luckily I got a match on the first try, by sorting by names:
@@ -605,22 +604,21 @@ Sum the following N numbers and write the result
 
 
 ```
-LES r10
-SETT r11, 1
+LES r10        ; Read number of bytes
+SETT r11, 1    ; Increment constant
 
-leseloop:
-LIK r5, r10
-BHOPP slutt
-PLUSS r5, r11
+foodLoop:
+LIK r5, r10    ; Have we gone through all bytes?
+BHOPP end      ; Then end
+PLUSS r5, r11  ; Increment counter
 
-LES r2
-PLUSS r3, r2
+LES r2         ; Read byte
+PLUSS r3, r2   ; Pluss r3 with the new number
 
-HOPP leseloop
+HOPP foodLoop  ; Jump back until we are out of bytes
 
-
-slutt:
-SKRIV r3
+end:
+SKRIV r3       ; Write r3
 STOPP
 ```
 
@@ -817,7 +815,7 @@ for e in filt: #Locate type of character, and transform
 
 
 flag.reverse()
-result = ''.join(str(v) for v in flag)
+result = ''.join(str(v) for v in flag)  # Had to reverse it
 
 print(result)
 ```
@@ -892,9 +890,8 @@ hexdict = {
 }
 hexxed_mas = []
 
-for c in hexmas:
-    print(hexdict[c], end="")
-    hexxed_mas.append(hexdict[c])
+for c in hexmas:                  # Each emoji is just correlated with the value.
+    print(hexdict[c], end="")     # So we print the value once we see the emoji
 ```
 
 ```
@@ -1028,38 +1025,30 @@ A small example:
 And here is the slede8 code I wrote:
 
 ```
-
-; Føde består av to tall, A og B
-; Skriv ut resultatet av (A + B) mod 256 som en ASCII-streng
-
-; Eksempel: A=0xA0 og B=0x08 => '168'
-; Eksempel: A=0xFF og B=0xFF => '254'
-
-
 LES r10
 LES r13
 SETT r14, r10
 PLUSS r10, r13
 SETT r5, 0xFF
 
-ME r10, r14
+ME r10, r14     ; Checg if over 256
 BHOPP over256
 
-MEL r10, r5
-BHOPP skriv_tall
+MEL r10, r5     ; Check if Less or equal to 255
+BHOPP write_num
 
 over256:
-SETT r11, 0x01
-SETT r6, 0x01 ; counter is now 1
+SETT r11, 0x01  ;
+SETT r6, 0x01   ; counter is now 1
 MINUS r10, r5
 MINUS r10, r11
-HOPP skriv_tall
+HOPP write_num
 
 
-skriv_tall:
-SETT r12, 0x09
+write_num:
+SETT r12, 0x09  ; Checking how large the number is
 MEL r10, r12
-BHOPP underti
+BHOPP under10
 SETT r12, 0x14
 ME r10, r12
 BHOPP under20
@@ -1086,7 +1075,7 @@ ME r10, r12
 BHOPP under90
 SETT r12, 0x64
 ME r10, r12
-BHOPP under100
+BHOPP under100 
 SETT r12, 0xC8
 ME r10, r12
 BHOPP under200
@@ -1094,10 +1083,8 @@ SETT r12, 0xFF
 ME r10, r12
 BHOPP under300
 
-
-
-underti:
-SETT r12, 0x30
+under10:
+SETT r12, 0x30 ; Add 0x30 to the number to get the ASCII value and write it.
 PLUSS r10, r12
 SKRIV r10
 STOPP
@@ -1106,55 +1093,55 @@ SETT r12, 0x31
 SKRIV r12
 SETT r12, 0xA
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under30:
 SETT r12, 0x32
 SKRIV r12
 SETT r12, 0x14
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under40:
 SETT r12, 0x33
 SKRIV r12
 SETT r12, 0x1E
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under50:
 SETT r12, 0x34
 SKRIV r12
 SETT r12, 0x28
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under60:
 SETT r12, 0x35
 SKRIV r12
 SETT r12, 0x32
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under70:
 SETT r12, 0x36
 SKRIV r12
 SETT r12, 0x3c
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under80:
 SETT r12, 0x37
 SKRIV r12
 SETT r12, 0x46
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under90:
 SETT r12, 0x50
 SKRIV r12
 SETT r12, 0x1E
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under100:
 SETT r12, 0x39
 SKRIV r12
 SETT r12, 0x5A
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under200:
 SETT r12, 0x31
 SKRIV r12
@@ -1162,12 +1149,12 @@ SETT r12, 0x64
 MINUS r10, r12
 SETT r12, 0x09
 MEL r10, r12
-BHOPP underti_100
-HOPP skriv_tall
+BHOPP under10_100
+HOPP write_num
 underti_100:
 SETT r12, 0x30
 SKRIV r12
-HOPP skriv_tall
+HOPP write_num
 
 under300:
 SETT r12, 0x32
@@ -1176,12 +1163,12 @@ SETT r12, 0xC8
 MINUS r10, r12
 SETT r12, 0x09
 MEL r10, r12
-BHOPP underti_100
-HOPP skriv_tall
-underti_100:
-SETT r12, 0x30
+BHOPP under10_100
+HOPP write_num
+under10_100:
+SETT r12, 0x30     ; Encountered a problem if the number was over 100 or 200, but under 110, 210.
 SKRIV r12
-HOPP skriv_tall
+HOPP write_num
 ```
 
 
@@ -1202,67 +1189,55 @@ but I also had to check that the remaining numbers would not go over 100, as tha
 After that it was just the same idea as above.
 
 ```
-; Føde består av to tall, A og B
-; Skriv ut resultatet av A + B som en ASCII-streng
-
-; Eksempel: A=0xA0 og B=0x08 => '168'
-; Eksempel: A=0xFF og B=0xFF => '510'
-
-
-
 LES r10
 LES r13
 
-ULIK r10, r7
-BHOPP ikkenull
+ULIK r10, r7    ; Check that the first number is not 0
+BHOPP notZero
 
-ULIK r13, r7
-BHOPP ikkenull
+ULIK r13, r7    ; Check that the second number is ALSO not 0
+BHOPP notZero
 SETT r7, 0x30
-SKRIV r7
+SKRIV r7        ; Guess we just write 0
 STOPP
 
-ikkenull:
-SETT r14, r10
+notZero:
+SETT r14, r10   ; Backup variables
 SETT r15, r13
-PLUSS r10, r13
-SETT r10, r14
-SETT r12, 0x64
-ME r10, r12
-BHOPP sjekkb
-SETT r12, 0xC8
-ME r10, r12
+SETT r12, 0x64 
+ME r10, r12     ; Check if A < 100
+BHOPP checkB
+SETT r12, 0xC8  
+ME r10, r12     ; Check if A < 200
 BHOPP over100
-SETT r12, 0xFF
-MEL r10, r12
-BHOPP over200
+HOPP over200   ; A is over 200
 
 
 over100:
-SETT r12, 0x64
-MINUS r10, r12
-SETT r3, r10
-SETT r0, 0x01
-HOPP sjekkb
+SETT r12, 0x64  
+MINUS r10, r12  ; A is over 100, so we subtract 100
+SETT r3, r10    ; r3 holds the remainder
+SETT r0, 0x01   ; r0 holds the 1 from 100
+HOPP checkB
 
 over200:
-SETT r12, 0xC8
+SETT r12, 0xC8  ; Same deal
 MINUS r10, r12
 SETT r3, r10
 SETT r0, 0x02
-HOPP sjekkb
+HOPP checkB
 
-sjekkb:
-SETT r12, 0x64
+checkB:
+SETT r12, 0x64 ; Do the same with B
 ME r13, r12
-BHOPP tierne
+BHOPP tens
 SETT r12, 0xC8
 ME r13, r12
 BHOPP over100b
 SETT r12, 0xFF
 MEL r13, r12
 BHOPP over200b
-HOPP tierne
+HOPP tens
 
 over100b:
 SETT r12, 0x64
@@ -1270,7 +1245,7 @@ MINUS r13, r12
 SETT r4, r13
 SETT r1, 0x01
 PLUSS r0, r1
-HOPP tierne
+HOPP tens
 
 over200b:
 SETT r12, 0xC8
@@ -1278,39 +1253,39 @@ MINUS r13, r12
 SETT r4, r13
 SETT r1, 0x02
 PLUSS r0, r1
-HOPP tierne
+HOPP tens
 
 
-tierne:
-PLUSS r10, r13
-SETT r12, 0x64
-ME r10, r12
-BHOPP denvarunder
+tens:
+PLUSS r10, r13    ; Pluss the remainders
+SETT r12, 0x64    ; If the remainders are over 100
+ME r10, r12       ; we have to carry that 1 over
+BHOPP itWasUnder
 
-SETT r6, 0x01
+SETT r6, 0x01     ; We carry it over
 PLUSS r0, r6
-MINUS r10, r12
+MINUS r10, r12    ; And remove 100 from the remainder
 
-denvarunder:
-LIK r0, r7
-BHOPP skriv_tall
-SETT r12, 0x30
+itWasUnder:
+LIK r0, r7        ; If there is no carryover at all, we just write
+BHOPP write_num
+SETT r12, 0x30    ; Now we write the 100 decimal
 PLUSS r0, r12
 SKRIV r0
 SETT r12, 0x09
-MEL r10, r12
-BHOPP underti_100b
-HOPP skriv_tall
-underti_100b:
+MEL r10, r12      ; Check if we have <10 remaining
+BHOPP under10_100b
+HOPP write_num
+under10_100b:
 SETT r12, 0x30
 SKRIV r12
-BHOPP skriv_tall
+BHOPP write_num
 
 
-skriv_tall:
-SETT r12, 0x09
+write_num:
+SETT r12, 0x09   ; Check what our number is
 MEL r10, r12
-BHOPP underti
+BHOPP under10
 SETT r12, 0x14
 ME r10, r12
 BHOPP under20
@@ -1347,8 +1322,8 @@ BHOPP under300
 
 
 
-underti:
-SETT r12, 0x30
+under10:
+SETT r12, 0x30   ; Add 0x30 to make it ASCII
 PLUSS r10, r12
 SKRIV r10
 STOPP
@@ -1357,55 +1332,55 @@ SETT r12, 0x31
 SKRIV r12
 SETT r12, 10
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under30:
 SETT r12, 0x32
 SKRIV r12
 SETT r12, 20
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under40:
 SETT r12, 0x33
 SKRIV r12
 SETT r12, 30
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under50:
 SETT r12, 0x34
 SKRIV r12
 SETT r12, 40
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under60:
 SETT r12, 0x35
 SKRIV r12
 SETT r12, 50
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under70:
 SETT r12, 0x36
 SKRIV r12
 SETT r12, 60
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under80:
 SETT r12, 0x37
 SKRIV r12
 SETT r12, 70
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under90:
 SETT r12, 0x38
 SKRIV r12
 SETT r12, 80
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under100:
 SETT r12, 0x39
 SKRIV r12
 SETT r12, 90
 MINUS r10, r12
-HOPP skriv_tall
+HOPP write_num
 under200:
 SETT r12, 0x31
 SKRIV r12
@@ -1413,12 +1388,12 @@ SETT r12, 0x64
 MINUS r10, r12
 SETT r12, 0x09
 MEL r10, r12
-BHOPP underti_100
-HOPP skriv_tall
-underti_100:
+BHOPP under10_100
+HOPP write_num
+under10_100:
 SETT r12, 0x30
 SKRIV r12
-HOPP skriv_tall
+HOPP write_num
 
 under300:
 SETT r12, 0x32
@@ -1427,12 +1402,12 @@ SETT r12, 0xC8
 MINUS r10, r12
 SETT r12, 0x09
 MEL r10, r12
-BHOPP underti_100
-HOPP skriv_tall
-underti_100:
+BHOPP under10_100
+HOPP write_num
+under10_100:
 SETT r12, 0x30
 SKRIV r12
-HOPP skriv_tall
+HOPP write_num
 ```
 
 ## December 11th
@@ -1451,28 +1426,28 @@ We receive a zip file with a database. With two tables. Nice and Naughty. The ta
 ```
 import hashlib
 
-slemme = []
+slemme = []  # Create empty lists
 snille = []
 with open('liste/slemme.csv', 'r',encoding='utf-8') as f:
     for line in f:
-        slemme.append(line)
+        slemme.append(line)  # Add each row to list
 
 
 with open('liste/snille.csv', 'r',encoding='utf-8') as f:
     for line in f:
-        snille.append(line)
+        snille.append(line) # Add each row to list
 
 
 for barn in slemme:
-    barn = barn.split(",")
-    s = barn[0]+barn[1]
-    barn[2] = barn[2].rstrip("\n")
-    has = hashlib.md5(s.encode('utf-8')).hexdigest()
-    if barn[2] != has:
-        print(barn[0], barn[1])
+    barn = barn.split(",") # Split first name, last name, and hash
+    s = barn[0]+barn[1]    # Get the name 
+    barn[2] = barn[2].rstrip("\n") #strip newline so it doesn't ruin the md5sum
+    has = hashlib.md5(s.encode('utf-8')).hexdigest() # md5sum the name
+    if barn[2] != has:                # If the original hash does not match our hash
+        print(barn[0], barn[1])       # We found our culprit
         print(barn[2], has)
 
-for barn in snille:
+for barn in snille:                   # Same on the other table 
     barn = barn.split(",")
     s = barn[0]+barn[1]
     barn[2] = barn[2].rstrip("\n")
@@ -1515,6 +1490,9 @@ import math
 import time
 from functools import reduce
 import struct
+
+#This is just a rewrite of the runtime.ts code. I can't be bothered to comment this entire thing.
+
 class DataView:
     def __init__(self, array, bytes_per_element=1):
         self.array = array
@@ -1902,29 +1880,29 @@ counts = defaultdict()
 
 
 for k in range(0, len(keyss)):
-    counts[keyss[k]] = valss[k]
+    counts[keyss[k]] = valss[k] 
 
 counts = {k: v for k, v in sorted(counts.items(), key=lambda item: item[1], reverse=True)}
 
 for k in counts:
-    print(k, ":", counts[k])
+    print(k, ":", counts[k])  #Prints the amount each character appears
 
 
 dem = "7F51EC23"
 nym = melding
 for c in dem:
-    nym = nym.replace(c, " ")
+    nym = nym.replace(c, " ")  #Replace all of these characters with space
 
-print(nym)
+print(nym) #Print the new message
 
 
 print()
-rem = "46A9B08D"
+rem = "46A9B08D" 
 nym = melding
 for c in rem:
-    nym = nym.replace(c, " ")
+    nym = nym.replace(c, " ") #Replace all of these characters with space
 
-print(nym)
+print(nym) #Print the new message
 ```
 ![](images/luke13_2.png)
 ```
@@ -2317,7 +2295,7 @@ from collections import defaultdict
 
 
 
-foo = asn1tools.compile_files('ETSI232-1.txt', 'der')
+foo = asn1tools.compile_files('ETSI232-1.txt', 'der') #Compile the specs
 msg = "MIIEJaE3MDWgCQYHBAICAAUBDqEJBAdwZW5nd3luogQTAk5PoxAwDqAMMAqgCAQGU0FOVEVMpAUCAwj4k6KCA+ihggPkMIID4DAVoAMKAQCiDqAMBApjS0AET1JBSEAFMBCgAwoBAKIJoAcEBWtSQVYKMBCgAwoBAaIJoAcEBWxBTQoEMCKgAwoBAaIboBkEF2xFVgRAUQRCUUpKQVAESktBBEPnnF0bMBagAwoBAKIPoA0EC25FCARXQQRMQVYKMA6gAwoBAaIHoAUEAxsbBDAfoAMKAQGiGKAWBBRuQUMEV0FWBE1KQ0FKBFBNSkMKBDAboAMKAQCiFKASBBAODg4ODg4ODg4ODg4ODg4OMCigAwoBAaIhoB8EHW5BQwRXQVYERkVWQQQODg4ODg4ODg4ODg4ODg4OMDugAwoBAKI0oDIEMGtNCAROQUMER0tUXQtURVdQQVAEVEVXV0tWQEFQBElNUFAEUkFABEFKBEJBTUgKBDAeoAMKAQCiF6AVBBNmVkUEQEFQBEZIQQRXSEVAQEFQMBGgAwoBAaIKoAgEBk5BQ0FWFjANoAMKAQCiBqAEBAIbGzAdoAMKAQGiFqAUBBJgQVAEQlFKT0FQBE1PT0EKCgowG6ADCgEAohSgEgQQCgoKBFJBSlAESE1QUAQKCjAToAMKAQCiDKAKBAhAHUcXEkdHQjAPoAMKAQGiCKAGBARM54IbMA+gAwoBAKIIoAYEBBJFFxwwD6ADCgEAogigBgQEEBYcFTAPoAMKAQCiCKAGBARGEBxCMA+gAwoBAaIIoAYEBBsbGxswF6ADCgEAohCgDgQMQBUQQEYSHRBARUVBMBugAwoBAaIUoBIEEGxSRQRXQVYETkFDBFTngRkwI6ADCgEAohygGgQYYEFQBFdPRUgEUueCVkEEQUoEUVFNQAoEMCygAwoBAKIloCMEIWZNSkBBV1BWQU9PSkVUVEFKBElNSgRCUUpPQVYETU9PQTAroAMKAQGiJKAiBCBrQwRMUkUEQ0tAUARXT0VIBEBBUARDTuecVkEESUFDGzBPoAMKAQCiSKBGBERgUQRJ54EEUEUESUARBEVSBFFRTUADQUoEV0tJBEhLU0FWR0VXQQRMQVwES0MESEFDQ0EEUE1IBEBBUARSRUpITUNBCjAVoAMKAQGiDqAMBAp3T07nnEpKQVYFMB6gAwoBAaIXoBUEE2BBUARCUUpPQVYETU9PQQQKCgowNKADCgEAoi2gKwQpc0xLS1RXCgRxUU1AQUoEV09RSEhBBFdQRVZQQQRJQUAERx1HDAoKCg0wJaADCgEAoh6gHAQaCgoKBEtDBFdIUVBQQQRJQUAEDAoKCg0QRRcwFaADCgEBog6gDAQKc21qBQRwRU9PCjAYoAMKAQCiEaAPBA1xSkBBVgRLQwRNSkoK"
 ba = base64.b64decode(msg)
 encoded = foo.decode('PS-PDU', ba)
@@ -2330,17 +2308,18 @@ def pretty(d, indent=0):
       else:
          print('\t' * (indent+1) + str(value))
 
-pretty(encoded)
+pretty(encoded) #This lets me see the layout of the message.
+
 contents = encoded['payload'][1]
 
 melding = b""
 
 for k in contents:
-    #print(k['cCContents'][1])
+    #print(k['cCContents'][1]) #Used this for debugging
     melding += (k['cCContents'][1])
 
-print()
-print(melding.decode('unicode-escape'))
+print()  #Used this for debugging
+#print(melding.decode('unicode-escape')) 
 
 for k in contents:
     print(k['payloadDirection'], ": ", ''.join([chr(y ^ 0x24) for y in k['cCContents'][1]]))
@@ -2809,13 +2788,14 @@ melding = """
 """
 
 
-splittern = melding.split("\n")[1:]
+splittern = melding.split("\n")[1:] # Split each line
 
 
-fin = splittern[0]
+fin = splittern[0] # line we want to finish
 
-fin2 = "01010000010100110101010001111011"
-guide = splittern[1]
+fin2 = "01010000010100110101010001111011" # We already know this
+
+guide = splittern[1] # Line below our line
 
 """
 111 110 101 100 011 010 001 000
