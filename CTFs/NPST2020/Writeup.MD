@@ -3316,7 +3316,7 @@ Current position, X and Y
 
 Previous position, X and Y
 
-Target position, X and Y
+Target position, X, Y, W, and H
 
 Unfortunately, this is also encoded...
 
