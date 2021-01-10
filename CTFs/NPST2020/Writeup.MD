@@ -3043,9 +3043,12 @@ Can you find out if there is anything strange about the card?
 We receive another image. The first thing I did this time was to throw it in the Enhance module in DASS. Which resulted in nothing.
 The next thing I did was use the tool Zsteg, which did not really provide any real use for me.
 I threw it in the online tool https://stegonline.georgeom.net/upload And checked the options. When I browsed the bit planes I was greeted with a QR code. There was one on bit planes Red0, Green0, and Blue0. 
-I simply combined them all in photoshop, and threw it into Cyberchef:
+I simply combined them all in photoshop using the overlay blending mode, and threw it into Cyberchef:
 
 ![](images/luke23_1.png)
+
+Also, the QR is inverted, but still reads well. Awesome.
+
 
 So what are bit planes?
 
