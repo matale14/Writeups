@@ -2729,12 +2729,17 @@ This revealed a single packed of Line-based text data and MIME Multipart Media E
 
 I applied the Line-based text data as a filter and saw a message that said “Hemmeligheten er mottatt” translated to “The secret is received”.
 I then filter by this IP to find a file transfer. 
+
 [Request URI: http://shadyserverfunction.azurewebsites.net/api/submitit?code=aMdhWlyaKU5cMjZ4sk6njSRcVVrS6FpiKrLLvbNIswaNcBAW/PyPwg==]
 We see that two files are transferred.
+
 The first is file1, a base64 encoded string.
 The second is file2, a zip file containing another file named file2.
 And a message that says “Som avtalt”, translated to “As agreed”.
 
+The easiest tell for Base64 encoding are the `=` at the end of the line. Base64 splits the input data into chunks of 6 bits. If the last chunk of input data is not 6 long, base64 adds `=` as padding until it reaches the 6 bits.
+
+Base64 has it's name because it is built from 64 characters. It uses some of the most common characers to most encodings. This make sure the data is unlikely to be modified in transit. 
 
 File1 is decoded to many lines of this:
 
