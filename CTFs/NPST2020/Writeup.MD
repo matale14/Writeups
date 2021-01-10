@@ -1,7 +1,7 @@
 # NPST-2020
 
 - [Egg #4](#Eggs)
-- [Egg #1](#Egg-1-)
+- [Egg #1](#Egg-1)
 - [December 1st](#December-1st)
 - [December 2nd](#December-2nd)
 - [December 3rd](#December-3rd)
