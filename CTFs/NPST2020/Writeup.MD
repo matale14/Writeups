@@ -3114,7 +3114,7 @@ The autopilot is stateless. It reads in relevant positions such as food, and pro
 The task is easy to do: Decide which of the three engines, if any, will be active based on the previous and current position. 
 All you have to think about is that you have to land softly enough, as well as hit the target, so that NISSEN recovers unscathed from the landing.
 
-Could have done this in a jiffy myself, but is unfortunately busy eating gingerbread.
+Could have done this in a jiffy myself, but I'm unfortunately busy eating gingerbread.
 
 Tastefinger
 
