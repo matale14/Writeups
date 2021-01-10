@@ -3545,6 +3545,8 @@ SETT r14, 0x01
 HOPP end  ;We have now done all the thruster checks
 ```
 
+I had some issues with landing too hard, but it seems like just messing with the target height fixes it.
+
 The last part is just writing the answers.
 
 We have saved the booleans to r12, r13, r14. And we know we just have to encode these for the ASN.1 specification
