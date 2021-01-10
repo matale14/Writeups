@@ -3163,7 +3163,7 @@ The first course of action is to figure out how to take the inputs, and deliver 
 
 We can find the source-code by opening the browser developer tools. 
 
-![](images/luke24_2)
+![](images/luke24_2.png)
 
 simulator.ts:
 ```
