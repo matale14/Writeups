@@ -1,6 +1,29 @@
 # NPST-2020
 
 - [December 1st](#December-1st)
+- [December 2nd](#December-2nd)
+- [December 3rd](#December-3rd)
+- [December 4th](#December-4th)
+- [December 5th](#December-5th)
+- [December 6th](#December-6th)
+- [December 7th](#December-7th)
+- [December 8th](#December-8th)
+- [December 9th](#December-9th)
+- [December 10th](#December-10th)
+- [December 11th](#December-11th)
+- [December 12th](#December-12th)
+- [December 13th](#December-13th)
+- [December 14th](#December-14th)
+- [December 15th](#December-15th)
+- [December 16th](#December-16th)
+- [December 17th](#December-17th)
+- [December 18th](#December-18th)
+- [December 19th](#December-19th)
+- [December 20th](#December-20th)
+- [December 21st](#December-21st)
+- [December 22nd](#December-22nd)
+- [December 23rd](#December-23rd)
+- [December 24th](#December-24th)
 
 From December 1st to December 24th. PST will release a new Task/challenge for us to solve. This is all wrapped neatly in a fun package where we are employees of the NPST,
 
