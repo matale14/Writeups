@@ -243,8 +243,9 @@ hile kladd.txt is a text file containing 8 sleigh emojis with an encoded string.
 
 kladd.txt:
 
-`🛷🛷🛷🛷🛷🛷🛷🛷 N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAIwA0xADAB5kA6AdgGo4DSAkgGInlXlm+IqWpUAbAE4h7AEqcWo5gAkA8gAV1NWgCYEzZgAsAtsczMAdABEAggRvaALI4p1xAVle0ECLwA4Adi8AI3F-MTpUSjpHXzoAQy9HRMiAMy9JVMtbe214iNp3VC8AnS94sro-AGYMuNpJTzoEJtpUAtQwhJSGnWy7BzoA+tS4ENq6auCQ9Lp3aO9phPqEYqrK+jG6HUcDJnUAGQBVHBxRAUYmDnlFGGoZG6Urwj4xbQDgh4UngiPZYjAAE9UAAHCAAGwQTGYhxOZzuFy+t3u0KuBA06j2QNBEKh5meInILiewj4ZE8pEuzG4nAAcrTiCZjMwABp4A4HPD-GBlUh9Al8Cl0KlMCDGADWADdVvjOfDqswDjYcHxdkw2RyuaRaqQ1YrOOw+QIFUwAEJqTTEMFgAAu4KgqAAllBmVc5N8YCbYadzqR3CoMcQxVLVntrXaHc6zEIXr6iTHCZRKf6mLJCH89swQBQQI6mCCoDasCAyKVJPFgnBqqkpn5JI5quJxMEdAF4qka3B5sEyKh2u1EHBm2RJJJgn50KkAtQ4JIdKgdO5hhUdH4fGQaj4PDsQABfIA
-`
+```
+🛷🛷🛷🛷🛷🛷🛷🛷 N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAIwA0xADAB5kA6AdgGo4DSAkgGInlXlm+IqWpUAbAE4h7AEqcWo5gAkA8gAV1NWgCYEzZgAsAtsczMAdABEAggRvaALI4p1xAVle0ECLwA4Adi8AI3F-MTpUSjpHXzoAQy9HRMiAMy9JVMtbe214iNp3VC8AnS94sro-AGYMuNpJTzoEJtpUAtQwhJSGnWy7BzoA+tS4ENq6auCQ9Lp3aO9phPqEYqrK+jG6HUcDJnUAGQBVHBxRAUYmDnlFGGoZG6Urwj4xbQDgh4UngiPZYjAAE9UAAHCAAGwQTGYhxOZzuFy+t3u0KuBA06j2QNBEKh5meInILiewj4ZE8pEuzG4nAAcrTiCZjMwABp4A4HPD-GBlUh9Al8Cl0KlMCDGADWADdVvjOfDqswDjYcHxdkw2RyuaRaqQ1YrOOw+QIFUwAEJqTTEMFgAAu4KgqAAllBmVc5N8YCbYadzqR3CoMcQxVLVntrXaHc6zEIXr6iTHCZRKf6mLJCH89swQBQQI6mCCoDasCAyKVJPFgnBqqkpn5JI5quJxMEdAF4qka3B5sEyKh2u1EHBm2RJJJgn50KkAtQ4JIdKgdO5hhUdH4fGQaj4PDsQABfIA
+```
 
 ```
 Your colleague Tastefinger has identified something 🧁 with the file cupcake.png from the seizure you worked with yesterday. 
@@ -534,7 +535,7 @@ during the period where it is suspected that the error may be. Do you find anyth
 
 ![](images/luke5_0.png)
 
-We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. %7B being { and %7D being }. This is because the log is URL encoded.
+We receive a single csv file. It is 5185 lines long with each line being a password change request. It contains the date and time, Name of the person asking for a reset, the section handling the request(Password and prevention in this case), and the message received. And the message contains the password in the form PST%7B95b349c65133416bc9c5a73c4e4f46ee%7D for example. `%7B` being `{` and `%7D` being `}`. This is because the log is URL encoded.
 
 My plan was to count occurrences on the lines to see if anything was out of the ordinary. Maybe a name only appeared once. Which would be interesting. Maybe the Section handling the request would be different.
 
@@ -673,8 +674,9 @@ a reminder:
 
 kladd.txt:
 
-`🛷🛷🛷🛷🛷🛷🛷🛷 N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAIwA0xADAB5kA6AdgGo4DSAkgGInlXlm+IqWpUAbAE4h7AEqcWo5gAkA8gAV1NWgCYEzZgAsAtsczMAdABEAggRvaALI4p1xAVle0ECLwA4Adi8AI3F-MTpUSjpHXzoAQy9HRMiAMy9JVMtbe214iNp3VC8AnS94sro-AGYMuNpJTzoEJtpUAtQwhJSGnWy7BzoA+tS4ENq6auCQ9Lp3aO9phPqEYqrK+jG6HUcDJnUAGQBVHBxRAUYmDnlFGGoZG6Urwj4xbQDgh4UngiPZYjAAE9UAAHCAAGwQTGYhxOZzuFy+t3u0KuBA06j2QNBEKh5meInILiewj4ZE8pEuzG4nAAcrTiCZjMwABp4A4HPD-GBlUh9Al8Cl0KlMCDGADWADdVvjOfDqswDjYcHxdkw2RyuaRaqQ1YrOOw+QIFUwAEJqTTEMFgAAu4KgqAAllBmVc5N8YCbYadzqR3CoMcQxVLVntrXaHc6zEIXr6iTHCZRKf6mLJCH89swQBQQI6mCCoDasCAyKVJPFgnBqqkpn5JI5quJxMEdAF4qka3B5sEyKh2u1EHBm2RJJJgn50KkAtQ4JIdKgdO5hhUdH4fGQaj4PDsQABfIA
-`
+```
+🛷🛷🛷🛷🛷🛷🛷🛷 N4Igzg9grgTgxgUwMIQCYJALhAZQKIAqBABDAIwA0xADAB5kA6AdgGo4DSAkgGInlXlm+IqWpUAbAE4h7AEqcWo5gAkA8gAV1NWgCYEzZgAsAtsczMAdABEAggRvaALI4p1xAVle0ECLwA4Adi8AI3F-MTpUSjpHXzoAQy9HRMiAMy9JVMtbe214iNp3VC8AnS94sro-AGYMuNpJTzoEJtpUAtQwhJSGnWy7BzoA+tS4ENq6auCQ9Lp3aO9phPqEYqrK+jG6HUcDJnUAGQBVHBxRAUYmDnlFGGoZG6Urwj4xbQDgh4UngiPZYjAAE9UAAHCAAGwQTGYhxOZzuFy+t3u0KuBA06j2QNBEKh5meInILiewj4ZE8pEuzG4nAAcrTiCZjMwABp4A4HPD-GBlUh9Al8Cl0KlMCDGADWADdVvjOfDqswDjYcHxdkw2RyuaRaqQ1YrOOw+QIFUwAEJqTTEMFgAAu4KgqAAllBmVc5N8YCbYadzqR3CoMcQxVLVntrXaHc6zEIXr6iTHCZRKf6mLJCH89swQBQQI6mCCoDasCAyKVJPFgnBqqkpn5JI5quJxMEdAF4qka3B5sEyKh2u1EHBm2RJJJgn50KkAtQ4JIdKgdO5hhUdH4fGQaj4PDsQABfIA
+```
 
 
 Eight sleighs, followed by an encrypted string.
@@ -864,7 +866,7 @@ And there it is. It was the common compression algorithm Gzip. I was already fam
 
 ![](images/luke9_1.png)
 
-Magic numbers, Magic bytes, or file signatures is the bytes used to identify or verify the contents of a file. For example, the magic numbers for a zip file is `50 4B 05 06` Which when decoded from hex looks like `PK..`. So if you see `PK..` while looking at the hex-dump of something, it's very likely that there is a zip file there.
+Magic numbers, Magic bytes, or file signatures are the bytes used to identify or verify the contents of a file. For example, the magic numbers for a zip file is `50 4B 05 06` Which when decoded from hex looks like `PK..`. So if you see `PK..` while looking at the hex-dump of something, it's very likely that there is a zip file there.
 
 And in this case, the magic numbers for gzip is `1F8B`.
 
@@ -1778,6 +1780,7 @@ This was food for thought. If you still have the desire to live, you can try thi
 
 ## Egg #8
 I did not complete
+
 This was similar to Task #12, but a lot more convoluted. I'm solving this as I'm writing the writeup.
 
 I knew the flag started with `EGG{` Which is `4547477B` in hex. So I threw that in the input and multiplied it 300 times. Just to fill out the input.
@@ -2167,11 +2170,9 @@ So the pseudocode is like this:
 
 Thanks to the writeups from: 
 
-Unblvr/Myrdyr: https://github.com/myrdyr/ctf-writeups/blob/master/npst20/README.md#dag-16---slede8-5-sortering
-
-Roy Solberg: https://blog.roysolberg.com/2021/01/pst-challenge-5
-
-William Solem/Sithis: https://github.com/williamsolem/NPST-2020-Writeup/blob/main/README.md#16-desember
+- Unblvr/Myrdyr: https://github.com/myrdyr/ctf-writeups/blob/master/npst20/README.md#dag-16---slede8-5-sortering
+- Roy Solberg: https://blog.roysolberg.com/2021/01/pst-challenge-5
+- William Solem/Sithis: https://github.com/williamsolem/NPST-2020-Writeup/blob/main/README.md#16-desember
 
 For helping me understand this one.
 
@@ -3040,25 +3041,16 @@ Also, the QR is inverted, but still reads well. Awesome.
 
 So what are bit planes?
 
-Each pixel in an image is represented by a number of bytes. for RGB, we have 3 bytes.
-
-Lets say we have a fully white image. And lets look at the first pixel
-
-The byte for R = 255 =  1111 111(1)
-
-The byte for G = 255 =  1111 111(1)
-
-The byte for B = 255 =  1111 111(1)
-
-The numbers in parenthases are the first bit for each byte. Which is the first bit plane.
-
-Now, changing this bit to 0 will make an invisible difference. As we are changing the value from 255 to 254.
-
-But if we have a 16x16 pixel image. we now have 16*16 = 256
-
-256*3 = 768 bits we can use to store information.
-
-This can be represented with a 0 on the first bit plane being white, while a 1 on the first bit plane being black.
+- Each pixel in an image is represented by a number of bytes. for RGB, we have 3 bytes.
+- Lets say we have a fully white image. And lets look at the first pixel
+- The byte for R = 255 =  1111 111(1)
+- The byte for G = 255 =  1111 111(1)
+- The byte for B = 255 =  1111 111(1)
+- The numbers in parenthases are the first bit for each byte. Which is the first bit plane.
+- Now, changing this bit to 0 will make an invisible difference. As we are changing the value from 255 to 254.
+- But if we have a 16x16 pixel image. we now have 16*16 = 256
+- 256*3 = 768 bits we can use to store information.
+- This can be represented with a 0 on the first bit plane being white, while a 1 on the first bit plane being black.
 
 
 And just to round this task off. QR codes
@@ -3066,7 +3058,7 @@ And just to round this task off. QR codes
 The 3 squares are used to identify the version of the QR code, as well as identify size of bits.
 
 ![](images/qr.png)
-https://en.wikipedia.org/wiki/QR_code#/media/File:QR_Character_Placement.svg Credit to user Bobomath for the image
+https://en.wikipedia.org/wiki/QR_code#/media/File:QR_Character_Placement.svg Credit to Wikipedia user Bobomath for the image
 
 Each square is a bit, white = 0, black = 1.
 
