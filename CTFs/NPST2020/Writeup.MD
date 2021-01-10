@@ -105,7 +105,7 @@ HR
 ```
 ![](images/egg4.png)
 
-This unlocked Egg#4 There are called Utmerkelser, or commendations in English and are represented with stars on the Leaderboard.
+This unlocked Egg#4 These are called Utmerkelser, or commendations in English and are represented with stars on the Leaderboard.
 
 
 ## Egg #1 <img align="right" src=images/egg1_0.png>
