@@ -2695,12 +2695,12 @@ shamir_get = (points_to_secret_int(pool))
 print(long_to_bytes(shamir_get))
 ```
 
-Instead of me writing a poorly worded explanation, I can highly reccomend this video: https://www.youtube.com/watch?v=kkMps3X_tEE to explain the algorithm.
+Instead of me writing a poorly worded explanation, I can highly reccommend this video: https://www.youtube.com/watch?v=kkMps3X_tEE to explain the algorithm.
 
 
 Shamir's algorithm also uses Finite/Galois fields, which is what the favourite number would represent. However I did not need it.
 
-I have seen multiple algorithms that do require the favourite number however, which is a prime. I believe this makes it so the lagrange polynomials only have a single solution.
+I have seen multiple algorithms that do require the favourite number, which is a prime. I believe this makes it so the lagrange polynomials only have a single solution.
 
 ```
 Then there will be packages for Christmas this year too!
