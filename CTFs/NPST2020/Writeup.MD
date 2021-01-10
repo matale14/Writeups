@@ -272,7 +272,7 @@ And can be installed on linux from the terminal using gem.
 ```
 Hi,
 
-As everyone knows, Christmas lasts until Easter(A common Norwegian phrase), and here the problems start ...
+As everyone knows, Christmas lasts until Easter(A common Norwegian phrase), and here the problems begin...
 
 We in the middle management group have started a preliminary project for a study of staffing strategy for Easter in the years ahead. 
 The system we use to find out when it's Easter is behaving strangely, so that this important work has now been put on hold. Can you figure out what's wrong?
