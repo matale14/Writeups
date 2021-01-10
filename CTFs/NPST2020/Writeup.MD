@@ -3834,12 +3834,12 @@ Thanks to PST for organizing this awesome event yearly. Can't wait for Easter.
 
 Special thanks to the writeups:
 
-myrdyr/Unblvr:        https://github.com/myrdyr/ctf-writeups/blob/master/npst20/README.md (Norwegian)
-WastefulNick:         https://github.com/WastefulNick/npst-2020 (English)
-William solem/Sithis: https://github.com/williamsolem/NPST-2020-Writeup (Norwegian)
-LarsW:                Writeup is set to Secret, and I don't want to share secret link here.
-PJWalstrom:           https://github.com/pjwalstrom/public/blob/main/docs/ctf_pst_2020.md (Norwegian)
-Roy Solberg:          https://blog.roysolberg.com/2021/01/pst-challenge-5 (English)
+- myrdyr/Unblvr:        https://github.com/myrdyr/ctf-writeups/blob/master/npst20/README.md (Norwegian)
+- WastefulNick:         https://github.com/WastefulNick/npst-2020 (English)
+- William solem/Sithis: https://github.com/williamsolem/NPST-2020-Writeup (Norwegian)
+- LarsW:                Writeup is set to Secret, and I don't want to share secret link here.
+- PJWalstrom:           https://github.com/pjwalstrom/public/blob/main/docs/ctf_pst_2020.md (Norwegian)
+- Roy Solberg:          https://blog.roysolberg.com/2021/01/pst-challenge-5 (English)
 
 These were very useful not only for me to be able to do the tasks I did not do, but also to help me find resources and information I otherwise would not have found.
 
