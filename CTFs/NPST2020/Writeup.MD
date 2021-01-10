@@ -767,7 +767,8 @@ A fixed one was luckily sent 25 minutes later :).
 ![](images/luke8_1.png)
 
 Since I had no idea what ASN.1 even was prior to this I had to do some research. Lets learn.
-ASN stands for Abstract Syntax Notation. And it is a type of notation for describing abstract types and values. So we can use ASN.1 to create any type of encoding and data structures we want to. 
+
+ASN is an acronym for Abstract Syntax Notation. And it is a type of notation for describing abstract types and values. So we can use ASN.1 to create any type of encoding and data structures we want to. 
 A type in ASN.1 is a set of values. These types can be a number of different things. They are assigned with the assignment operator ::=.  More detailed information can be read here: http://luca.ntop.org/Teaching/Appunti/asn1.html 
 
 So we can see that the specification given creates a type called LinkedList which contains the type Node.
