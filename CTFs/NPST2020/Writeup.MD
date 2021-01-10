@@ -2608,7 +2608,7 @@ SKRIV r2
 RETUR
 `
 ```
-The flag is saved at address 8. And we have an input buffer of 128 bytes. So this is a classic buffer overflow task. We need to fill the buffer input so that the next command the program reads is our own code. And we also need to figure out how long the flag is so that we can jump to the printing function just below it.
+The flag is saved at address 6. And we have an input buffer of 128 bytes. So this is a classic buffer overflow task. We need to fill the buffer input so that the next command the program reads is our own code. And we also need to figure out how long the flag is so that we can jump to the printing function just below it.
 
 Essentially we have to:
 Fill the input buffer
