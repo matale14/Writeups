@@ -25,6 +25,7 @@
 - [December 23rd](#December-23rd)
 - [December 24th](#December-24th)
 
+## Intro
 From December 1st to December 24th. PST will release a new Task/challenge for us to solve. This is all wrapped neatly in a fun package where we are employees of the NPST,
 
 The North Polar Security Service. 
