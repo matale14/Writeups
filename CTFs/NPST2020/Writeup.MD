@@ -294,28 +294,25 @@ on the sum of the column Targets from and including 2020 to and including 2040. 
 
 The zip file contains 4 sql files: 
 
-```GenererRapport.sql(GenerateRapport.sql)``` 
-
-```dbo.ProcedureDatoPaaske.sql(ProcedureDateEaster.sql)```
-
-```dbo.FunctionPaaskeAften.sql(FunctionEasterEvening.sql)```
-
-```dbo.DatoPaaske.sql(DateEaster.sql)```
-
-and a csv file, ```DatoPaaske.csv(DateEaster.csv)```. 
+- `GenererRapport.sql(GenerateRapport.sql)`
+- `dbo.ProcedureDatoPaaske.sql(ProcedureDateEaster.sql)`
+- `dbo.FunctionPaaskeAften.sql(FunctionEasterEvening.sql)`
+- `dbo.DatoPaaske.sql(DateEaster.sql)`
+-and a csv file, `DatoPaaske.csv(DateEaster.csv)`. 
 
 The csv file is a result of running the sql files which generates the numbers for Easter.
 The CSV contains 5 columns separated by a semi-colon.
 
-DatoPaaskeId;PaaskeAften;PaaskeFerieUke;Aar;MaalTall
+`DatoPaaskeId;PaaskeAften;PaaskeFerieUke;Aar;MaalTall`
 
-translated:
+### translated:
 
-DateEasterID;EasterEvening;EasterVacationWeek;Year;TargetNumbers
+`DateEasterID;EasterEvening;EasterVacationWeek;Year;TargetNumbers`
 
 So the first thing to understand is what the TargetNumbers represent. 
 So let's go through what each of the sql files do, and see if we can either fix the current operation, or understand what we need to do separately to get the answer.
-GenererRapport.sql 
+
+### GenererRapport.sql 
 ```
 DECLARE @year smallint = 2020;
 DECLARE @fj datetime = CAST(cast(@year as varchar) + '0101' as datetime)
@@ -333,6 +330,7 @@ This is further evident when we see the loop
 While the year is less or equal to 2040 we run this loop to generate the Easter days.
 We execute the ProcedureDatoPaaske program, with the variable @foerste_jan(frst_jan) equal to fj as the argument. So now we know for sure that we are sending a datetime object for each year 2020 to 2040 1st of January to the ProcedureDatoPaaske program. The year and fj variable is then incremented.
 
+### dbo.FunctionPaaskeAften.sql:
 ```
 USE [NPSTDB]
 GO
@@ -390,7 +388,9 @@ This procedure declares all our columns in the generated csv.
 For now we are really only interested in understanding what the TargetNumbers of the task is, so let's focus on the @maaltall variable.
 Maaltall is set to be an int conversion of the @paaskeaften variable. We know from the CSV that paaskeaften is a DateTime Object. So the TargetNumbers we are looking for seem to be a DateTime Object of EasterEvening converted to INT. The datetime happens to be based on 1900 Jan. 1. Which is why the number is so low compared to the normal Epoch & Unix timestamps we normally see
 
-The calculations for this can be seen in FunctionPaaskeAften.sql:
+The calculations for this can be seen in 
+
+### FunctionPaaskeAften.sql:
 
 ```
 USE [NPSTDB]
@@ -444,6 +444,8 @@ END
 GO
 ```
 This is the culprit, as DatoPaaske.sql only enters the information generated here into a table:
+
+### DatoPaaske.sql
 
 ```
 USE [NPSTDB]
@@ -597,7 +599,11 @@ It turns out that this new tool is an assembly-like language with 16 registers a
 
 The task we get when we enter this number into the E-learning module is this:
 
-The first byte of input is a number N that represents the number of following bytes of input. Sum the following N numbers and write the result
+The first byte of input is a number N that represents the number of following bytes of input. 
+
+Sum the following N numbers and write the result
+
+
 ```
 LES r10
 SETT r11, 1
@@ -629,23 +635,23 @@ There will be more e-learning modules later.
 ## Egg #5
 Solve the Hello World E-Learning module in slede8.
 
-This can be done easily by just throwing the hex for "Hello World!" into the input, and just reading it straight into the output.
+This can be done easily by just throwing the hex for "Hello World!" and a newline into a .DATA label, and reading it.
 
 ```
-SETT r3, 0x01
-FINN message
-HOPP loop
+SETT r3, 0x01 ; Incrementer
+FINN message  ; Set address to the data
+HOPP loop     ; Jump to the writing loop
 
 message: 
 .DATA 0x48,0x65,0x6c,0x6c,0x6f,0x2c,0x20,0x57,0x6f,0x72,0x6c,0x64,0x21,0x0a,0x00
 
 loop:
-LAST r2
-PLUSS r0, r3
-LIK r2, r4
-BHOPP end
-SKRIV r2
-HOPP loop
+LAST r2       ; Load byte from memory
+PLUSS r0, r3  ; Increment memory address
+LIK r2, r4    ; Check if we loaded 00
+BHOPP end     ; If we did, we are done
+SKRIV r2      ; Write the byte
+HOPP loop     ; jump back to the start of the loop
 
 end:
 STOPP
@@ -734,12 +740,14 @@ A type in ASN.1 is a set of values. These types can be a number of different thi
 So we can see that the specification given creates a type called LinkedList which contains the type Node.
 The type Node is a sequence of a child with the choices node with the type Node and end with the type NULL. So the Node type will have a sequence of nodes until it reaches a child element with the choice end. Which will presumably mark the end of the transmission.
 It also has a second node containing the actual data. Which can be a digit, lowercase, uppercase, and the curly brackets. This is clearly our flag.
-So the overall structure of this type Node will be:
 
-{‘child’: (‘node’, for however many characters in the message, and it will end with {'child': ('end', None) followed by the values.
+### So the overall structure of this type Node will be:
 
-For example: 
-{'child': ('node', {'child': ('node', {'child': ('end', None), 'value': (uppercase, 0)}), 'value': (digit, 1)}), 'value': ('lowercase', 2)}
+`{‘child’: (‘node’, for however many characters in the message, and it will end with {'child': ('end', None) followed by the values.`
+
+### For example: 
+
+`{'child': ('node', {'child': ('node', {'child': ('end', None), 'value': (uppercase, 0)}), 'value': (digit, 1)}), 'value': ('lowercase', 2)}`
 
 Which is "A1c"
 
@@ -748,27 +756,19 @@ So each child will contain either a node or an end. And each child will contain 
 This is not the end however, as there are also multiple encodings we can choose from. 
 There are too many to list here, but here are some:
 
-Basic Encoding Rules (BER)
-
-Distinguished Encoding Rules (DER)
-
-Canonical Encoding Rules (CER)
-
-Basic Packed Encoding Rules (PER)
-
-Basic XML Encoding Rules (XER)
-
-JSON Encoding Rules (JER)
+- Basic Encoding Rules (BER)
+- Distinguished Encoding Rules (DER)
+- Canonical Encoding Rules (CER)
+- Basic Packed Encoding Rules (PER)
+- Basic XML Encoding Rules (XER)
+- JSON Encoding Rules (JER)
 
 BER and DER are serialized in octets, CER and PER are serialized in bits, while XER and JER are serialized in Characters.
 Other differences include:
 
-Encoded Elements Discernable without Foreknowledge of Specification
-
-Octet Aligned
-
-Encoding Control Notation Rules Defined
-
+- Encoded Elements Discernable without Foreknowledge of Specification
+- Octet Aligned
+- Encoding Control Notation Rules Defined
 
 So, now that we understand ASN.1 a bit more. Let’s figure out how to solve this.
 
@@ -821,6 +821,7 @@ result = ''.join(str(v) for v in flag)
 
 print(result)
 ```
+
 And we are greeted with the flag along with some Lorem ipsum text.
 
 
@@ -847,13 +848,20 @@ We wonder if HEXMAS encoding may have been used. Can you investigate that furthe
 ![](images/luke9_0.png)
 
 Here we get a message full of emojis. And on the first line we get 16 different emojis. This should be a clear sign, especially along with the HEXMAS tip. That this has something to do with hex. So my first thought was that the top line was a sort of dictionary for the rest of the message.
+
 🎅= 0 and 🛷= F
+
 However when I translated this. I only received a hex string I couldn't make any sense of.
 After trying a number of things, I accidentally misclicked the Magic button in Cyberchef.
 
 And there it is. It was the common compression algorithm Gzip. I was already familiar with the common “PK” magic key of zipped files. But on this day I learned of the Gzip magic 1F8B. I now always run stuff through the Magic operation on cyberchef.
 
 ![](images/luke9_1.png)
+
+Magic numbers, Magic bytes, or file signatures is the bytes used to identify or verify the contents of a file. For example, the magic numbers for a zip file is `50 4B 05 06` Which when decoded from hex looks like `PK..`. So if you see `PK..` while looking at the hex-dump of something, it's very likely that there is a zip file there.
+
+And in this case, the magic numbers for gzip is `1F8B`.
+
 
 This was the python code I used to translate the HEXMAS encoding to hex string:
 
@@ -956,68 +964,69 @@ So after calculating the answer, we just check if the value is under each tenth.
 
 A small example:
 
-A = 200
+- A = 200
 
-B = 34
+- B = 34
 
-(A + B) = 234
-
-
-234 mod 256 = 234
+- (A + B) = 234
 
 
-Is 234 under 10?
-
-No.
-
-Is 234 under 20?
-
-No.
-
-...
-
-...
-
-...
-
-Is 234 under 300?
-
-Yes.
-
-Write 2.
+- 234 mod 256 = 234
 
 
-234 - 200 = 34
+- Is 234 under 10?
 
-Is 34 under 10?
+- No.
 
-No.
+- Is 234 under 20?
 
-...
+- No.
 
-...
+- ...
 
-...
+- ...
 
-Is 34 under 40?
+- ...
 
-Yes.
+- Is 234 under 300?
 
-Write 3.
+- Yes.
 
-
-34-30.
-
-Is 4 under 10?
-
-Yes.
-
-Write 4
+- Write 2.
 
 
-Done.
+- 234 - 200 = 34
+
+- Is 34 under 10?
+
+- No.
+
+- ...
+
+- ...
+
+- ...
+
+- Is 34 under 40?
+
+- Yes.
+
+- Write 3.
+
+
+- 34-30.
+
+- Is 4 under 10?
+
+- Yes.
+
+- Write 4
+
+
+- Done.
 
 And here is the slede8 code I wrote:
+
 ```
 
 ; Føde består av to tall, A og B
@@ -1437,7 +1446,7 @@ Santa's list from the time the security team believes the modification has occur
 
 ![](images/luke11.png)
 
-We receive a zip file with a database. With two tables. Nice and Naughty. The tables contain the first name, last name, and a md5-sum. The trick here is to figure out that the MD5-sum is the first name+ the last name. And then just check which ones are not a match. So I extracted all the data into csv files and wrote a python script to do just that.
+We receive a zip file with a database. With two tables. Nice and Naughty. The tables contain the first name, last name, and a md5-sum. The trick here is to figure out that the MD5-sum is the first name + the last name. And then just check which ones are not a match. So I extracted all the data into csv files and wrote a python script to do just that.
 
 ```
 import hashlib
@@ -1737,8 +1746,7 @@ def load(executable):
     memory = bytearray(4096)
     for i in range(0,len(ba)):
         memory[i] = ba[i]
-    
-
+   
     return memory
 
 import sys, os
@@ -1747,9 +1755,8 @@ def blockPrint():
 
 def enablePrint():
     sys.stdout = sys.__stdout__
-
-
-
+    
+    
 
 
 print(wowgen('program.s8', "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF").decode('ascii'))
@@ -1757,10 +1764,12 @@ print(wowgen('program.s8', "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 ```
 When we read the program as we feed it junk. We see that there is a check for the input that needs to be fulfilled. And that happens 26 times. My method was to follow along with the runtime and then note anytime the read number register interacted with something, and the interacted register interacted with something.
 The check consists of two XOR operations and then an OR operation before checking if the register was equal to 0. 
+
 So in the runtime, any time there was an OR operation, I noted what the required value would be.
 
 ```
 x = 0 ^ regs[3] ^ regs[7]
+solution.append(x)
 ```
 And then just printed the added numbers translated to letters:
 ```
@@ -1791,7 +1800,7 @@ I then studied the registers and noticed that the first 4 inputs resulted in the
 
 So the solution will appear if r8 = 0 at that command. Probably.
 
-So I entered some code in the ELLER operation to return "wrong" if r8 != 0.
+So I entered some code in the ELLER operation to return "wrong" if r8 != 0. Same place that I added `x = 0 ^ regs[3] ^ regs[7]` etc. earlier
 
 ```
 if regs[8] != 0:
@@ -1921,8 +1930,9 @@ print(nym)
 ```
 Well solved!
 
-It was not easy to see right away.
+That was not easy to see right away.
 ```
+
 ## December 14th
 ```
 The latest in target number reporting is the number of completed e-learning modules in SLEDE8 among the employees, so could you 
@@ -1942,58 +1952,58 @@ We have to save the read inputs to memory, and then read them back in the opposi
 So we read the input, increment the memory, save the input. Repeat. If r0 is 255 we increment r1 and set r0 back to 0. Once we read 0x00, we stop reading and start writing from the current address. We then decrement the memory, write the input from memory. Repeat. If we reach 0x00 we end.
 
 ```
-SETT r0, 0xFF
-HOPP fødeLoop
+SETT r1, 0x01    ; Set address to 256
+HOPP foodLoop    ; Start reading
 
-over255: 
+
+incMem: 
+SETT r15, 0xff   ; Use r15 to check if r0 address is 255
+LIK r0, r15
+BHOPP over255    ; If it is we have to add 1 to r1, and reset r0 to 0
+SETT r15, 0x01
+PLUSS r0, r15 
+RETUR 
+over255:
 SETT r15, 0x01 
 PLUSS r1, r15 
 SETT r0, 0x00 
 RETUR 
-incMinne: 
-SETT r15, 0xff 
-LIK r0, r15
-BHOPP over255
-SETT r15, 0x01
-PLUSS r0, r15 
-RETUR 
 
+decMem:
+SETT r15, 0x00  ; Use r15 to check if r0 address is 0
+LIK r0, r15
+BHOPP under255  ; If it is we have to subtract 1 from r1, and set r0 to 255
+SETT r15, 0x01
+MINUS r0, r15 
+RETUR
 under255:
 SETT r15, 0x01 
 MINUS r1, r15 
 SETT r0, 0xFF
 RETUR 
-decMinne:
+
+foodLoop:
+LES r2          ; Read from the input
+SETT r15, 0x00 
+LIK r2, r15     ; Check if the input was 0
+BHOPP write     ; If it was we stop reading
+LAGR r2         ; Store the number
+TUR incMem      ; Increment the memory address, TUR/RETURN allows us to return here once we have incremented
+HOPP foodLoop   ; Go back and start again
+
+write:
+SETT r15, 0x01
+MINUS r0, r15   ; Go back in memory, this makes it so we dont start writing the 00
+writeLoop:
+LAST r2         ; Load the number
 SETT r15, 0x00
-LIK r0, r15
-BHOPP under255
-SETT r15, 0x01
-MINUS r0, r15 
-RETUR 
+LIK r2, r15     ; Check if it is 0
+BHOPP end       ; End in that case
+SKRIV r2        ; Write it
+TUR decMem      ; Decrement memory
+HOPP writeLoop  ; Start again
 
-
-fødeLoop:
-LES r2 
-SETT r15, 0x00 
-LIK r2, r15
-BHOPP slutt
-LAGR r2
-TUR incMinne
-HOPP fødeLoop
-
-slutt:
-SETT r15, 0x01
-MINUS r0, r15
-skriveLoop:
-LAST r2
-SETT r15, 0x00 
-LIK r2, r15 
-BHOPP sluttern
-SKRIV r2
-TUR decMinne
-HOPP skriveLoop
-
-sluttern:
+end:
 STOPP
 ```
 
@@ -2057,58 +2067,58 @@ The developer tool can still be found here. See documentation on GitHub.
 
 This one is a sorting algorithm. I think most people have seen the hypnotising sorting videos before. Sorting is often heavily focused on efficiency. So of course, for this challenge I chose one of the more inefficient, bubble sort. It is also pretty easy.
 ```
-SETT r0, 0x00
+SETT r0, 0x00           ; Setting up constants for incrementing or comparisons
 SETT r1, 0x02
 SETT r11, 0x01
 SETT r12, 0xFF
 SETT r13, 0x02
 SETT r14, 0
-LES r15 ; Antall føde
-SETT r10, r15
+LES r15                 ; Read the length of the input
+SETT r10, r15           ; Setting the length to r10 so we can count it more times
 
-LIK r15, r14
-BHOPP sluttern
+LIK r15, r14            ; Checking if the input is 0 length.
+BHOPP end
 
-fødeLoop:
-LES r2 
+foodLoop:
+LES r2
 LAGR r2
 PLUSS r0, r11
 MINUS r10, r11
 ULIK r10, r14
-BHOPP fødeLoop
+BHOPP foodLoop
 
 nyboble:
-SETT r0, 0
+SETT r0, 0              ; Set r0 to 0 so we can start swapping
 SETT r10, r15
 bubble:
-MINUS r10, r11
+MINUS r10, r11          ; Count down the length of the input
 LIK r10, r14
-BHOPP sjekker
-LAST r2
-PLUSS r0, r11
-LAST r3
-SE r2, r3
-BHOPP swap
-HOPP bubble
+BHOPP sjekker           ; Check that we are not at 0
+LAST r2                 ; Load number
+PLUSS r0, r11           ; Increase mem
+LAST r3                 ; Load next number
+SE r2, r3               ; If the first number is larger than the second
+BHOPP swap              ; We swap
+HOPP bubble             ; And back to the loop
 
-swap:
-LAGR r2
+swap:          
+LAGR r2                 ; Our memory is already set to the next number, so we can just store here
 MINUS r0, r11
-LAGR r3
+LAGR r3                 ; Decrement memory and store the second number there
 PLUSS r0, r11
-LIK r10, r14
+LIK r10, r14            ; Check that we are not at 0 more numbers
 BHOPP sjekker
-HOPP bubble
+HOPP bubble             ; Next number
 
 sjekker:
-SETT r0, 0
-SETT r10, r15
+SETT r0, 0              ; Reset the memory and counter
+SETT r10, r15      
 sjekkLoop:
-MINUS r10, r11
-LIK r10, r14
+MINUS r10, r11          ; Essentially just a copied version of the above bubble sort
+LIK r10, r14            ; Very bad code, don't copy this. :)
 BHOPP skrivern
 
-LAST r2
+LAST r2 
 PLUSS r0, r11
 LAST r3
 SE r2, r3
@@ -2129,10 +2139,12 @@ LIK r10, r14
 BHOPP sluttern
 HOPP skriveLoop
 
-sluttern:
+end:
 STOPP
-
 ```
+
+I forgot how terrible my sorting algorithm was. This is not the code to be learning from :D
+
 
 ```
 👏
@@ -2154,28 +2166,18 @@ Therefore there can only be a maximum of 255 numbers. And a maximum of 255 diffe
 
 So the pseudocode is like this:
 
-Read the number of bytes.
-Set the adress to 255, so we dont overwrite our code
-
-read the byte to the address register
-
-So if the byte read is 0xAA, the current address will also be 0xAA
-
-Then we just increment the value on this address by one.
-
-And decrement the number of bytes remaining.
-
-We reset the address to 255 so we can start reading form 0x00
-
-if the current address is more than 0, we write the address.
-
-Then we decrement the address.
-
-If the current address is 0, that means we have either written the number of times it appeared, or that it never appeared at all.
-
-We then increment the memory by one, check that its not 0 and do the same process.
-
-We do this until we reach the address for the byte 255. Where it will be incremented to 0 and we will end our program.
+- Read the number of bytes.
+- Set the adress to 255, so we dont overwrite our code
+- read the byte to the address register
+- So if the byte read is 0xAA, the current address will also be 0xAA
+- Then we just increment the value on this address by one.
+- And decrement the number of bytes remaining.
+- We reset the address to 255 so we can start reading form 0x00
+- if the current address is more than 0, we write the address.
+- Then we decrement the address.
+- If the current address is 0, that means we have either written the number of times it appeared, or that it never appeared at all.
+- We then increment the memory by one, check that its not 0 and do the same process.
+- We do this until we reach the address for the byte 255. Where it will be incremented to 0 and we will end our program.
 
 Thanks to the writeups from: 
 
@@ -2345,7 +2347,9 @@ for k in contents:
 
 
 ``` 
-Which results in this message:
+
+### Which results in this message:
+
 ```
 fromTarget :  God kveld!
 fromTarget :  Over.
@@ -2381,6 +2385,7 @@ fromTarget :  ... og slutte med (...)4a3
 toTarget :  WIN! Takk.
 fromTarget :  Under og inn.
 ```
+### Translated:
 
 ```
 fromTarget: Good evening!
@@ -2439,6 +2444,12 @@ Let's look into uuid’s.
 UUID is a Universally unique identifier. It’s a 128-bit number that is used to identify information in computer systems. Also called GUID. 
 from https://pynative.com/python-uuid-module-to-generate-universally-unique-identifiers/ 
 We see that it is generated from a timestamp, the clock sequence associated with the UUID and the Node. There are quite a few different versions of uuid. Which is used depends on the specific use cases.
+
+Version 1 is the most common, and uses time-based sources to secure randomness. Version 2 is the same, but the least significant bit of the clock sequence are replaced by a system-specific identifier.
+
+Version 3 and 5 use name or namespace hashes to secure randomness.
+
+Version 4 randomizes 122 of the 128-bits, which makes it very unique.
 
 ```
 Well done!
@@ -2670,10 +2681,12 @@ shamir_get = (points_to_secret_int(pool))
 print(long_to_bytes(shamir_get))
 ```
 
-Now it turns out I didn’t actually need Sigurds favourite number, although you are meant to use it. 
+Instead of me writing a poorly worded explanation, I can highly reccomend this video: https://www.youtube.com/watch?v=kkMps3X_tEE to explain the algorithm.
 
-The reason for this is how Shamir’s algorithm works.
 
+Shamir's algorithm also uses Finite/Galois fields, which is what the favourite number would represent. However I did not need it.
+
+I have seen multiple algorithms that do require the favourite number however, which is a prime. I believe this makes it so the lagrange polynomials only have a single solution.
 
 ```
 Then there will be packages for Christmas this year too!
@@ -2964,6 +2977,53 @@ We receive the key, and can decrypt the message:
 
 ![](images/luke22_1.png)
 
+
+### Explanation:
+
+More references:
+
+- https://chipwhisperer.readthedocs.io/en/latest/tutorials.html 
+- https://www.youtube.com/watch?v=bFfyROX7V0s
+- https://www.youtube.com/watch?v=FktI4qSjzaE
+- https://www.youtube.com/watch?v=OlX-p4AGhWs
+
+This is essentially the results of a SCA (Side-Channel-Attack). Where the data has been recorded by monitoring physical outputs of a device, such as power consumption.
+And the physical ouputs of the device, will be correlated to any operations happening inside, such as cryptographic operations. 
+
+Here, the power consumption has been monitored by an oscilloscope. 
+
+And it gives us the two things we need.
+
+- `The input data (ønskelister.npy)`
+and
+- `The power consumption (strømforbruk.npy)`
+
+Because we know the type of encryption used, we know roughly what is going in inside the device.
+
+- We know that an XOR is being performed with an unknown number.
+
+- We know that this is passed through a lookup table (S-Box)
+
+- We don't need to check anything it does after that.
+
+- We can assume that the number of 1's on a databus is related to the power consumption. (Not the case on all devices)
+
+- We can now guess what the hypothetical key is.
+
+- We know the input data from ønskelister.npy, we know this is XOR'ed with the hypothetical key. And we know this goes through the S-Box, we can then check how many 1's are in that number.
+
+- We do this for every value, with every possible key.
+
+- We assume the number of 1's in the number is related to the power consumption at that time.
+
+- Now we ask if any of these guesses actually ARE RELATED to the power consumption at some point in time.
+
+- We then take the key that is the most likely value at a certain point.
+
+
+If you haven't heard about the S-Box before, it is there to obscure the relationship between the key and ciphertext.
+
+
 ```
 There was a lot of excitement about whether you would solve this task.
 
@@ -2988,6 +3048,38 @@ I simply combined them all in photoshop, and threw it into Cyberchef:
 ![](images/luke23_1.png)
 
 So what are bit planes?
+
+Each pixel in an image is represented by a number of bytes. for RGB, we have 3 bytes.
+
+Lets say we have a fully white image. And lets look at the first pixel
+
+The byte for R = 255 =  1111 111(1)
+
+The byte for G = 255 =  1111 111(1)
+
+The byte for B = 255 =  1111 111(1)
+
+The numbers in parenthases are the first bit for each byte. Which is the first bit plane.
+
+Now, changing this bit to 0 will make an invisible difference. As we are changing the value from 255 to 254.
+
+But if we have a 16x16 pixel image. we now have 16*16 = 256
+
+256*3 = 768 bits we can use to store information.
+
+This can be represented with a 0 on the first bit plane being white, while a 1 on the first bit plane being black.
+
+
+And just to round this task off. QR codes
+
+The 3 squares are used to identify the version of the QR code, as well as identify size of bits.
+
+![](images/qr.png)
+https://en.wikipedia.org/wiki/QR_code#/media/File:QR_Character_Placement.svg Credit to user Bobomath for the image
+
+Each square is a bit, white = 0, black = 1.
+
+We can also see that the QR code fills up unused space.
 
 ```
 That was a special Christmas greeting.
