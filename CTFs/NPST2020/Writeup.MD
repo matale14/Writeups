@@ -1,22 +1,33 @@
 # NPST-2020
 
+- [Egg #4](#Eggs)
+- [Egg #1](#Egg-1)
 - [December 1st](#December-1st)
 - [December 2nd](#December-2nd)
 - [December 3rd](#December-3rd)
+    - [Egg #3](#Egg-3)
 - [December 4th](#December-4th)
 - [December 5th](#December-5th)
 - [December 6th](#December-6th)
+    - [Egg #5](#Egg-5)
+    - [Egg #2](#Egg-2)
 - [December 7th](#December-7th)
 - [December 8th](#December-8th)
 - [December 9th](#December-9th)
+    - [Egg #6](#Egg-6)
 - [December 10th](#December-10th)
+    - [Egg #7](#Egg-7)
 - [December 11th](#December-11th)
 - [December 12th](#December-12th)
+    - [Egg #8](#Egg-8)
 - [December 13th](#December-13th)
 - [December 14th](#December-14th)
+    - [Egg #9](#Egg-9)
 - [December 15th](#December-15th)
 - [December 16th](#December-16th)
+    - [Egg #10](#Egg-10)
 - [December 17th](#December-17th)
+    - [Egg #11](#Egg-11)
 - [December 18th](#December-18th)
 - [December 19th](#December-19th)
 - [December 20th](#December-20th)
@@ -1892,7 +1903,12 @@ The message was a 10 by 183 block of text
 ![](images/luke13_1.png)
 
 I tried a lot of different things on this one. I tried shifting bytes, shifting hexadecimals, shifting hexadecimals with norwegian alphabet. Checking out advanced 1337 speak. XORing all the lines together, and probably more things I deleted.
-I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. Then it hit me later, and I replaced the groups with spaces. And I got presented with the flag.
+I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. 
+
+![](images/luke13_3.png)
+
+
+Then it hit me later, and I replaced the groups with spaces. And I got presented with the flag.
 
 ```
 from collections import Counter
