@@ -1903,7 +1903,12 @@ The message was a 10 by 183 block of text
 ![](images/luke13_1.png)
 
 I tried a lot of different things on this one. I tried shifting bytes, shifting hexadecimals, shifting hexadecimals with norwegian alphabet. Checking out advanced 1337 speak. XORing all the lines together, and probably more things I deleted.
-I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. Then it hit me later, and I replaced the groups with spaces. And I got presented with the flag.
+I then counted the occurrences of each character and discovered something. Half of the characters were used around 30-50 times, while the other half were used 160-200 times. So I tried removing both groups. Nothing. 
+
+![](images/luke13_3.png)
+
+
+Then it hit me later, and I replaced the groups with spaces. And I got presented with the flag.
 
 ```
 from collections import Counter
