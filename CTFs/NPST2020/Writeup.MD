@@ -2627,10 +2627,11 @@ RETUR
 The flag is saved at address 6. And we have an input buffer of 128 bytes. So this is a classic buffer overflow task. We need to fill the buffer input so that the next command the program reads is our own code. And we also need to figure out how long the flag is so that we can jump to the printing function just below it.
 
 Essentially we have to:
-Fill the input buffer
-Set the address to 0x06, the start of the flag
-Jump to the writing method.
-End correctly.
+
+- Fill the input buffer
+- Set the address to 0x06, the start of the flag
+- Jump to the writing method.
+- End correctly.
 
 So I just brute-forced the length of the flag. I assumed it was between 20-40 bytes long. The easiest way to test this was just to take the code on the github and replace the flag with my own flag. So I made a flag that was 24 characters long. And I got it to work. Now I could start incrementing the Jump on the official code. And I found the correct flag length at 27.
 
