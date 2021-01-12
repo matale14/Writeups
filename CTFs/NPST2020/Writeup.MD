@@ -1964,7 +1964,7 @@ User Zup on the Discord also linked this CTF: https://github.com/tghack/tg19hack
 
 We can actually see that all the characters that makes up the flag are characters with "holes" in them. and therefore we can just select the white background behind the letters and make it black. Here I just selected the white background of the screenshot with the magic wand tool in photoshop set to 99 tolerance:
 
-![](images/luke13_4)
+![](images/luke13_4.png)
 
 ```
 Well solved!
