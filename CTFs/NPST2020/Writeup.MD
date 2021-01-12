@@ -27,8 +27,8 @@
 - [December 16th](#December-16th)
     - [Egg #10](#Egg-10)
 - [December 17th](#December-17th)
-    - [Egg #11](#Egg-11)
 - [December 18th](#December-18th)
+    - [Egg #11](#Egg-11)
 - [December 19th](#December-19th)
 - [December 20th](#December-20th)
 - [December 21st](#December-21st)
@@ -2493,14 +2493,6 @@ Version 4 randomizes 122 of the 128-bits, which makes it very unique.
 Well done!
 ```
 
-## Egg #11
-I did not complete
-
-https://pingvin.spst.no/ also links to https://egg.spst.no/ which requires a password
-This actually turns out to be the password from task #17. The password is literally “****************”
-
-![](images/egg11.png)
-
 ## December 18th
 ```
 SPST has published what they claim is a very advanced artificial intelligence on their GitHub account.
@@ -2666,6 +2658,14 @@ We also have to encode the payload properly by reading the script we found on th
 ```
 Well done!
 ```
+
+## Egg #11
+I did not complete
+
+https://pingvin.spst.no/ also links to https://egg.spst.no/ which requires a password
+This actually turns out to be the password from task #17. The password is literally “****************”
+
+![](images/egg11.png)
 
 ## December 19th
 ```
