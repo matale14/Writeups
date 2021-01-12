@@ -2728,7 +2728,7 @@ Shamir's algorithm also uses Finite/Galois fields, which is what the favourite n
 I have seen multiple algorithms that do require the favourite number, which is a prime. I believe this makes it so the lagrange polynomials only have a single solution.
 
 ```
-Then there will be packages for Christmas this year too!
+Now there will be packages for Christmas this year too!
 
 That's good, because I wanted an official Windows 95 Christmas sweater!
 
