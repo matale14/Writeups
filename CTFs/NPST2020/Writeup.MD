@@ -1537,24 +1537,24 @@ slemme = []  # Create empty lists
 snille = []
 with open('liste/slemme.csv', 'r',encoding='utf-8') as f:
     for line in f:
-        slemme.append(line)  # Add each row to list
+        slemme.append(line)                              # Add each row to list
 
 
 with open('liste/snille.csv', 'r',encoding='utf-8') as f:
     for line in f:
-        snille.append(line) # Add each row to list
+        snille.append(line)                              # Add each row to list
 
 
 for barn in slemme:
-    barn = barn.split(",") # Split first name, last name, and hash
-    s = barn[0]+barn[1]    # Get the name 
-    barn[2] = barn[2].rstrip("\n") #strip newline so it doesn't ruin the md5sum
-    has = hashlib.md5(s.encode('utf-8')).hexdigest() # md5sum the name
-    if barn[2] != has:                # If the original hash does not match our hash
-        print(barn[0], barn[1])       # We found our culprit
+    barn = barn.split(",")                               # Split first name, last name, and hash
+    s = barn[0]+barn[1]                                  # Get the name 
+    barn[2] = barn[2].rstrip("\n")                       #strip newline so it doesn't ruin the md5sum
+    has = hashlib.md5(s.encode('utf-8')).hexdigest()     # md5sum the name
+    if barn[2] != has:                                   # If the original hash does not match our hash
+        print(barn[0], barn[1])                          # We found our culprit
         print(barn[2], has)
 
-for barn in snille:                   # Same on the other table 
+for barn in snille:                                      # Same on the other table 
     barn = barn.split(",")
     s = barn[0]+barn[1]
     barn[2] = barn[2].rstrip("\n")
