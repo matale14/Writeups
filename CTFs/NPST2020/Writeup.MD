@@ -3026,6 +3026,9 @@ if bestguess == []:
 	    	# This is the XOR + Sbox substitution operation
                 hyp[tnum] = HW[intermediate(pt[tnum][bnum], kguess)]
 		# Returns the number of 1's in the number
+		
+		# This is also where the current key-byte is important
+		# As we are looking for the bnum byte of the input data lists
 
             #Mean of hypothesis for the key guess.
             meanh = np.mean(hyp, dtype=np.float64)
