@@ -3102,20 +3102,20 @@ Because we know the type of encryption used, we know roughly what is going in in
 
 - We can assume that the number of 1's on a databus is related to the power consumption. (Not the case on all devices)
 
-- We can now guess what the hypothetical key is.
+- We can now guess what the hypothetical key-byte is for each input byte.
 
-- We know the input data from ønskelister.npy, we know this is XOR'ed with the hypothetical key. And we know this goes through the S-Box, we can then check how many 1's are in that number.
+- We know the input data from ønskelister.npy, we know this is XOR'ed with the hypothetical key-byte in the AddRoundKey step of AES encryption. And we know this goes through the S-Box, we can then check how many 1's are in that number.
 
-- We do this for every value, with every possible key.
+- We do this for every index-value, with every possible key-byte.
 
 - We assume the number of 1's in the number is related to the power consumption at that time.
 
 - Now we ask if any of these guesses actually ARE RELATED to the power consumption at some point in time.
 
-- We then take the key that is the most likely value at a certain point.
+- We then take the key-byte that is the most likely value at a certain point. And add it to the overall key.
 
 
-If you haven't heard about the S-Box before, it is there to obscure the relationship between the key and ciphertext.
+If you haven't heard about the S-Box before, it is there to obscure the relationship between the key and ciphertext. And is part of the second step of AES encryption.
 
 
 ```
