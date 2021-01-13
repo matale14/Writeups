@@ -2950,7 +2950,7 @@ I found this article https://www.tandfonline.com/doi/pdf/10.1080/23742917.2016.1
 And knew I was on the right page. I did some more googling hoping to find some code so I didn't have to write my own based on the paper. 
 And I find this writeup:
 https://teamrocketist.github.io/2018/11/14/Crypto-SquareCtf-2018-C4-leaky-power/ 
-This includes code to use as well.
+This includes code to use as well. Most comments are mine, I did a lot of research on the topic, and I believe I understand how the code works.
 ```
 import numpy as np
 
@@ -2981,7 +2981,7 @@ sbox=(
 0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16)
 
 
-# return the right Sbox substitution
+# Return the right Sbox substitution
 def intermediate(pt, keyguess):
     return sbox[pt ^ keyguess]
 
@@ -3052,7 +3052,7 @@ if bestguess == []:
                 sumden1 = sumden1 + hdiff*hdiff 
                 sumden2 = sumden2 + tdiff*tdiff
 		
-	    # Calculate the correlation scores
+	    # Calculate the correlation scores. I believe this is the Pearson correlation coefficient
             cpaoutput[kguess] = sumnum / np.sqrt( sumden1 * sumden2 )
 	    
 	    # Get the key-byte with the highest correlation score
@@ -3079,6 +3079,7 @@ More references:
 - https://www.youtube.com/watch?v=bFfyROX7V0s
 - https://www.youtube.com/watch?v=FktI4qSjzaE
 - https://www.youtube.com/watch?v=OlX-p4AGhWs
+- https://www.tandfonline.com/doi/full/10.1080/23742917.2016.1231523
 
 This is essentially the results of a SCA (Side-Channel-Attack). Where the data has been recorded by monitoring physical outputs of a device, such as power consumption.
 And the physical ouputs of the device, will be correlated to any operations happening inside, such as cryptographic operations. 
