@@ -651,6 +651,35 @@ See also attached documentation.
 
 You can find the translated documentation in [Slede8.md](Slede8.md), in the same folder as this writeup.
 
+Here is a summarized list of the commands:
+
+- SETT = SET
+- NOPE = NOPE
+- STOPP = STOP
+- OG = AND
+- ELLER = OR
+- XELLER = XOR
+- VSKIFT = LSHIFT
+- HSKIFT = RSHIFT
+- PLUSS = PLUS
+- MINUS = MINUS
+- LIK = EQUAL
+- ULIK = NOT EQUAL
+- ME = LESS THAN
+- MEL = LESS THAN OR EQUAL TO
+- SE = LARGER THAN
+- SEL = LARGER THAN OR EQUAL TO
+- HOPP = JUMP
+- BHOPP = BJUMP (Conditional jump)
+- LES = READ (From input/Food)
+- SKRIV = WRITE (To output/regurgitation)
+- FINN = FIND
+- LAST = LOAD
+- LAGR = STORE
+- TUR = TRIP
+- RETUR = RETURN
+
+
 It turns out that this new tool is an assembly-like language with 16 registers and an input opportunity.
 
 ![](images/luke6_1.png)
