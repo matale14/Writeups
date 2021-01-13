@@ -2867,6 +2867,16 @@ guide = splittern[1] # Line below our line
  0   1   0   1   0   1   1   0  
 """
 
+# We are using two digits from the top line, and one from the line below
+# Example: If the top line is 11
+# Then there are two possibilites, 110, and 111
+# this depends on the bottom line character right below.
+
+#   111  or  110
+#   _0_  or  _1_
+
+
+
 for c in range(len(fin2), len(guide)):
     if guide[c-1] == "0":
         if fin2[c-2:c] == "11":
