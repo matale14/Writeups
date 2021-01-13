@@ -2954,8 +2954,14 @@ This includes code to use as well.
 ```
 import numpy as np
 
+
+# Creating a list of numbers, where the index is the decimal number, with the value
+# being the amount of 1's that number has in binary.
+
 HW = [bin(n).count("1") for n in range(0,256)]
 
+
+# Sbox for AES
 sbox=(
 0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76,
 0xca,0x82,0xc9,0x7d,0xfa,0x59,0x47,0xf0,0xad,0xd4,0xa2,0xaf,0x9c,0xa4,0x72,0xc0,
@@ -2974,35 +2980,54 @@ sbox=(
 0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf,
 0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16)
 
+
+# return the right Sbox substitution
 def intermediate(pt, keyguess):
     return sbox[pt ^ keyguess]
 
+
+#Load the files into numpy arrays.
 traces = np.load('strømforbruk.npy')
 pt = np.load('ønskelister.npy')
 
+
+# Ready the variable!
 bestguess = []
 if bestguess == []:
-
+	
+    # Reading the lengths of the data
     numtraces = np.shape(traces)[0]-1
     numpoint = np.shape(traces)[1]
 
+    # Start of with an empty list of best guess
     bestguess = [0]*16
     
+    # For each key-byte
     for bnum in range(0, 16):
+        
+	# Create more empty arrays
         cpaoutput = [0]*256
         maxcpa = [0]*256
+	
+	# Key-byte guess
         for kguess in range(0, 256):
             #Initialize arrays & variables to zero
             sumnum = np.zeros(numpoint)
             sumden1 = np.zeros(numpoint)
             sumden2 = np.zeros(numpoint)
-
+	    
+	    # Hypothesis in the same size as the power consumption list
+	    # 49 lists (50-1)
             hyp = np.zeros(numtraces)
+	    
+	    # For number of traces we add the hammer-weight to the hypothesis
+	    
             for tnum in range(0, numtraces):
+	    	# This is the XOR + Sbox substitution operation
                 hyp[tnum] = HW[intermediate(pt[tnum][bnum], kguess)]
+		# Returns the number of 1's in the number
 
-
-            #Mean of hypothesis
+            #Mean of hypothesis for the key guess.
             meanh = np.mean(hyp, dtype=np.float64)
 
             #Mean of all points in trace
@@ -3010,17 +3035,27 @@ if bestguess == []:
 
             #For each trace, do the following
             for tnum in range(0, numtraces):
+	    
+	    	# Hypothesis difference
+		# The hypothesis for this trace - the mean hypothesis = the hypothesis difference
                 hdiff = (hyp[tnum] - meanh)
+		
+		# Trace difference
+		# The column of this trace number - the mean of all points in trace = the trace difference
                 tdiff = traces[tnum,:] - meant
-
+		
+		
                 sumnum = sumnum + (hdiff*tdiff)
                 sumden1 = sumden1 + hdiff*hdiff 
                 sumden2 = sumden2 + tdiff*tdiff
-
+		
+	    # Calculate the correlation scores
             cpaoutput[kguess] = sumnum / np.sqrt( sumden1 * sumden2 )
+	    
+	    # Get the key-byte with the highest correlation score
             maxcpa[kguess] = max(abs(cpaoutput[kguess]))
 
-
+	# Add the best key-byte guess to the overall guess
         bestguess[bnum] = np.argmax(maxcpa)
 
     key = ''
