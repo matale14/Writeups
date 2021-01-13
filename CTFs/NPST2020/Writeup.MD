@@ -98,7 +98,7 @@ On the 5th, we received a message detailing how to do extra-tasks called eggs.
 I will be detailing these on the dates they were unlocked as well.
 
 ```
-It is still possible to respond to this year's employee survey. Feel free to praise me in the clouds, so that I appear as a 
+It is still possible to respond to this year's employee survey. Feel free to praise me to the skies, so that I appear as a 
 good middle manager! Do this by sending a message to HR with the text EGG{w0rlds_b3st_b0ss}.
 
 Answers are rewarded with a star in the margin!
