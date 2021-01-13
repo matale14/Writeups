@@ -1889,7 +1889,7 @@ I then studied the registers and noticed that the first 4 inputs resulted in the
 
 So the solution will appear if r8 = 0 at that command. Probably.
 
-So I entered some code in the ELLER operation to return "wrong" if r8 != 0. Same place that I added `x = 0 ^ regs[3] ^ regs[7]` etc. earlier
+So I entered some code in the ELLER/OR operation to return "wrong" if r8 != 0. Same place that I added `x = 0 ^ regs[3] ^ regs[7]` etc. earlier
 
 ```
 if regs[8] != 0:
