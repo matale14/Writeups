@@ -207,6 +207,7 @@ I will have new tasks for you everyday. Feel free to use the time between the ta
 For each task you complete, you get points that are shown in the points overview. How you do it there could possibly affect 
 next year's wage negotiations.
 ```
+[Back to Index](#Index)
 
 ## December 2nd
 ```
@@ -257,6 +258,9 @@ a Merry Christmas!
 
 🎅
 ```
+
+[Back to Index](#Index)
+
 ## December 3rd
 ```
 I guessed the password to the zip file,, and it worked!
@@ -304,6 +308,9 @@ After clicking enhance a couple of times we get the flag on a post-it note. Amaz
 ```
 Good work! We make a great team!
 ```
+
+[Back to Index](#Index)
+
 ## Egg #3
 Running cupcake.png through zsteg reveals a youtube link: youtu.be/I_8ZH1Ggjk0 
 Which is a CSI link called enhance. Not only is this a hint for the task of the day. But it is a hint for the egg.
@@ -318,6 +325,8 @@ zsteg can be found at: https://github.com/zed-0xff/zsteg
 And can be installed on linux from the terminal using gem.
 
 ```gem install zsteg```
+
+[Back to Index](#Index)
 
 ## December 4th
 
@@ -562,6 +571,8 @@ Thanks for the help!
 Now the management team should be satisfied.
 ```
 
+[Back to Index](#Index)
+
 ## December 5th
 ```
 Access problems to the documentation vault are reported. We have received logs from the Section for passwords and prevention 
@@ -622,6 +633,8 @@ This case is given priority for further processing in the line!
 It may appear that a threat actor has managed to reset Chief NPST's password via a phishing attack.
 ```
 
+[Back to Index](#Index)
+
 ## December 6th
 ```
 It's time for you to start e-learning in SLEDE-8. This is the successor to SLEDE-4, and is used diligently by our developers.
@@ -676,6 +689,9 @@ Good to see you up and running.
 
 There will be more e-learning modules later.
 ```
+
+[Back to Index](#Index)
+
 ## Egg #5
 Solve the Hello World E-Learning module in slede8.
 
@@ -701,6 +717,8 @@ end:
 STOPP
 ```
 
+[Back to Index](#Index)
+
 ## Egg #2
 We now know what kladd.txt is.
 If we look at the URL of the slede8 webpage:
@@ -720,6 +738,8 @@ Eight sleighs, followed by an encrypted string.
 We simply throw this encrypted string after slede8.npst.no/#
 Running the program gives us the egg:
 ![](images/egg2.png)
+
+[Back to Index](#Index)
 
 ##  December 7th
 ```
@@ -743,6 +763,7 @@ Thank you for your efforts J
 ```
 (J refers to Julenissen, or Santa Claus)
 
+[Back to Index](#Index)
 
 ## December 8th
 ```
@@ -891,6 +912,8 @@ We wonder if HEXMAS encoding may have been used. Can you investigate that furthe
 🤶🛷✨🎶🎅✨🎅🎅🛷🤶🎄🔥🎆🦌🎁🛷🎅❄🛷🛷🎅🎶🎅✨🎅🦌🥣🔥🛷🦌⛄🎅🌟🛷🛷🔥🎄🦌🎅✨🦌🦌🕯🎶🎅🤶🦌❄🎁🕯 🎅✨🎶👼🌟🎆🕯🌟❄👼🎅🎅🤶❄🎄👼🎆🔥🎁🛷🤶👼🎅🎅🎅🎅🎅🎅
 ```
 
+[Back to Index](#Index)
+
 ![](images/luke9_0.png)
 
 Here we get a message full of emojis. And on the first line we get 16 different emojis. This should be a clear sign, especially along with the HEXMAS tip. That this has something to do with hex. So my first thought was that the top line was a sort of dictionary for the rest of the message.
@@ -948,6 +971,8 @@ Brilliantly done!
 Now we know we can decode similar messages quickly in the future!
 ```
 
+[Back to Index](#Index)
+
 ## Egg #6
 We got a system update on the 9th. that introduced mal.exe, or paint.
 
@@ -976,6 +1001,7 @@ We get the Raw hex, which we can just paste into cyberchef:
 
 ![](images/egg6_3.png)
 
+[Back to Index](#Index)
 
 ## December 10th
 ```
@@ -1227,6 +1253,8 @@ Mastering SLEDE8 can be crucial in this pre-Christmas season! If you think this 
 
 ```
 
+[Back to Index](#Index)
+
 ## Egg #7
 This requires us to write the result of A+B as an ASCII string.
 
@@ -1458,6 +1486,8 @@ SKRIV r12
 HOPP write_num
 ```
 
+[Back to Index](#Index)
+
 ## December 11th
 ```
 The internal security team at NPST has discovered that an unauthorized modification has taken place on Santa's list of good and bad children. 
@@ -1512,6 +1542,8 @@ Well done, and interesting findings!
 
 I think we need to take this further in the line.
 ```
+
+[Back to Index](#Index)
 
 ## December 12th
 ```
@@ -1815,6 +1847,7 @@ This was food for thought. If you still have the desire to live, you can try thi
 📎💀.s8
 ```
 
+[Back to Index](#Index)
 
 ## Egg #8
 I did not complete
@@ -1886,6 +1919,7 @@ The overall thing here is to just find that one conditional that is required for
 
 The code also prints for every found input byte, which is very satisfying.
 
+[Back to Index](#Index)
 
 ## December 13th
 ```
@@ -1973,6 +2007,8 @@ Well solved!
 That was not easy to see right away.
 ```
 
+[Back to Index](#Index)
+
 ## December 14th
 ```
 The latest in target number reporting is the number of completed e-learning modules in SLEDE8 among the employees, so could you 
@@ -2054,9 +2090,11 @@ At NPST, we love short and efficient code. If you recognize yourself in this, yo
 The tests should be the same as you have already passed, but the requirements for efficiency and comprehension have become stricter.
 ```
 
+
 ## Egg #9
 This was just the same as the task of the day, but it required efficient code. Luckily my code was already efficient enough.
 
+[Back to Index](#Index)
 
 ## December 15th
 ```
@@ -2093,6 +2131,8 @@ Well done!
 
 That was a funny message to send with Manchester coding.
 ```
+
+[Back to Index](#Index)
 
 ## December 16th
 ```
@@ -2194,6 +2234,8 @@ The experiences you gain now can be crucial before you know it.
 If you want to test how efficient your algorithm is, you can try e-learning module 611b1f7f8c63469e.
 ```
 
+[Back to Index](#Index)
+
 ## Egg #10
 I did not complete
 
@@ -2258,6 +2300,8 @@ PLUSS r0, r11
 ULIK r0, r12
 BHOPP memorycheck
 ```
+
+[Back to Index](#Index)
 
 ## December 17th
 ```
@@ -2494,6 +2538,8 @@ Version 4 randomizes 122 of the 128-bits, which makes it very unique.
 Well done!
 ```
 
+[Back to Index](#Index)
+
 ## December 18th
 ```
 SPST has published what they claim is a very advanced artificial intelligence on their GitHub account.
@@ -2661,6 +2707,8 @@ We also have to encode the payload properly by reading the script we found on th
 Well done!
 ```
 
+[Back to Index](#Index)
+
 ## Egg #11
 I did not complete
 
@@ -2668,6 +2716,8 @@ https://pingvin.spst.no/ also links to https://egg.spst.no/ which requires a pas
 This actually turns out to be the password from task #17. The password is literally “****************”
 
 ![](images/egg11.png)
+
+[Back to Index](#Index)
 
 ## December 19th
 ```
@@ -2734,6 +2784,8 @@ Now there will be packages for Christmas this year too!
 That's good, because I wanted an official Windows 95 Christmas sweater!
 
 ```
+
+[Back to Index](#Index)
 
 ## December 20th
 ```
@@ -2808,6 +2860,8 @@ Thank you!
 This confirms the suspicion that an outsider has access to our network. I'm creating an emergency on the line.
 
 ```
+
+[Back to Index](#Index)
 
 ## December 21st
 ```
@@ -2910,6 +2964,8 @@ To think it could be that easy!
 Thanks for the help!
 
 ```
+
+[Back to Index](#Index)
 
 ## December 22nd
 ```
@@ -3125,6 +3181,9 @@ There was a lot of excitement about whether you would solve this task.
 Well done!
 
 ```
+
+[Back to Index](#Index)
+
 ## December 23rd
 ```
 Santa's workshop at the North Pole has received this Christmas card. The card was not in an envelope and has no postmark or stamps. 
@@ -3174,8 +3233,9 @@ We can also see that the QR code fills up unused space.
 That was a special Christmas greeting.
 
 Probably Tastefinger trying to be funny ...
-
 ```
+
+[Back to Index](#Index)
 
 ## December 24th
 This was the only main task I did not complete.
@@ -3931,6 +3991,8 @@ On behalf of the entire NPST and our partner PST, I would like to wish you a ver
 🎅
 
 ```
+
+[Back to Index](#Index)
 
 # Thanks
 
