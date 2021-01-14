@@ -3016,7 +3016,7 @@ Do you find a connection between wish lists and power consumption? And do you ge
 📎 power consumption.npy
 ```
 
-![](images/luke22_0.png)
+![](images/luke22.png)
 
 The file viktig_meldig.json(important_message.json) 
 ```
