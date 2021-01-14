@@ -3565,7 +3565,7 @@ I got answers like this
 
 `30 27 30 07 02 01 07 02 02 00 dd 30 07 02 01 05 02 02 00 ff 30 13 30 07 02 01 6b 02 02 00 e6 30 08 02 02 00 93 02 02 00 ff`
 
-These are actually numbers related to ASN.1. They are hexadecimal. More info here: https://en.wikipedia.org/wiki/X.690#BER_encoding 
+We can see in the code that the positions are encoded with ASN.1. More info here: https://en.wikipedia.org/wiki/X.690#BER_encoding 
 
 `0x30` marks the start of a sequence
 
