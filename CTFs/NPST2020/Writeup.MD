@@ -3573,7 +3573,7 @@ We can see in the code that the positions are encoded with ASN.1. More info here
 
 `0x30` marks the start of a sequence
 
-`0x07` marks the lenght of the sequence
+`0x07` marks the length of the sequence
 
 `0x02` tells us that an integer is coming
 
