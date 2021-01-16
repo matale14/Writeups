@@ -5,3 +5,7 @@ I began by running some Nmap scans, and I usually prefer to use </span><span cla
 ## Comparing to the official writeup:
 
 They reach the same conclusion, in that after checking out the vsftpd exploit, the only remaining solution is the samba exploit. They chose to run metasploit which makes the whole process extremely trivial.
+
+## How to stop this exploit:
+
+Update to the most recent version of vsftpd. As the exploit is only related to version 2.3.4
