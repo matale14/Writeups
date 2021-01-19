@@ -230,6 +230,8 @@ asterisk ALL = NOPASSWD: /usr/sbin/elastix-helper
 ``` 
 Here we can see that the user asterisk, with all hosts has access to /usr/bin/nmap without having to use a password.
 
+We can also do sudo -l as the asterisk user to see our current permissions
+
 And lets look at the privileges of nmap:
 
 ```
