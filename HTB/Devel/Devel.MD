@@ -2,6 +2,10 @@
 
 As always, we first run an Nmap scan. I decided to not use nmapAutomator for this one. Always good to not rely on tools if possible.
 
+the -sC option runs the default scripts
+
+the -sV option probes open ports to determine service/version info.
+
 ```
 sudo nmap -sC -sV 10.129.82.146
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-01-16 10:54 EST
