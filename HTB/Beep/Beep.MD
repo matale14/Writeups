@@ -284,3 +284,10 @@ In the exploit I used, the unsanitized input is eventaully ran locally, while th
 If any of these were sanitized properly, the attacker would not get into the server.
 
 The nmap privliege escalation can be stopped by either disabling the nmap -interactive option, or just not letting users other than root execute nmap to begin with.
+
+EDIT:
+I watched Ippsec's video on this box. Where he uses 4 different ways of doing it. Video is here: https://www.youtube.com/watch?v=XJmBpOd__N8 
+
+Instead of my extension bruteforce, he used SIPVicious to find the extensions to use. Which is a lot more effective.
+
+You could also go to 10.129.84.71/panel, which would also show 233 as a valid extension.
