@@ -426,29 +426,29 @@ I recommend the original presentation by Cesar Cerrudo here: https://dl.packetst
 To understand the exploit, we need a couple of underlying understandings:
 
 
-Threads with impersonation privileges can run code under another user account. This privilege is called “Impersonate a client after authentication” (SeImpersonatePrivilege) 
-When a thread impersonates, it gets an associated impersonation token.
-An access token describes the security context of a process or thread.
-There are two types of access tokens
-Primary tokens are assigned to processes
-Impersonation tokens are created when something is impersonated.
-There are four impersonation levels: SecurityAnonymous, SecurityIdentity, SecurityImpersonation, and SecurityDelegation
-Services can run under LOCAL SYSTEM, NETWORK SERVICE, LOCAL SERVICE and user accounts
-Services cannot directly access a service running under the same account.
-Impersonation takes place mostly during Inter Process Communication (IPC) using Local Procedure Call (LPC), Named Pipes, etc.
-Inter Process Communication (IPC) using Local Procedure Call (LPC), Named Pipes, etc.
-Impersonation can be limited by clients by setting proper options in the used functions
-Service threads have default account permissions
-Services CAN directly access threads of a service running under the same account.
-So service X can run arbitrary code on service Y
-Which means service X can get an impersonation token from service Y
-Threads from RpcSs service process (runs under NetworkService) can be accessed
-This process always has impersonation tokens from many different accounts including SYSTEM
-So we first need to get a NetworkService impersonation token, and use that to access rpCSs threads.
-Calling the APi that interacts with a service results in getting the service impersonation token.
-This essentially means any service can run code as SYSTEM(root)
-For example:
-Any ASP web page, CGI, etc. on IIS can run code as SYSTEM
+- Threads with impersonation privileges can run code under another user account. This privilege is called “Impersonate a client after authentication” (SeImpersonatePrivilege) 
+- When a thread impersonates, it gets an associated impersonation token.
+- An access token describes the security context of a process or thread.
+- There are two types of access tokens
+- Primary tokens are assigned to processes
+- Impersonation tokens are created when something is impersonated.
+- There are four impersonation levels: SecurityAnonymous, SecurityIdentity, SecurityImpersonation, and SecurityDelegation
+- Services can run under LOCAL SYSTEM, NETWORK SERVICE, LOCAL SERVICE and user accounts
+- Services cannot directly access a service running under the same account.
+- Impersonation takes place mostly during Inter Process Communication (IPC) using Local Procedure Call (LPC), Named Pipes, etc.
+- Inter Process Communication (IPC) using Local Procedure Call (LPC), Named Pipes, etc.
+- Impersonation can be limited by clients by setting proper options in the used functions
+- Service threads have default account permissions
+- Services CAN directly access threads of a service running under the same account.
+- So service X can run arbitrary code on service Y
+- Which means service X can get an impersonation token from service Y
+- Threads from RpcSs service process (runs under NetworkService) can be accessed
+- This process always has impersonation tokens from many different accounts including SYSTEM
+- So we first need to get a NetworkService impersonation token, and use that to access rpCSs threads.
+- Calling the APi that interacts with a service results in getting the service impersonation token.
+- This essentially means any service can run code as SYSTEM(root)
+- For example:
+- Any ASP web page, CGI, etc. on IIS can run code as SYSTEM
 
 Deeper understanding about this, and how it differs on Vista and Server 2008 can be found in the link above.
 
