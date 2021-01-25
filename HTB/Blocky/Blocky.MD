@@ -23,7 +23,7 @@ I head to the webpage and I’m greeted by blockycraft! And there is a login pag
 hydra 10.129.1.53 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:F=ERROR\: Invalid username. Lost your password?" -L /usr/share/wordlists/usernames.txt -p test -I
 ```
 
-Hydra can be a bit tough to send correctly, I hope this one is good.
+Hydra can be a bit tough to send correctly, I explain it a bit more further down.
 
 While that is running I check out the other options on the site. I click the first article and see a reply field. This might be a cross-site-scripting opportunity.
 
@@ -44,7 +44,7 @@ hydra 10.129.1.53 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=
 ```
 
 In order to craft a good hydra command, you need to inspect the target login form, and use the values there. "log" was the form name of the username, "pwd" for the password etc.
-I also had to escape the `:` in the fail message with a backslash. -l means username. -L means username list. And the same for passwords. -I makes it so hydra does not resume from a previous run, and -V just means verbose.
+I also had to escape the `:` in the fail message with a backslash. small L: -l means username. -L means username list. And the same for passwords -p means password and -P means password list. -I makes it so hydra does not resume from a previous run, and -V just means verbose.
 
 Also my dirbuster is not working well, it is just running into empty links. So I’m gonna try Wfuzz and only looking for directories.
 
