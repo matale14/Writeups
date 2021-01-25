@@ -151,6 +151,8 @@ And then change the `HTTP/1.1 302 Found` to `HTTP/1.1 200 OK` and forward it
 
 And we get the support page without being redirected to the login. It’s fair to assume that the uploaded files will end up in the uploads folder. But I am worried we might not have access to them. 
 
+![](images/4.png)
+
 I create a php reverse shell with the .htb extension
 
 ```
