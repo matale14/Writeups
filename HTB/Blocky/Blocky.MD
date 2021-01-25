@@ -14,6 +14,8 @@ PORT     STATE  SERVICE
 8192/tcp closed sophos
 ```
 
+My default -sV and -sC do not work so I do a quick -Pn to see what we're dealing with. If needed I would return to do some more scanning.
+
 I head to the webpage and I’m greeted by blockycraft! And there is a login page. Which differentiates username and password. So I’m gonna try hydra,
 
 
@@ -40,7 +42,7 @@ I try hydra again:
 ```
 hydra 10.129.1.53 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:F=ERROR" -l Notch -P /usr/share/wordlists/rockyou.txt -I -V
 ```
-Also my dirbuster is not working well, it is just running into empty links. So I’m gonna try Wfuzz.
+Also my dirbuster is not working well, it is just running into empty links. So I’m gonna try Wfuzz and only looking for directories.
 
 ``` 
 kali@kali:~/htb/Blocky$ sudo wfuzz -c --hc=404 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt http://10.129.1.53/FUZZ
@@ -53,7 +55,7 @@ kali@kali:~/htb/Blocky$ sudo wfuzz -c --hc=404 -w /usr/share/wordlists/dirbuster
 -w selects what wordlist to use
 
 
-And Wfuzz finds a directory called plugins. So let's see if we find anything there. Not that my hydra is still running in the BG trying to find a password.
+And Wfuzz finds a directory called plugins. So let's see if we find anything there. Note that my hydra is still running in the BG trying to find a password.
 
 ![](images/1.png)
 
@@ -118,7 +120,7 @@ public class com.myfirstplugin.BlockyCore {
 
 ```
 
-That third string is interesting. `https://www.reddit.com/r/LiveStreamNorge/comments/hyj6d7/ryker_i_bakken_there/`
+That third string is interesting. `8YsqfCTnvxAUeduzjNSXe22`
 
 I try it with Notch in the login page, but it does not work. However ssh was open in the ports. So lets try that:
 
