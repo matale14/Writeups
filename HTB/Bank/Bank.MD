@@ -166,6 +166,7 @@ And btw, to make things easier, we can add a replacement rule in burpsuite.
 So for all Response headers, `302 Found` becomes `200 OK` so we won't have to deal with redirects.
 
 ![](images/5.png)
+![](images/6.png)
 
 And we can see we even get a link to our file. So let's set up our listener and try it:
 
