@@ -151,6 +151,8 @@ And then change the `HTTP/1.1 302 Found` to `HTTP/1.1 200 OK` and forward it
 
 And we get the support page without being redirected to the login. It’s fair to assume that the uploaded files will end up in the uploads folder. But I am worried we might not have access to them. 
 
+![](images/4.png)
+
 I create a php reverse shell with the .htb extension
 
 ```
@@ -264,6 +266,9 @@ They use this to log in in order to get access to the support.php page.
 The unintended way is how I did it. As I did not find the balance-transfer directory with dirbuster. I probably chose the wrong wordlist.
 
 They use linEnum to enumerate the linux machine. And find that the emergency file is a non-standard SUID file. Another way to do this would be with the command ` find / -perm -4000 2>/dev/null`  Where find / -perm -4000 finds all files with SUID, and 2>/dev/null removes errors.
+
+
+I should have known to do the virtual hosting immeditately because of ISC BIND since it is an implementation of the Domain Name System. 
 
 ## How to stop this exploit:
 
