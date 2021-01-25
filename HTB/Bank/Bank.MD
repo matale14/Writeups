@@ -267,6 +267,9 @@ The unintended way is how I did it. As I did not find the balance-transfer direc
 
 They use linEnum to enumerate the linux machine. And find that the emergency file is a non-standard SUID file. Another way to do this would be with the command ` find / -perm -4000 2>/dev/null`  Where find / -perm -4000 finds all files with SUID, and 2>/dev/null removes errors.
 
+
+I should have known to do the virtual hosting immeditately because of ISC BIND since it is an implementation of the Domain Name System. 
+
 ## How to stop this exploit:
 
 The support.php page should not be accessible without logging in. A simple redirect does not really fix anything. The uploaded file should also not be accessible by the user that uploaded it. They do not need to have access to it, therefore they should not.
