@@ -1,6 +1,6 @@
 # Mirai
 
-First of, the name of the box is a reference to the Mirai worm. Which was a worm that created a huge botnet. Another reason it is well known is that it only used around 60 passwords. And still amassed a huge number of bots in its network. You can find the source code here: https://github.com/jgamblin/Mirai-Source-Code 
+First of, the name of the box is a reference to the Mirai worm. Which was a worm that created a huge botnet. Another reason it is well known is that it only used around 60 passwords, most if not all being default passwords that were never changed. It mostly attacked IoT devices. You can find the source code here: https://github.com/jgamblin/Mirai-Source-Code 
 
 So let’s begin:
 
