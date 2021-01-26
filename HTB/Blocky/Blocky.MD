@@ -66,7 +66,8 @@ And Wfuzz finds a directory called plugins. So let's see if we find anything the
 We got something interesting here. Some java files, which is what is used for minecraft mods. Let’s see if we can find some interesting stuff. 
 
 I decompress it with
-```kali@kali:~/htb/Blocky$ unzip BlockyCore.jar -d Blockycore
+```
+kali@kali:~/htb/Blocky$ unzip BlockyCore.jar -d Blockycore
 Archive:  BlockyCore.jar
   inflating: Blockycore/META-INF/MANIFEST.MF  
   inflating: Blockycore/com/myfirstplugin/BlockyCore.class  
