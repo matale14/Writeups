@@ -284,7 +284,7 @@ root
 
 Excellent!
 
-But I also want to do a detailed examination of the exploit:
+But I also want to do a detailed examination of the exploit more info here https://www.proteansec.com/linux/pfsense-vulnerabilities-part-2-command-injection/:
 
 The exploit uses our login info to inject code here:
 
@@ -292,6 +292,8 @@ The exploit uses our login info to inject code here:
 The payload is a python reverse shell encoded in octal. 
 
 So the input for the database query is not sanitized. And allows us to execute code after escaping the query.
+
+
 
 
 ## Comparing myself to the official writeup:
