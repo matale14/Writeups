@@ -62,9 +62,7 @@ ID           Response   Lines    Word     Chars       Payload
 
 Which is completely empty. I try curling, burpsuite. But it is completely empty. So I decide to check out the PHPbash talked about in the blog.
 
-```
-phpbash helps a lot with pentesting. I have tested it on multiple different servers and it was very useful. I actually developed it on this exact server!
-```
+`phpbash helps a lot with pentesting. I have tested it on multiple different servers and it was very useful. I actually developed it on this exact server!`
 
 So phpbash is a pentesting tool, developed on this exact server. Well. There is a /dev/ directory here.
 
