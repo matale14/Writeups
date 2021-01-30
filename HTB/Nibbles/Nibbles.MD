@@ -101,6 +101,9 @@ And I find three directories;:
 [DIR]    tmp/    2017-12-10 23:27     -     
 ```
 
+
+In private I find users.xml, which includes the username admin. So now we only need a password.
+
 I tried using hydra, but either it did not work, or I misconfigured it, or the site has some sort of brute-force protection.
 
 So I decide to try cewl to see if that can find some possible passwords:
@@ -131,6 +134,12 @@ Powered
 Nibbleblog
 nibbleblog
 ```
+
+-d is the depth of the search. 
+
+-m is the minimum string length. I set it to 5.
+
+-w is what file it should be written to.
 
 Most of these are not really valuable. But I guess I’ll try Nibbles, it is the name of the box. 
 
