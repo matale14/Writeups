@@ -535,8 +535,8 @@ More information here: http://ohpe.it/juicy-potato/
 
 This is why I wanted to read the official writeups after doing it myself. I learn something useful:
 
-`Before brute-forcing file and directory names, it is worth checking if the server is vulnerable to
-tilde / shortname enumeration.`
+"Before brute-forcing file and directory names, it is worth checking if the server is vulnerable to
+tilde / shortname enumeration."
 
 What? I don’t even know what that is.
 
