@@ -461,7 +461,7 @@ PS C:\windows\temp>
 
 So now we can see that we don’t have access to the NETWORK SERVICE token to use churrasco.
 
-I try the plink.exe smb port forward again, but it does hangs.
+I try the plink.exe smb port forward again, but it just hangs.
 
 So maybe a good old juicypotato? 
 
