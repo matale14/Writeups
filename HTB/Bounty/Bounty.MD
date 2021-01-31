@@ -540,11 +540,11 @@ tilde / shortname enumeration.`
 
 What? I don’t even know what that is.
 
-`This vulnerability is caused by a tilde character "~" in a GET or OPTIONS request, which allows for
+"This vulnerability is caused by a tilde character "~" in a GET or OPTIONS request, which allows for
 disclosure of 8.3 filenames (short names). In 2010, Soroush Dalili and Ali Abbasnejad discovered
 the original bug (GET request). Soroush Dalili later discovered that newer IIS installations are
 vulnerable with OPTIONS. If a shortname file exists, a vulnerable IIS installation will respond with
-a 404, and with a 200 if the file doesn’t exist.`
+a 404, and with a 200 if the file doesn’t exist."
 
 Soroush Dalili sounds familiar. Oh, it was the same person that had the web.config exploit we used in this very box. 
 
@@ -561,6 +561,6 @@ On the privesc. The user had access to all binaries, I’m sure the user does no
 
 As for the escalation itself, even the creators of juicypotato state that it is very hard to stop:
 
-`It’s nearly impossible to prevent the abuse of all these COM Servers. You could think to modify the permissions of these objects via DCOMCNFG but good luck, this is gonna be challenging.
+"It’s nearly impossible to prevent the abuse of all these COM Servers. You could think to modify the permissions of these objects via DCOMCNFG but good luck, this is gonna be challenging.
 
-The actual solution is to protect sensitive accounts and applications which run under the * SERVICE accounts. Stopping DCOM would certainly inhibit this exploit but could have a serious impact on the underlying OS.`
+The actual solution is to protect sensitive accounts and applications which run under the * SERVICE accounts. Stopping DCOM would certainly inhibit this exploit but could have a serious impact on the underlying OS."
