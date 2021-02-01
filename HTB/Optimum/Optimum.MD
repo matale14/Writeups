@@ -1,4 +1,4 @@
--# Optimum
+# Optimum
 
 Start off with nmap as usual. -sV shows us the versions, and -sC runs default scripts.
 
