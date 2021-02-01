@@ -298,3 +298,14 @@ root@Valentine:/.devs# whoami
 root
 root@Valentine:/.devs#
 ```
+
+## Comparing myself with the official writeup:
+
+The official writeup used the exact same methods. Except that they discovered dev_sess with `ps aux` instead of bash history.
+
+
+## How to stop this exploit:
+
+Keep services up to date.
+
+And don't have important information like an RSA key publically available.
