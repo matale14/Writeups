@@ -93,10 +93,10 @@ To view this, we can simply use quotation marks around the file name:
 C:\Users\Administrator\Desktop\flags>type "2 for the price of 1.txt"
 type "2 for the price of 1.txt"
 user.txt
-7004dbcef0f8xxxxxxxxxxxxxxxxxxxxxx
+7004dbcef0fxxxxxxxxxxxxxxxxxxxxxxx
 
 root.txt
-04a8b36e154xxxxxxxxxxxxxxxxxxxxxx
+04a8b36e154xxxxxxxxxxxxxxxxxxxxxxx
 C:\Users\Administrator\Desktop\flags>
 ```
 
