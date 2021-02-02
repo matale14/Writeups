@@ -322,6 +322,6 @@ Kerberoasting can be detected by monitoring the windows event log for TGS reques
 
 Use Kerberos Armoring, also called Kerberos Flexible Authentication Secure Tunneling(FAST).
 
-Disable insecure protocols in Kreberos.
+Disable insecure protocols in Kerberos.
 
 Use group Managed Service Accounts(gMSA) where possible. audit SPN assignments to sensitive user accounts. Administrator accounts for example should not be used as service accounts, and therefore not have an SPN.
