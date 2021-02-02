@@ -90,7 +90,9 @@ smb: \> mget *
 ```
 
 recurse ON turns on recursive search
+
 prompt off turns off the prompt asking for anything
+
 mget * just downloads everything recursively from the current directory.
 
 
