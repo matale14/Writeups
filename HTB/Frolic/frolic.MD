@@ -711,7 +711,7 @@ So we are overwriting the return address of the strcpy() function with the syste
 
 ## Comparing myself to the official writeup:
 
-It was pretty much the same. 
+It was pretty much the same. Maybe some different tools used.
 
 
 ## How to stop this exploit:
