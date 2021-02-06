@@ -413,7 +413,7 @@ I check out /home/sahay/ and find the directory node-red. In here, I find the fi
     },
 ```
 
-I copy this to a file and run it through john. And it's "password" again. Can't believ I didn't try that. I try it on the website, but it just hangs forever.
+I copy this to a file and run it through john. And it's "password" again. Can't believe I didn't try that. I try it on the website, but it just hangs forever.
 
 in /home/sahay/.config/composer I find two public keys. 
 
