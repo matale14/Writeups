@@ -112,7 +112,7 @@ Requests/sec.: 316.8558
 
 Test contains config info. 
 
-admin is a login form that says "c'mon im hackable" With a designated number of login attempts. Seems like 2.
+admin is a login form that says "c'mon im hackable" With a designated number of login attempts. Seems like 3.
 
 backup is a page with the text `password.txt user.txt loop/ `
 
