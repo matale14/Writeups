@@ -696,7 +696,7 @@ The exit() function terminates the calling process.
 
 /bin/sh starts a shell.
 
-A more thorough explanation can be found here: https://www.ret2rop.com/2018/08/return-to-libc.html 
+A more thorough explanation can be found here: https://www.ret2rop.com/2018/08/return-to-libc.html and a video here: https://www.youtube.com/watch?v=FvQYGAM1X9U
 
 In a normal BOF we do the padding, then the new return address, the NOP sled, and then finally shellcode.
 
