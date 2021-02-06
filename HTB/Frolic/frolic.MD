@@ -684,7 +684,7 @@ root
 With a normal buffer overflow, you overflow the buffer with NOP sleds. NOP(No operation) is just a certain instruction to the program to do nothing at all. 0x90 is the NOP instruction for intel x86 CPUs.
 
 
-The NOP sled will overwrite the return address of the function, and instead you add a payload after the NOP sled. The CPU will then read all the NOP instructions and then finally reach the payload. This is normall shellcode.
+The NOP sled will overwrite the return address of the function, and instead you add a payload after the NOP sled. The CPU will then read all the NOP instructions and then finally reach the payload. This is normally shellcode.
 
 Executable space protection is a safety measure that attempts to block execution of core on certain memory regions. In this case it was NX.
 
@@ -711,7 +711,7 @@ So we are overwriting the return address of the strcpy() function with the syste
 
 ## Comparing myself to the official writeup:
 
-It was pretty much the same. 
+It was pretty much the same. Maybe some different tools used.
 
 
 ## How to stop this exploit:
