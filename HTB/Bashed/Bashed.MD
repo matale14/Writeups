@@ -129,6 +129,7 @@ $
 
 I am slightly sad. I’ve had the ip 10.10.14.21 for well over a week. And now suddenly I am 10.10.14.52. And I’ve gotten so used to 21. Anyways. I improve the shell. Read more here: https://null-byte.wonderhowto.com/how-to/upgrade-dumb-shell-fully-interactive-shell-for-more-flexibility-0197224/ 
 
+I look around a bit and find a user named scriptmanager, and also a directory called "scripts" owned by scriptmanager.
 
 So I’m gonna try and log in as scriptmanager, and see what permissions that account has.
 
@@ -200,6 +201,6 @@ The official writeup uses the same methods, except it runs another reverse shell
 
 ## How to stop this exploit:
 
-The web user should not be able to access sripts, especially when you give an end-user access to that user by default with the phpbash dev site. The automatic script execution could also have an additional check. Maybe do a md5sum of the program, and only run it if the md5sum matches.
+The web user should not be able to access scripts, especially when you give an end-user access to that user by default with the phpbash dev site. The automatic script execution could also have an additional check. Maybe do a md5sum of the program, and only run it if the md5sum matches.
 
 
