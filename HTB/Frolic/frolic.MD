@@ -112,7 +112,7 @@ Requests/sec.: 316.8558
 
 Test contains config info. 
 
-admin is a login form that says "c'mon im hackable" With a designated number of login attempts. Seems like 2.
+admin is a login form that says "c'mon im hackable" With a designated number of login attempts. Seems like 3.
 
 backup is a page with the text `password.txt user.txt loop/ `
 
@@ -413,7 +413,7 @@ I check out /home/sahay/ and find the directory node-red. In here, I find the fi
     },
 ```
 
-I copy this to a file and run it through john. And it's "password" again. Can't believ I didn't try that. I try it on the website, but it just hangs forever.
+I copy this to a file and run it through john. And it's "password" again. Can't believe I didn't try that. I try it on the website, but it just hangs forever.
 
 in /home/sahay/.config/composer I find two public keys. 
 
@@ -696,7 +696,7 @@ The exit() function terminates the calling process.
 
 /bin/sh starts a shell.
 
-A more thorough explanation can be found here: https://www.ret2rop.com/2018/08/return-to-libc.html 
+A more thorough explanation can be found here: https://www.ret2rop.com/2018/08/return-to-libc.html and a video here: https://www.youtube.com/watch?v=FvQYGAM1X9U
 
 In a normal BOF we do the padding, then the new return address, the NOP sled, and then finally shellcode.
 
