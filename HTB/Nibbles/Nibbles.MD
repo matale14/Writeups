@@ -292,7 +292,7 @@ User nibbler may run the following commands on Nibbles:
     (root) NOPASSWD: /home/nibbler/personal/stuff/monitor.sh
 ```
 
-Sudo -l took a while which worried that it crashed, but it was all good.
+Sudo -l took a while which got me worried that it crashed, but it was all good.
 
 While grabbing the user.txt flag, I saw a zip file called personal.zip in Nibblers home folder.
 
