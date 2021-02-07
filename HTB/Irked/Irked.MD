@@ -85,6 +85,12 @@ tcpdump: listening on tun0, link-type RAW (Raw IP), capture size 262144 bytes
     10.10.14.70 > 10.129.1.108: ICMP echo reply, id 4768, seq 1, length 64
 ```
 
+-i selects interface
+
+icmp selects the type of packet
+
+-v means verbose
+
 So we got code execution. Let's try to connect back:
 
 ```
@@ -192,6 +198,14 @@ kali@kali:~/htb/Irked$ cat pass.txt
 Kab6h+m+bbp2J:HG
 kali@kali:~/htb/Irked$ 
 ```
+
+info outputs information about the file
+
+-p selects the passphrase
+
+-sf extracts data from file.
+
+
 
 And we get the user:
 
