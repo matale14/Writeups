@@ -354,6 +354,15 @@ C:\Windows\system32>
 
 ## Comparing myself to the official writeup:
 
+The official writeup generally used the same methods I used. 
+
+They also added a secondary way to gain entrance however.
+
+By using psexec, you can use the created credentials from the exploit to log in. Rather than connecting back manually with netcat.
+
+In order to get the reverse shell, they used a base64 encoded powershell command, and hosted it with a python http server.
+
+So we have a lot of options to get access to this box.
 
 
 ## How to stop this exploit:
