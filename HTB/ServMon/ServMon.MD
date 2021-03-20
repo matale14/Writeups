@@ -1313,6 +1313,8 @@ they create a meterpreter payload with GreatSCT and upload it as a .ddl file, th
 
 they start the meterpreter handler and get root.
 
+I wonder if this would still work without the use of meterpreter? 
+
 
 ## How to stop this exploit:
 
