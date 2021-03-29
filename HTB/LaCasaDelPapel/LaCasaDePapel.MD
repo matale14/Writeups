@@ -47,9 +47,9 @@ I download the QR code to check that there's nothing special about it:
 
 ![](images/2.png)
 
-I download an authentication addon for firefox and run it.
+I download an authentication addon for firefox and run it to attempt to login with an email address.
 
-After submitting, I get an image that tells me that I need to check my email. Nothing there.
+After submitting, I get an image that tells me that I need to check my email.
 
 on the port 443 web server, I get a certification error:
 
@@ -363,11 +363,6 @@ https://lacasadepapel.htb/63cab5d0-7b88-11eb-95ea-e543b46c4475
  
 ```
 
-
-
-361616
-
-testmail@testmail.com
 
 
 After going to https://lacasadepapel.htb/63cab5d0-7b88-11eb-95ea-e543b46c4475
